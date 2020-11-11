@@ -1,0 +1,12 @@
+﻿namespace CoffeeBlend.Web.Controllers
+{
+    using Microsoft.AspNetCore.Mvc;
+
+    public class ProductsController : Controller
+    {
+        public IActionResult Details()
+        {
+            return this.View();
+        }
+    }
+}
