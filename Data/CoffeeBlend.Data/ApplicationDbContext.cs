@@ -24,6 +24,24 @@
         {
         }
 
+        public DbSet<Article> Articles { get; set; }
+
+        public DbSet<Comment> Comments { get; set; }
+
+        public DbSet<Image> Images { get; set; }
+
+        public DbSet<Order> Orders { get; set; }
+
+        public DbSet<Payment> Payments { get; set; }
+
+        public DbSet<Product> Products { get; set; }
+
+        public DbSet<CategoryProduct> CategoryProducts { get; set; }
+
+        public DbSet<Reservation> Reservations { get; set; }
+
+        public DbSet<UserOrderHistory> UserOrderHistories { get; set; }
+
         public DbSet<Setting> Settings { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);

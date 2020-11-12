@@ -1,11 +1,12 @@
 ﻿// ReSharper disable VirtualMemberCallInConstructor
+
 namespace CoffeeBlend.Data.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     using CoffeeBlend.Data.Common.Models;
-
     using Microsoft.AspNetCore.Identity;
 
     public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
@@ -16,6 +17,10 @@ namespace CoffeeBlend.Data.Models
             this.Roles = new HashSet<IdentityUserRole<string>>();
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
+            this.Orders = new HashSet<Order>();
+            this.Comments = new HashSet<Comment>();
+            this.Articles = new HashSet<Article>();
+            this.UserOrderHistory = new HashSet<UserOrderHistory>();
         }
 
         // Audit info
@@ -27,6 +32,23 @@ namespace CoffeeBlend.Data.Models
         public bool IsDeleted { get; set; }
 
         public DateTime? DeletedOn { get; set; }
+
+        [Required]
+        [MaxLength(30)]
+        public string FirstName { get; set; }
+
+        [Required]
+        [MaxLength(30)]
+        public string LastName { get; set; }
+
+        ////Add to constructor
+        public virtual ICollection<Order> Orders { get; set; }
+
+        public virtual ICollection<Comment> Comments { get; set; }
+
+        public virtual ICollection<Article> Articles { get; set; }
+
+        public virtual ICollection<UserOrderHistory> UserOrderHistory { get; set; }
 
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 
