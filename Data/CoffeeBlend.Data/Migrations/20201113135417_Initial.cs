@@ -48,8 +48,8 @@ namespace CoffeeBlend.Data.Migrations
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    FirstName = table.Column<string>(maxLength: 30, nullable: false),
-                    LastName = table.Column<string>(maxLength: 30, nullable: false)
+                    FirstName = table.Column<string>(maxLength: 30, nullable: true),
+                    LastName = table.Column<string>(maxLength: 30, nullable: true)
                 },
                 constraints: table =>
                 {
