@@ -1,4 +1,13 @@
-﻿<h2>Thank you!</h2>
-<div class="alert alert-success" >
-    Your order was completed successfully!
-</div>
+﻿@{
+    this.ViewData["Title"] = "ThankYou Page";
+}
+
+<section class="ftco-menu mb-5 pb-5 text-center">
+    <div class="container text-center">
+        <h2>Thank you!</h2>
+        <div class="alert alert-success">
+            <p>Your order was completed successfully!</p>
+        </div>
+        <p><a href="/home/menu" class="btn btn-primary p-3 px-xl-4 py-xl-3">View Menu</a></p>
+    </div>
+</section>

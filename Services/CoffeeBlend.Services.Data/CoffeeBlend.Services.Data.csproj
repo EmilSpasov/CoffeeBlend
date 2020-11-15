@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\CoffeeBlend.Data.Common\CoffeeBlend.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\CoffeeBlend.Data.Models\CoffeeBlend.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Web\CoffeeBlend.Web.ViewModels\CoffeeBlend.Web.ViewModels.csproj" />
     <ProjectReference Include="..\CoffeeBlend.Services.Mapping\CoffeeBlend.Services.Mapping.csproj" />
   </ItemGroup>
 
