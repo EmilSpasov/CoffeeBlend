@@ -13,7 +13,7 @@
 
         public int? ImageId { get; set; }
 
-        public virtual Image Url { get; set; }
+        public virtual Image Image { get; set; }
 
         [MaxLength(200)]
         public string Description { get; set; }

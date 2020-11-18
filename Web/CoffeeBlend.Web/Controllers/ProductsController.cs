@@ -1,8 +1,8 @@
-﻿using System.Threading.Tasks;
-using CoffeeBlend.Services.Data;
-
-namespace CoffeeBlend.Web.Controllers
+﻿namespace CoffeeBlend.Web.Controllers
 {
+    using System.Threading.Tasks;
+
+    using CoffeeBlend.Services.Data;
     using CoffeeBlend.Web.ViewModels.ProductsViewModels;
     using Microsoft.AspNetCore.Mvc;
 
@@ -29,6 +29,7 @@ namespace CoffeeBlend.Web.Controllers
             return this.View(viewModel);
         }
 
+        [HttpPost]
         public async Task<IActionResult> Create(CreateProductInputModel input)
         {
             if (!this.ModelState.IsValid)
