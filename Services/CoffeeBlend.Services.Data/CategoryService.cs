@@ -1,4 +1,7 @@
-﻿namespace CoffeeBlend.Services.Data
+﻿using System.Threading.Tasks;
+using CoffeeBlend.Web.ViewModels.CategoriesViewModel;
+
+namespace CoffeeBlend.Services.Data
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -13,6 +16,17 @@
         public CategoryService(IDeletableEntityRepository<CategoryProduct> categoriesRepository)
         {
             this.categoriesRepository = categoriesRepository;
+        }
+
+        public async Task CreateAsync(CreateCategoryInputModel input)
+        {
+            var category = new CategoryProduct
+            {
+                Name = input.Name,
+            };
+
+            await this.categoriesRepository.AddAsync(category);
+            await this.categoriesRepository.SaveChangesAsync();
         }
 
         public IEnumerable<KeyValuePair<string, string>> GetAllAsKeyValuePairs()

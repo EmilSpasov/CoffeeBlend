@@ -40,6 +40,7 @@
             };
 
             await this.imageRepository.AddAsync(image);
+            await this.imageRepository.SaveChangesAsync();
             await this.productsRepository.AddAsync(product);
             await this.productsRepository.SaveChangesAsync();
         }

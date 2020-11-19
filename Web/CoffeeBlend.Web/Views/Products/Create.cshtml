@@ -1,6 +1,6 @@
 ﻿@model CoffeeBlend.Web.ViewModels.ProductsViewModels.CreateProductInputModel
 @{
-    this.ViewData["Title"] = "Add product";
+    this.ViewData["Title"] = "Add Product";
     var categoryItems =
         this.Model.CategoriesItems
             .Select(x => new SelectListItem(x.Value, x.Key));
@@ -35,6 +35,6 @@
             <select asp-for="CategoryProductId" class="form-control" asp-items="categoryItems"></select>
             <span asp-validation-for="CategoryProductId" class="text-danger"></span>
         </div>
-        <input type="submit" class="btn btn-primary" />
+        <input type="submit" class="btn btn-primary" value="Add Product" />
     </form>
 </section>
