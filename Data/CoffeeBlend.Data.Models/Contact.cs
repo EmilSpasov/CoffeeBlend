@@ -1,23 +1,24 @@
-﻿namespace CoffeeBlend.Web.ViewModels.ContactViewModel
+﻿namespace CoffeeBlend.Data.Models
 {
     using System.ComponentModel.DataAnnotations;
 
-    public class ContactInputModel
+    using CoffeeBlend.Data.Common.Models;
+
+    public class Contact : BaseModel<int>
     {
         [Required]
-        [MinLength(4)]
+        [MaxLength(20)]
         public string FullName { get; set; }
 
         [Required]
-        [EmailAddress]
         public string Email { get; set; }
 
         [Required]
-        [MinLength(4)]
+        [MaxLength(20)]
         public string Subject { get; set; }
 
         [Required]
-        [MinLength(10)]
+        [MaxLength(2000)]
         public string Message { get; set; }
     }
 }

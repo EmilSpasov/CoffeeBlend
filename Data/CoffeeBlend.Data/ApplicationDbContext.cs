@@ -40,6 +40,8 @@
 
         public DbSet<Reservation> Reservations { get; set; }
 
+        public DbSet<Contact> Contacts { get; set; }
+
         public DbSet<UserOrderHistory> UserOrderHistories { get; set; }
 
         public DbSet<Setting> Settings { get; set; }
