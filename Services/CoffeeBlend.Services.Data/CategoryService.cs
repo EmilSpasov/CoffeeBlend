@@ -1,13 +1,12 @@
-﻿using System.Threading.Tasks;
-using CoffeeBlend.Web.ViewModels.CategoriesViewModel;
-
-namespace CoffeeBlend.Services.Data
+﻿namespace CoffeeBlend.Services.Data
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
 
     using CoffeeBlend.Data.Common.Repositories;
     using CoffeeBlend.Data.Models;
+    using CoffeeBlend.Web.ViewModels.CategoriesViewModel;
 
     public class CategoryService : ICategoryService
     {
