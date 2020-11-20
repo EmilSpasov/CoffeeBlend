@@ -1,14 +1,21 @@
-﻿namespace CoffeeBlend.Web.Controllers
+﻿using CoffeeBlend.Services.Data;
+
+namespace CoffeeBlend.Web.Controllers
 {
     using System.Diagnostics;
+    using System.Threading.Tasks;
 
     using CoffeeBlend.Web.ViewModels;
+    using CoffeeBlend.Web.ViewModels.ReservationViewModel;
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : BaseController
     {
-        public HomeController()
+        private readonly IReservationService reservationService;
+
+        public HomeController(IReservationService reservationService)
         {
+            this.reservationService = reservationService;
         }
 
         public IActionResult Index()
@@ -16,9 +23,17 @@
             return this.View();
         }
 
-        public IActionResult Menu()
+        [HttpPost]
+        public async Task<IActionResult> Index(CreateReservationInputModel input)
         {
-            return this.View();
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
+            await this.reservationService.CreateAsync(input);
+
+            return this.Redirect("/Home/ConfirmedReservation");
         }
 
         public IActionResult Services()
@@ -36,7 +51,7 @@
             return this.View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult ConfirmedReservation()
         {
             return this.View();
         }

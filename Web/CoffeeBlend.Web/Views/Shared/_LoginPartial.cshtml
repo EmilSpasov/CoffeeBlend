@@ -4,18 +4,17 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-
 @if (this.SignInManager.IsSignedIn(this.User))
 {
-    <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @(this.User.Identity.Name)!</a>
+    <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@(this.User.Identity.Name)!</a>
 
     if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
     {
         <a class="nav-item" asp-area="Administration" asp-controller="Dashboard" asp-action="Index" title="Admin">Admin</a>
     }
 
-    <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new {area = string.Empty}))">
-        <button type="submit" class="nav-link btn btn-link">Logout</button>
+    <form asp-area="Identity" class="nav-item" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new {area = string.Empty}))">
+        <button type="submit" class="nav-link btn">Logout</button>
     </form>
 
 }
@@ -28,4 +27,3 @@ else
         <a class="nav-link" asp-area="Identity" asp-page="/Account/Login">Login</a>
     </li>
 }
-

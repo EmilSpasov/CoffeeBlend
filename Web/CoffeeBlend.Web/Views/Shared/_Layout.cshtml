@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="~/css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="~/css/jquery.timepicker.css">
 
+    <link rel="stylesheet" href="css/reset.css"> <!-- CSS reset -->
+    <script src="js/modernizr.js"></script> <!-- Modernizr -->
 
     <link rel="stylesheet" href="~/css/flaticon.css">
     <link rel="stylesheet" href="~/css/icomoon.css">
@@ -33,29 +35,6 @@
 </head>
 <body>
     <header>
-        @*<nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
-                <div class="container">
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">@GlobalConstants.SystemName</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                        <partial name="_LoginPartial" />
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Settings" asp-action="Index">Settings</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>*@
         <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
             <div class="container">
                 <a class="navbar-brand" href="/">Coffee<small>Blend</small></a>
@@ -64,27 +43,28 @@
                 </button>
                 <div class="collapse navbar-collapse" id="ftco-nav">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item active"><a href="/" class="nav-link">Home</a></li>
-                        <li class="nav-item"><a asp-controller="Home" asp-action="Menu" class="nav-link">Menu</a></li>
-                        <li class="nav-item"><a href="/home/services" class="nav-link">Services</a></li>
-                        <li class="nav-item"><a href="/blog/all" class="nav-link">Blog</a></li>
-                        <li class="nav-item"><a href="/home/about" class="nav-link">About</a></li>
+                        <li class="nav-item active"><a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link">Home</a></li>
+                        <li class="nav-item"><a asp-area="" asp-controller="Menu" asp-action="Index" class="nav-link">Menu</a></li>
+                        <li class="nav-item"><a asp-area="" asp-controller="Home" asp-action="Services" class="nav-link">Services</a></li>
+                        <li class="nav-item"><a asp-area="" asp-controller="Blog" asp-action="All" class="nav-link">Blog</a></li>
+                        <li class="nav-item"><a asp-area="" asp-controller="Home" asp-action="About" class="nav-link">About</a></li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="/shop" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
+                            <a class="nav-link dropdown-toggle" asp-area="" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
                             <div class="dropdown-menu" aria-labelledby="dropdown04">
-                                <a class="dropdown-item" href="/shop/bestSellers">Best Sellers</a>
-                                <a class="dropdown-item" href="/shop/gallery">Gallery</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Shop" asp-action="BestSellers" >Best Sellers</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Shop" asp-action="Gallery" >Gallery</a>
                                 <a class="dropdown-item" href="/Products/Create">Cart</a>
-                                <a class="dropdown-item" href="/shoppingCart/checkout">Checkout</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="ShoppingCart" asp-action="Checkout" >Checkout</a>
                             </div>
                         </li>
-                        <li class="nav-item"><a href="/home/contact" class="nav-link">Contact</a></li>
+                        <li class="nav-item"><a asp-area="" asp-controller="Home" asp-action="Contact"  class="nav-link">Contact</a></li>
                         <partial name="_LoginPartial" />
-                        <li class="nav-item cart"><a href="/shoppingCart/index" class="nav-link"><span class="icon icon-shopping_cart"></span><span class="bag d-flex justify-content-center align-items-center"><small>0</small></span></a></li>
+                        <li class="nav-item cart"><a asp-area="" asp-controller="ShoppingCart" asp-action="Index"  class="nav-link"><span class="icon icon-shopping_cart"></span><span class="bag d-flex justify-content-center align-items-center"><small>0</small></span></a></li>
                     </ul>
                 </div>
             </div>
         </nav>
+
     </header>
 
     <div>
@@ -198,6 +178,7 @@
     <script src="~/js/scrollax.min.js"></script>
     <script src="~/https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
     <script src="~/js/google-map.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="~/js/main.js"></script>
     @await this.RenderSectionAsync("Scripts", required: false)
 </body>

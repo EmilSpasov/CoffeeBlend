@@ -67,6 +67,7 @@
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<ICloudinaryService, CloudinaryService>();
+            services.AddTransient<IReservationService, ReservationService>();
 
             // Cloudinary
             Account account = new Account(
