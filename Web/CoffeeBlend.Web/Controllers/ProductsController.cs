@@ -40,7 +40,7 @@
 
             await this.productService.CreateAsync(input);
 
-            return this.Redirect("/home/menu");
+            return this.Redirect("/");
         }
     }
 }

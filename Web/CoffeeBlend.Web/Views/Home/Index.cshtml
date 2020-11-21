@@ -1,7 +1,9 @@
 ﻿@model CoffeeBlend.Web.ViewModels.ReservationViewModel.CreateReservationInputModel
+
 @{
     this.ViewData["Title"] = "Home Page";
 }
+
 
 <section class="home-slider owl-carousel">
     <div class="slider-item" style="background-image: url(images/bg_1.jpg);">
@@ -85,7 +87,7 @@
                 <form method="post" class="appointment-form">
                     <div class="d-md-flex">
                         <div class="form-group">
-                            <input asp-for="FirstName" class="form-control" placeholder="First Name"/>
+                            <input asp-for="FirstName" class="form-control" placeholder="First Name" />
                             <span asp-validation-for="FirstName" class="text-danger"></span>
                         </div>
                         <div class="form-group ml-md-4">

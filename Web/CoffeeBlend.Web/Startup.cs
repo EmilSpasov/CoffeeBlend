@@ -69,6 +69,7 @@
             services.AddTransient<ICloudinaryService, CloudinaryService>();
             services.AddTransient<IReservationService, ReservationService>();
             services.AddTransient<IContactService, ContactService>();
+            services.AddTransient<IBlogService, BlogService>();
 
             // Cloudinary
             Account account = new Account(
