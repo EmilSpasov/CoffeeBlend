@@ -3,8 +3,9 @@
     using System.Collections.Generic;
 
     using CoffeeBlend.Data.Models;
+    using CoffeeBlend.Services.Mapping;
 
-    public class BlogInListViewModel
+    public class BlogInListViewModel : IMapFrom<Article>
     {
         public int Id { get; set; }
 

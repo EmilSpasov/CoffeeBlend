@@ -1,6 +1,6 @@
 ﻿@model CoffeeBlend.Web.ViewModels.BlogViewModel.BlogListViewModel
 @{
-    this.ViewData["Title"] = "Blogs Page";
+    this.ViewData["Title"] = "Blogs page" + Model.PageNumber;
 }
 
 <section class="home-slider owl-carousel">
@@ -27,7 +27,7 @@
             {
                 <div class="col-md-4 d-flex ftco-animate">
                     <div class="blog-entry align-self-stretch">
-                        <img scr="@blog.ImageUrl" class="block-20"/>
+                        <img scr="@blog.ImageUrl" class="block-20" />
                         @*<a href="/blog/details" class="block-20" style="background-image: url(/images/image_1.jpg);"></a>*@
                         <div class="text py-4 d-block">
                             <div class="meta">
@@ -42,24 +42,6 @@
                 </div>
             }
         </div>
-
-        <nav aria-label="...">
-            <ul class="pagination justify-content-center">
-                <li class="page-item disabled">
-                    <span class="page-link">Previous</span>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item active" aria-current="page">
-                    <span class="page-link">
-                        2
-                        <span class="sr-only">(current)</span>
-                    </span>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
-                </li>
-            </ul>
-        </nav>
+        <partial name="_PagingPartial" model="@Model"/>
     </div>
 </section>

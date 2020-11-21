@@ -2,10 +2,8 @@
 {
     using System.Collections.Generic;
 
-    public class BlogListViewModel
+    public class BlogListViewModel : PagingViewModel
     {
         public IEnumerable<BlogInListViewModel> Blogs { get; set; }
-
-        public int PageNumber { get; set; }
     }
 }

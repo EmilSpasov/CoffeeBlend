@@ -15,11 +15,16 @@
             this.blogService = blogService;
         }
 
-        public IActionResult All(int id)
+        public IActionResult All(int id = 1)
         {
+            const int itemsPerPage = 6;
+
             var viewModel = new BlogListViewModel
             {
+                ItemsPerPage = itemsPerPage,
                 PageNumber = id,
+                BlogsCount = this.blogService.GetCount(),
+                Blogs = this.blogService.GetAll<BlogInListViewModel>(id, itemsPerPage),
             };
 
             return this.View(viewModel);
