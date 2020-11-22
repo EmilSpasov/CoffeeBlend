@@ -17,6 +17,11 @@
 
         public IActionResult All(int id = 1)
         {
+            if (id <= 0)
+            {
+                return this.NotFound();
+            }
+
             const int itemsPerPage = 6;
 
             var viewModel = new BlogListViewModel
@@ -48,9 +53,11 @@
             return this.Redirect("/");
         }
 
-        public IActionResult Details()
+        public IActionResult Details(int id)
         {
-            return this.View();
+            var blog = this.blogService.GetById<SingleBlogViewModel>(id);
+
+            return this.View(blog);
         }
     }
 }

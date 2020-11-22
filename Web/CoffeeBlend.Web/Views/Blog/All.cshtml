@@ -27,16 +27,13 @@
             {
                 <div class="col-md-4 d-flex ftco-animate">
                     <div class="blog-entry align-self-stretch">
-                        <img scr="@blog.ImageUrl" class="block-20" />
-                        @*<a href="/blog/details" class="block-20" style="background-image: url(/images/image_1.jpg);"></a>*@
+                        <h3 class="heading mt-2">@blog.Title</h3>
+                        <a asp-action="Details" asp-route-id="@blog.Id"><img class="block-20" src="@blog.ImageUrl" alt="" /></a>
                         <div class="text py-4 d-block">
                             <div class="meta">
-                                <div>@DateTime.UtcNow</div>
-                                <div>@blog.AuthorName</div>
+                                <div>@blog.CreatedOn.ToShortDateString()</div>
                                 <div><a href="#" class="meta-chat"><span class="icon-chat"></span>@blog.Comments.Count</a></div>
                             </div>
-                            <h3 class="heading mt-2">@blog.Title</h3>
-                            <p>@blog.Content</p>
                         </div>
                     </div>
                 </div>
