@@ -2,17 +2,21 @@
 {
     using System.Threading.Tasks;
 
+    using CoffeeBlend.Data.Models;
     using CoffeeBlend.Services.Data;
     using CoffeeBlend.Web.ViewModels.BlogViewModel;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
     public class BlogController : BaseController
     {
         private readonly IBlogService blogService;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public BlogController(IBlogService blogService)
+        public BlogController(IBlogService blogService, UserManager<ApplicationUser> userManager)
         {
             this.blogService = blogService;
+            this.userManager = userManager;
         }
 
         public IActionResult All(int id = 1)
@@ -58,6 +62,18 @@
             var blog = this.blogService.GetById<SingleBlogViewModel>(id);
 
             return this.View(blog);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Details(int id, string message)
+        {
+            var currentUser = await this.userManager.GetUserAsync(this.User);
+
+            var userId = currentUser.Id;
+
+            await this.blogService.AddCommentToBlog(userId, id, message);
+
+            return this.Redirect("/");
         }
     }
 }

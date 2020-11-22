@@ -36,6 +36,8 @@
 
         public DbSet<Product> Products { get; set; }
 
+        public DbSet<Gallery> Galleries { get; set; }
+
         public DbSet<CategoryProduct> CategoryProducts { get; set; }
 
         public DbSet<Reservation> Reservations { get; set; }

@@ -31,7 +31,8 @@
                         <a asp-action="Details" asp-route-id="@blog.Id"><img class="block-20" src="@blog.ImageUrl" alt="" /></a>
                         <div class="text py-4 d-block">
                             <div class="meta">
-                                <div>@blog.CreatedOn.ToShortDateString()</div>
+                                <div class="icon-calendar"> @blog.CreatedOn.ToShortDateString()</div>
+                                <div class="icon-person">@blog.AuthorName</div>
                                 <div><a href="#" class="meta-chat"><span class="icon-chat"></span>@blog.Comments.Count</a></div>
                             </div>
                         </div>

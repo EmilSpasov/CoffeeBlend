@@ -1,5 +1,6 @@
 ﻿namespace CoffeeBlend.Services.Data
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -14,12 +15,18 @@
         private readonly IDeletableEntityRepository<Article> articleRepository;
         private readonly IDeletableEntityRepository<Image> imageRepository;
         private readonly ICloudinaryService cloudinaryService;
+        private readonly IRepository<Comment> commentsRepository;
 
-        public BlogService(IDeletableEntityRepository<Article> articleRepository, IDeletableEntityRepository<Image> imageRepository, ICloudinaryService cloudinaryService)
+        public BlogService(
+            IDeletableEntityRepository<Article> articleRepository,
+            IDeletableEntityRepository<Image> imageRepository,
+            ICloudinaryService cloudinaryService,
+            IRepository<Comment> commentsRepository)
         {
             this.articleRepository = articleRepository;
             this.imageRepository = imageRepository;
             this.cloudinaryService = cloudinaryService;
+            this.commentsRepository = commentsRepository;
         }
 
         public async Task CreateAsync(CreateBlogInputModel input)
@@ -73,6 +80,25 @@
                 .Where(x => x.Id == id)
                 .To<T>()
                 .FirstOrDefault();
+        }
+
+        public async Task AddCommentToBlog(string userId, int id, string message)
+        {
+            var comment = new Comment
+            {
+                Content = message,
+                ArticleId = id,
+                UserId = userId,
+            };
+
+            await this.commentsRepository.AddAsync(comment);
+            await this.commentsRepository.SaveChangesAsync();
+
+            var blog = this.articleRepository
+                .AllAsNoTracking()
+                .FirstOrDefault(x => x.Id == id);
+
+            blog.Comments.Add(comment);
         }
     }
 }

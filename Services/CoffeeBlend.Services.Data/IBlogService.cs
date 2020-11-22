@@ -14,5 +14,7 @@
         int GetCount();
 
         T GetById<T>(int id);
+
+        Task AddCommentToBlog(string userId, int id, string message);
     }
 }

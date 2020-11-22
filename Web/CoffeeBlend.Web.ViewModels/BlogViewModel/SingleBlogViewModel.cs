@@ -1,6 +1,7 @@
 ﻿namespace CoffeeBlend.Web.ViewModels.BlogViewModel
 {
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     using CoffeeBlend.Data.Models;
     using CoffeeBlend.Services.Mapping;
@@ -15,6 +16,10 @@
 
         public string AuthorName { get; set; }
 
-        public IEnumerable<Comment> Comments { get; set; }
+        [Required]
+        [MinLength(5)]
+        public string Message { get; set; }
+
+        public IEnumerable<CommentViewModel> Comments { get; set; }
     }
 }
