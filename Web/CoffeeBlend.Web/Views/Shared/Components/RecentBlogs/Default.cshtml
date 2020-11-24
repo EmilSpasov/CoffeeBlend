@@ -1,0 +1,20 @@
+﻿@model CoffeeBlend.Web.ViewModels.BlogViewModel.BlogListViewModel
+
+<div class="col-md-4 sidebar-box ftco-animate">
+    @foreach (var blog in Model.Blogs.Take(2))
+    {
+        <div class="block-21 mb-4 d-flex">
+            <a class="blog-img mr-4" asp-area="" asp-controller="Blog" asp-action="Details" asp-route-id="@blog.Id"><img class="blog-img mr-4" src="@blog.ImageUrl" alt=""/></a>
+            <div class="text">
+                <h3 class="heading">
+                    <a asp-area="" asp-controller="Blog" asp-action="Details" asp-route-id="@blog.Id">@blog.Title</a>
+                </h3>
+                <div class="meta">
+                    <div class="icon-calendar"> @blog.CreatedOn.ToShortDateString()</div>
+                    <div class="icon-person"> @blog.AuthorName</div>
+                    <div><a asp-area="" asp-controller="Blog" asp-action="Details" asp-route-id="@blog.Id"><span class="icon-chat"></span> @blog.Comments.Count</a></div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

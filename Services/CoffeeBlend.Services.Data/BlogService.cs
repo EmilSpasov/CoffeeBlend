@@ -69,6 +69,17 @@
             // 13-18 - page 3
         }
 
+        public IEnumerable<T> GetMostRecent<T>()
+        {
+            var recentBlogs = this.articleRepository.AllAsNoTracking()
+                .OrderByDescending(x => x.CreatedOn)
+                .Take(3)
+                .To<T>()
+                .ToList();
+
+            return recentBlogs;
+        }
+
         public int GetCount()
         {
             return this.articleRepository.All().Count();

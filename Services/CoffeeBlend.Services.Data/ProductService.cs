@@ -1,8 +1,12 @@
 ﻿namespace CoffeeBlend.Services.Data
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
+
     using CoffeeBlend.Data.Common.Repositories;
     using CoffeeBlend.Data.Models;
+    using CoffeeBlend.Services.Mapping;
     using CoffeeBlend.Web.ViewModels.ProductsViewModels;
 
     public class ProductService : IProductService
@@ -10,12 +14,14 @@
         private readonly IDeletableEntityRepository<Product> productsRepository;
         private readonly IDeletableEntityRepository<Image> imageRepository;
         private readonly ICloudinaryService cloudinaryService;
+        private readonly IDeletableEntityRepository<CategoryProduct> categoryRepository;
 
-        public ProductService(IDeletableEntityRepository<Product> productsRepository, IDeletableEntityRepository<Image> imageRepository, ICloudinaryService cloudinaryService)
+        public ProductService(IDeletableEntityRepository<Product> productsRepository, IDeletableEntityRepository<Image> imageRepository, ICloudinaryService cloudinaryService, IDeletableEntityRepository<CategoryProduct> categoryRepository)
         {
             this.productsRepository = productsRepository;
             this.imageRepository = imageRepository;
             this.cloudinaryService = cloudinaryService;
+            this.categoryRepository = categoryRepository;
         }
 
         public async Task CreateAsync(CreateProductInputModel input)
@@ -41,6 +47,15 @@
             await this.imageRepository.SaveChangesAsync();
             await this.productsRepository.AddAsync(product);
             await this.productsRepository.SaveChangesAsync();
+        }
+
+        public IEnumerable<T> GetAll<T>()
+        {
+            var products = this.productsRepository.AllAsNoTracking()
+                .To<T>()
+                .ToList();
+
+            return products;
         }
     }
 }

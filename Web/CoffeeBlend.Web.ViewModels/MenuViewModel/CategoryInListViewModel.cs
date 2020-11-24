@@ -2,15 +2,16 @@
 {
     using System.Collections.Generic;
 
+    using AutoMapper;
     using CoffeeBlend.Data.Models;
     using CoffeeBlend.Services.Mapping;
 
-    public class MenuViewModel : IMapFrom<CategoryProduct>
+    public class CategoryInListViewModel : IMapFrom<CategoryProduct>
     {
         public int Id { get; set; }
 
-        public string CategoryName { get; set; }
+        public string Name { get; set; }
 
-        public IEnumerable<Product> Products { get; set; }
+        public IEnumerable<ProductViewModel> Products { get; set; }
     }
 }

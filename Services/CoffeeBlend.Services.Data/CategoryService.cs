@@ -3,9 +3,11 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using System.Xml.Linq;
 
     using CoffeeBlend.Data.Common.Repositories;
     using CoffeeBlend.Data.Models;
+    using CoffeeBlend.Services.Mapping;
     using CoffeeBlend.Web.ViewModels.CategoriesViewModel;
 
     public class CategoryService : ICategoryService
@@ -36,7 +38,22 @@
                     x.Id,
                     x.Name,
                 }).ToList()
-                .Select(x => new KeyValuePair<string,string>(x.Id.ToString(), x.Name));
+                .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name));
+        }
+
+        public IEnumerable<T> GetAll<T>()
+        {
+            return this.categoriesRepository.AllAsNoTracking()
+                .To<T>()
+                .ToList();
+        }
+
+        public IEnumerable<T> GetAllById<T>(int id)
+        {
+            return this.categoriesRepository.AllAsNoTracking()
+                .Where(x => x.Id == id)
+                .To<T>()
+                .ToList();
         }
     }
 }
