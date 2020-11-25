@@ -48,6 +48,14 @@
                 .ToList();
         }
 
+        public IEnumerable<T> GetAllByName<T>(string name)
+        {
+            return this.categoriesRepository.AllAsNoTracking()
+                .Where(x => x.Name == name)
+                .To<T>()
+                .ToList();
+        }
+
         public IEnumerable<T> GetAllById<T>(int id)
         {
             return this.categoriesRepository.AllAsNoTracking()

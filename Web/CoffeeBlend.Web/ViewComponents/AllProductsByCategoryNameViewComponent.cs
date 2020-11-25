@@ -13,11 +13,11 @@
             this.productService = productService;
         }
 
-        public IViewComponentResult Invoke()
+        public IViewComponentResult Invoke(string name)
         {
-            var viewModel = new ProductsInListViewModel
+            var viewModel = new ProductsListViewModel
             {
-                Products = this.productService.GetAll<ProductViewModel>(),
+                Products = this.productService.GetAllByCategoryName<ProductViewModel>(name),
             };
 
             return this.View(viewModel);

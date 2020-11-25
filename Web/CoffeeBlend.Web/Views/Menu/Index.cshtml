@@ -24,16 +24,14 @@
                 <div class="row">
                     <div class="col-md-12 nav-link-wrap mb-5">
                         <div class="nav ftco-animate nav-pills justify-content-center" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                            @foreach (var category in Model.Categories)
-                            {
-                                <a class="nav-link" asp-action="Index" asp-route-name="@category.Name" role="tab" aria-controls="v-pills-1" aria-selected="false">@category.Name</a>
-
-                                @*<vc:all-products-by-category-name name="Coffee"></vc:all-products-by-category-name>*@
-                            }
-
+                            <vc:all-categories></vc:all-categories>
                         </div>
                     </div>
                 </div>
+                @foreach (var category in Model.Categories)
+                {
+                    <vc:all-products-by-category-name name="@category.Name"></vc:all-products-by-category-name>
+                }
             </div>
         </div>
     </div>

@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public class ProductsInListViewModel
+    public class ProductsListViewModel
     {
         public IEnumerable<ProductViewModel> Products { get; set; }
     }

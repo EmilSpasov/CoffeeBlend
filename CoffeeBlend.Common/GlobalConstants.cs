@@ -7,7 +7,6 @@
         public const string AdministratorRoleName = "Administrator";
 
         // Admin account info
-
         public const string AdminEmailName = "admin@abv.bg";
 
         public const string AdminUsername = "admin@abv.bg";
@@ -19,5 +18,14 @@
         public const string AdminPassword = "adminadmin";
 
         public const string AdminPhoneNumber = "0897123123";
+
+        // Categories names
+        public const string CoffeeName = "Coffee";
+
+        public const string FoodName = "Food";
+
+        public const string DrinksName = "Drinks";
+
+        public const string DessertsName = "Desserts";
     }
 }

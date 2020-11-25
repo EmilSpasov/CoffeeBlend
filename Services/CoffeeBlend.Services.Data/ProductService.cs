@@ -16,7 +16,10 @@
         private readonly ICloudinaryService cloudinaryService;
         private readonly IDeletableEntityRepository<CategoryProduct> categoryRepository;
 
-        public ProductService(IDeletableEntityRepository<Product> productsRepository, IDeletableEntityRepository<Image> imageRepository, ICloudinaryService cloudinaryService, IDeletableEntityRepository<CategoryProduct> categoryRepository)
+        public ProductService(IDeletableEntityRepository<Product> productsRepository,
+            IDeletableEntityRepository<Image> imageRepository,
+            ICloudinaryService cloudinaryService,
+            IDeletableEntityRepository<CategoryProduct> categoryRepository)
         {
             this.productsRepository = productsRepository;
             this.imageRepository = imageRepository;
@@ -49,9 +52,23 @@
             await this.productsRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<T> GetAll<T>()
+        public IEnumerable<T> GetAllByCategoryName<T>(string name)
         {
+            string categoryName = name;
+
+            if (categoryName == "Menu")
+            {
+                categoryName = "Coffee";
+            }
+
+            var currentCategory = this.categoryRepository
+                .AllAsNoTracking()
+                .FirstOrDefault(x => x.Name == categoryName);
+
+            var categoryId = currentCategory.Id;
+
             var products = this.productsRepository.AllAsNoTracking()
+                .Where(x => x.CategoryProductId == categoryId)
                 .To<T>()
                 .ToList();
 

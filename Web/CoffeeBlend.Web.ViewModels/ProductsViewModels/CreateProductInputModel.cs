@@ -11,6 +11,7 @@
         [MinLength(3)]
         public string Name { get; set; }
 
+        [Required]
         public IFormFile ImageFile { get; set; }
 
         public string Description { get; set; }

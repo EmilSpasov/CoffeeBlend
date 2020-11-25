@@ -1,0 +1,6 @@
+﻿@model CoffeeBlend.Web.ViewModels.MenuViewModel.CategoryListViewModel
+
+@foreach (var category in Model.Categories)
+{
+    <a class="nav-link" asp-area="" asp-action="Index" asp-route-name="@category.Name" role="tab" aria-controls="v-pills-1" aria-selected="false">@category.Name</a>
+}
