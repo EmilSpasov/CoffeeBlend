@@ -33,7 +33,7 @@
                 ItemsPerPage = itemsPerPage,
                 PageNumber = id,
                 BlogsCount = this.blogService.GetCount(),
-                Blogs = this.blogService.GetAll<BlogInListViewModel>(id, itemsPerPage),
+                Blogs = this.blogService.GetAll<BlogInListViewModel>(id),
             };
 
             return this.View(viewModel);
@@ -54,7 +54,7 @@
 
             await this.blogService.CreateAsync(input);
 
-            return this.Redirect("/");
+            return this.Redirect("/Blog/All");
         }
 
         public IActionResult Details(int id)
@@ -73,7 +73,7 @@
 
             await this.blogService.AddCommentToBlog(userId, id, message);
 
-            return this.Redirect("/");
+            return this.Redirect("/Blog/All");
         }
     }
 }

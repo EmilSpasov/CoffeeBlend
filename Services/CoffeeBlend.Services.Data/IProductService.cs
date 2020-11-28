@@ -10,5 +10,7 @@
         Task CreateAsync(CreateProductInputModel input);
 
         IEnumerable<T> GetAllByCategoryName<T>(string name);
+
+        T GetSingleProductById<T>(int id);
     }
 }

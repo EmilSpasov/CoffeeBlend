@@ -30,6 +30,7 @@
             await this.categoriesRepository.SaveChangesAsync();
         }
 
+        // Visualize dropdown on create
         public IEnumerable<KeyValuePair<string, string>> GetAllAsKeyValuePairs()
         {
            return this.categoriesRepository.AllAsNoTracking()

@@ -4,6 +4,7 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
+
 @if (this.SignInManager.IsSignedIn(this.User))
 {
     <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@(this.User.Identity.Name)!</a>

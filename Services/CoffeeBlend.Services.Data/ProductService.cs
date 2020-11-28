@@ -74,5 +74,15 @@
 
             return products;
         }
+
+        public T GetSingleProductById<T>(int id)
+        {
+            var product = this.productsRepository.AllAsNoTracking()
+                .Where(x => x.Id == id)
+                .To<T>()
+                .FirstOrDefault();
+
+            return product;
+        }
     }
 }

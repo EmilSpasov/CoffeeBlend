@@ -17,9 +17,11 @@
             this.productService = productService;
         }
 
-        public IActionResult Details()
+        public IActionResult Details(int id)
         {
-            return this.View();
+            var product = this.productService.GetSingleProductById<SingleProductViewModel>(id);
+
+            return this.View(product);
         }
 
         public IActionResult Create()
