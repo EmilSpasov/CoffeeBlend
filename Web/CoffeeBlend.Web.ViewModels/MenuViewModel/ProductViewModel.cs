@@ -1,7 +1,6 @@
 ﻿namespace CoffeeBlend.Web.ViewModels.MenuViewModel
 {
     using CoffeeBlend.Data.Models;
-    using CoffeeBlend.Data.Models.Enums;
     using CoffeeBlend.Services.Mapping;
 
     public class ProductViewModel : IMapFrom<Product>

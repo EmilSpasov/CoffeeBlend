@@ -1,8 +1,6 @@
 ﻿namespace CoffeeBlend.Web.ViewModels.BlogViewModel
 {
     using System;
-
-    using AutoMapper;
     using CoffeeBlend.Data.Models;
     using CoffeeBlend.Services.Mapping;
 

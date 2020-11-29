@@ -11,7 +11,7 @@
         [MaxLength(30)]
         public string Name { get; set; }
 
-        public int? ImageId { get; set; }
+        public int ImageId { get; set; }
 
         public virtual Image Image { get; set; }
 
@@ -25,7 +25,7 @@
 
         public PortionSize PortionSize { get; set; }
 
-        public int BoughtCount{ get; set; }
+        public int BoughtCount { get; set; }
 
         public int CategoryProductId { get; set; }
 

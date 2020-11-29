@@ -70,6 +70,7 @@
             services.AddTransient<IReservationService, ReservationService>();
             services.AddTransient<IContactService, ContactService>();
             services.AddTransient<IBlogService, BlogService>();
+            services.AddTransient<ICartService, CartService>();
 
             // Cloudinary
             Account account = new Account(

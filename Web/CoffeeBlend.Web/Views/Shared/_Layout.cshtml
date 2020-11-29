@@ -25,9 +25,6 @@
     <link rel="stylesheet" href="~/css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="~/css/jquery.timepicker.css">
 
-    <link rel="stylesheet" href="css/reset.css"> <!-- CSS reset -->
-    <script src="js/modernizr.js"></script> <!-- Modernizr -->
-
     <link rel="stylesheet" href="~/css/flaticon.css">
     <link rel="stylesheet" href="~/css/icomoon.css">
     <link rel="stylesheet" href="~/css/style.css">
@@ -64,11 +61,10 @@
                 </div>
             </div>
         </nav>
-
     </header>
 
     <div>
-        <partial name="_CookieConsentPartial" />
+        @*<partial name="_CookieConsentPartial" />*@
         <main>
             @this.RenderBody()
         </main>
@@ -94,7 +90,7 @@
                 <div class="col-lg-4 col-md-6 mb-5 mb-md-5">
                     <div class="ftco-footer-widget mb-4">
                         <h2 class="ftco-heading-2"><a asp-controller="Blog" asp-action="All" class="text-white">RECENT BLOGS</a></h2>
-                       <vc:recent-blogs></vc:recent-blogs>
+                        <vc:recent-blogs></vc:recent-blogs>
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-6 mb-5 mb-md-5">
@@ -161,6 +157,6 @@
     <script src="~/js/google-map.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="~/js/main.js"></script>
-    @await this.RenderSectionAsync("Scripts", required: false)
+@await this.RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

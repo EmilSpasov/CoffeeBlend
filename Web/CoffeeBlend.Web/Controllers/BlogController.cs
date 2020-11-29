@@ -1,4 +1,6 @@
-﻿namespace CoffeeBlend.Web.Controllers
+﻿using Microsoft.AspNetCore.Authorization;
+
+namespace CoffeeBlend.Web.Controllers
 {
     using System.Threading.Tasks;
 
@@ -65,6 +67,7 @@
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Details(int id, string message)
         {
             var currentUser = await this.userManager.GetUserAsync(this.User);

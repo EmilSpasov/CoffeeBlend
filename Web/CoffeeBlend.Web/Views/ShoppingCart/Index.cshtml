@@ -1,22 +1,17 @@
-﻿
+﻿@model CoffeeBlend.Web.ViewModels.OrderViewModel.CartViewModel
 @{
     this.ViewData["Title"] = "Cart Page";
 }
 
-<link rel="stylesheet" href="~/css/cart.css">
-
 <section class="home-slider owl-carousel">
-
     <div class="slider-item" style="background-image: url(/images/bg_3.jpg);" data-stellar-background-ratio="0.5">
         <div class="overlay"></div>
         <div class="container">
             <div class="row slider-text justify-content-center align-items-center">
-
                 <div class="col-md-7 col-sm-12 text-center ftco-animate">
                     <h1 class="mb-3 mt-5 bread">Cart</h1>
-                    <p class="breadcrumbs"><span class="mr-2"><a href="/">Home</a></span> <span>Cart</span></p>
+                    <p class="breadcrumbs"><span class="mr-2"><a asp-area="" asp-controller="Home" asp-action="Index"></a></span> <span>Cart</span></p>
                 </div>
-
             </div>
         </div>
     </div>
@@ -29,58 +24,44 @@
                 <div class="cart-list">
                     <table class="table">
                         <thead class="thead-primary">
-                            <tr class="text-center">
-                                <th>&nbsp;</th>
-                                <th>&nbsp;</th>
-                                <th>Product</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                                <th>Total</th>
-                            </tr>
+                        <tr class="text-center">
+                            <th>&nbsp;</th>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            <tr class="text-center">
-                                <td class="product-remove"><a href="#"><span class="icon-close"></span></a></td>
+                        <tr class="text-center" id="quantity" name="quantity">
+                            <td class="product-remove"><a href="#" @*asp-area="" asp-controller="ShoppingCart" asp-action="Remove"*@><span class="icon-close"></span></a></td>
 
-                                <td class="image-prod"><div class="img" style="background-image:url(/images/menu-2.jpg);"></div></td>
+                            <td class="image-prod"><a><img src="@Model.ImageUrl" class="img-fluid" alt=""></a></td>
 
-                                <td class="product-name">
-                                    <h3>Creamy Latte Coffee</h3>
-                                    <p>Far far away, behind the word mountains, far from the countries</p>
-                                </td>
+                            <td class="product-name">
+                                <h3>@Model.Name</h3>
+                                <p class="text-white" >@Model.Request</p>
+                            </td>
 
-                                <td class="price">$4.90</td>
+                            <td class="quantity">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-btn mr-2">
+                                        <button type="button" class="quantity-left-minus btn" data-type="minus" data-field="quantity">
+                                            <i class="icon-minus"></i>
+                                        </button>
+                                    </span>
+                                    <input disabled="disabled" type="number" style="-moz-appearance: textfield" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="10">
+                                    <span class="input-group-btn ml-2">
+                                        <button type="button" class="quantity-right-plus btn" data-type="plus" data-field="quantity">
+                                            <i class="icon-plus" aria-hidden="true"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </td>
 
-                                <td class="quantity">
-                                    <div class="input-group mb-3">
-                                        <input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
-                                    </div>
-                                </td>
+                            <td class="total">$@Model.Price</td>
+                        </tr>
 
-                                <td class="total">$4.90</td>
-                            </tr>
-                          
-                            <tr class="text-center">
-                                <td class="product-remove"><a href="#"><span class="icon-close"></span></a></td>
-
-                                <td class="image-prod"><div class="img" style="background-image:url(/images/dish-2.jpg);"></div></td>
-
-                                <td class="product-name">
-                                    <h3>Grilled Ribs Beef</h3>
-                                    <p>Far far away, behind the word mountains, far from the countries</p>
-                                </td>
-
-                                <td class="price">$15.70</td>
-
-                                <td class="quantity">
-                                    <div class="input-group mb-3">
-                                        <input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
-                                    </div>
-                                </td>
-
-                                <td class="total">$15.70</td>
-                            </tr>
-                           
                         </tbody>
                     </table>
                 </div>
@@ -89,23 +70,18 @@
         <div class="row justify-content-end">
             <div class="col col-lg-3 col-md-6 mt-5 cart-wrap ftco-animate">
                 <div class="cart-total mb-3">
-                    <h3>Cart Totals</h3>
-                    <p class="d-flex">
+                    <h3>Products Totals</h3>
+                    @*<p class="d-flex">
                         <span>Subtotal</span>
-                        <span>$20.60</span>
-                    </p>
-                    <p class="d-flex">
+                        <span>$@Model.SubTotalPrice</span>
+                    </p>*@
+                    @*<p class="d-flex">
                         <span>Delivery</span>
-                        <span>$0.00</span>
-                    </p>
-                    <p class="d-flex">
-                        <span>Discount</span>
-                        <span>$3.00</span>
-                    </p>
-                    <hr>
+                        <span>$@Model.DeliveryPrice</span>
+                    </p>*@
                     <p class="d-flex total-price">
                         <span>Total</span>
-                        <span>$17.60</span>
+                        <span>$@Model.TotalPrice</span>
                     </p>
                 </div>
                 <p class="text-center"><a href="/shoppingCart/checkout" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
@@ -114,60 +90,54 @@
     </div>
 </section>
 
-<section class="ftco-section">
-    <div class="container">
-        <div class="row justify-content-center mb-5 pb-3">
-            <div class="col-md-7 heading-section ftco-animate text-center">
-                <span class="subheading">Discover</span>
-                <h2 class="mb-4">Related products</h2>
-                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3">
-                <div class="menu-entry">
-                    <a href="#" class="img" style="background-image: url(/images/menu-1.jpg);"></a>
-                    <div class="text text-center pt-4">
-                        <h3><a href="#">Coffee Capuccino</a></h3>
-                        <p>A small river named Duden flows by their place and supplies</p>
-                        <p class="price"><span>$5.90</span></p>
-                        <p><a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="menu-entry">
-                    <a href="#" class="img" style="background-image: url(/images/menu-2.jpg);"></a>
-                    <div class="text text-center pt-4">
-                        <h3><a href="#">Coffee Capuccino</a></h3>
-                        <p>A small river named Duden flows by their place and supplies</p>
-                        <p class="price"><span>$5.90</span></p>
-                        <p><a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="menu-entry">
-                    <a href="#" class="img" style="background-image: url(images/menu-3.jpg);"></a>
-                    <div class="text text-center pt-4">
-                        <h3><a href="#">Coffee Capuccino</a></h3>
-                        <p>A small river named Duden flows by their place and supplies</p>
-                        <p class="price"><span>$5.90</span></p>
-                        <p><a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="menu-entry">
-                    <a href="#" class="img" style="background-image: url(images/menu-4.jpg);"></a>
-                    <div class="text text-center pt-4">
-                        <h3><a href="#">Coffee Capuccino</a></h3>
-                        <p>A small river named Duden flows by their place and supplies</p>
-                        <p class="price"><span>$5.90</span></p>
-                        <p><a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+@section Scripts{
+    <script>
+        @*function OnQuantityChange() {
+            var basePrice = @Model.Price;
+            var portionSize = this.value;
+
+            if (portionSize === '2') {
+                basePrice = Math.round((@Model.Price * @Model.MediumSizePrice) * 100) / 100;
+            } else if (portionSize === '3') {
+                basePrice = Math.round((@Model.Price * @Model.LargeSizePrice) * 100) / 100;
+            }
+
+            document.getElementById('productPrice').innerHTML = '$' + basePrice.toFixed(2);
+        }*@
+
+        $(function() {
+            //$('#quantity').on('change', OnQuantityChange);
+
+            $('[data-type="plus"]').click(function (e) {
+                // Stop acting like a button
+                e.preventDefault();
+                // Get the field name
+                var fieldName = $(this).attr('data-field');
+                // Get its current value
+                var currentVal = parseInt($('input[name=' + fieldName + ']').val());
+                // If is not undefined
+                if (!isNaN(currentVal) && currentVal < 10) {
+                    // Increment
+                    $('input[name=' + fieldName + ']').val(currentVal + 1);
+                }
+            });
+            // This button will decrement the value till 1
+            $('[data-type="minus"]').click(function (e) {
+                // Stop acting like a button
+                e.preventDefault();
+                // Get the field name
+                var fieldName = $(this).attr('data-field');
+                // Get its current value
+                var currentVal = parseInt($('input[name=' + fieldName + ']').val());
+                // If it isn't undefined or its greater than 1
+                if (!isNaN(currentVal) && currentVal > 1) {
+                    // Decrement one
+                    $('input[name=' + fieldName + ']').val(currentVal - 1);
+                } else {
+                    // Otherwise put a 1 there
+                    $('input[name=' + fieldName + ']').val(1);
+                }
+            });
+        });
+    </script>
+}

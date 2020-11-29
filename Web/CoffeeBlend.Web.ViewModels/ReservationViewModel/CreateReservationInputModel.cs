@@ -20,7 +20,7 @@
         public DateTime ReservationDate { get; set; }
 
         [Required]
-        [RegularExpression("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\./0-9]*$")]
+        [RegularExpression("(^\\+[0-9]{2}|^\\+[0-9]{2}\\(0\\)|^\\(\\+[0-9]{2}\\)\\(0\\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\\-\\s]{10}$)", ErrorMessage = "Please enter a valid phone")]
         public string Phone { get; set; }
 
         [MaxLength(200)]

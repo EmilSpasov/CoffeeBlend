@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoffeeBlend.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201122131812_AddGallery")]
-    partial class AddGallery
+    [Migration("20201129153744_ProductImageNullableFix")]
+    partial class ProductImageNullableFix
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -238,7 +238,7 @@ namespace CoffeeBlend.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ArticleId")
+                    b.Property<int>("ArticleId")
                         .HasColumnType("int");
 
                     b.Property<string>("Content")
@@ -490,7 +490,7 @@ namespace CoffeeBlend.Data.Migrations
                         .HasColumnType("nvarchar(200)")
                         .HasMaxLength(200);
 
-                    b.Property<int?>("ImageId")
+                    b.Property<int>("ImageId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
@@ -763,9 +763,11 @@ namespace CoffeeBlend.Data.Migrations
 
             modelBuilder.Entity("CoffeeBlend.Data.Models.Comment", b =>
                 {
-                    b.HasOne("CoffeeBlend.Data.Models.Article", null)
+                    b.HasOne("CoffeeBlend.Data.Models.Article", "Article")
                         .WithMany("Comments")
-                        .HasForeignKey("ArticleId");
+                        .HasForeignKey("ArticleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("CoffeeBlend.Data.Models.ApplicationUser", "User")
                         .WithMany("Comments")
@@ -796,7 +798,9 @@ namespace CoffeeBlend.Data.Migrations
 
                     b.HasOne("CoffeeBlend.Data.Models.Image", "Image")
                         .WithMany()
-                        .HasForeignKey("ImageId");
+                        .HasForeignKey("ImageId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("CoffeeBlend.Data.Models.Order", null)
                         .WithMany("Products")

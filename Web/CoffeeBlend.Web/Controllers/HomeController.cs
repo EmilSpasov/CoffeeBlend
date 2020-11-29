@@ -1,4 +1,6 @@
-﻿namespace CoffeeBlend.Web.Controllers
+﻿using Microsoft.AspNetCore.Authorization;
+
+namespace CoffeeBlend.Web.Controllers
 {
     using System.Diagnostics;
     using System.Threading.Tasks;
@@ -26,6 +28,7 @@
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Index(CreateReservationInputModel input)
         {
             if (!this.ModelState.IsValid)
@@ -69,6 +72,11 @@
             await this.contactService.CreateAsync(input);
 
             return this.Redirect("/Home/SuccessfulContact");
+        }
+
+        public IActionResult Privacy()
+        {
+            return this.View();
         }
 
         public IActionResult SuccessfulContact()

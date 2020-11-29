@@ -5,54 +5,53 @@
 }
 
 <section class="ftco-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 mb-5 ftco-animate">
-                <a><img src="@Model.ImageUrl" class="img-fluid" alt=""></a>
-            </div>
-            <div class="col-lg-6 product-details pl-md-5 ftco-animate">
-                <h3>@Model.Name</h3>
-                <p class="price"><span id="productPrice">$@Model.ActualPrice</span></p>
-                <div class="row mt-4">
-                    <div class="col-md-6">
-                        <div class="form-group d-flex">
-                            <div class="select-wrap">
-                                <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                <select name="size" id="size" class="form-control">
-                                    @for (int i = 1; i <= Html.GetEnumSelectList<PortionSize>().Count(); i++)
-                                    {
-                                        <option value="@i">@((PortionSize)i)</option>
-                                    }
-                                </select>
+    <form method="post" enctype="multipart/form-data">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 mb-5 ftco-animate">
+                    <a><img src="@Model.ImageUrl" class="img-fluid" alt=""></a>
+                </div>
+                <div class="col-lg-6 product-details pl-md-5 ftco-animate">
+                    <h3>@Model.Name</h3>
+                    <p class="price"><span id="productPrice">$@Model.ActualPrice</span></p>
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <div class="form-group d-flex">
+                                <div class="select-wrap">
+                                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                    <select name="size" id="size" class="form-control">
+                                        @for (int i = 1; i <= Html.GetEnumSelectList<PortionSize>().Count(); i++)
+                                        {
+                                            <option value="@i">@((PortionSize) i)</option>
+                                        }
+                                    </select>
+                                </div>
                             </div>
                         </div>
+                        <div class="w-100"></div>
+                        <div class="input-group col-md-6 d-flex mb-3">
+                            <span class="input-group-btn mr-2">
+                                <button type="button" class="quantity-left-minus btn" data-type="minus" data-field="quantity">
+                                    <i class="icon-minus"></i>
+                                </button>
+                            </span>
+                            <input disabled="disabled" type="number" style="-moz-appearance: textfield" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="10">
+                            <span class="input-group-btn ml-2">
+                                <button type="button" class="quantity-right-plus btn" data-type="plus" data-field="quantity">
+                                    <i class="icon-plus" aria-hidden="true"></i>
+                                </button>
+                            </span>
+                        </div>
                     </div>
-                    <div class="w-100"></div>
-                    <div class="input-group col-md-6 d-flex mb-3">
-                        <span class="input-group-btn mr-2">
-                            <button type="button" class="quantity-left-minus btn" data-type="minus" data-field="quantity">
-                                <i class="icon-minus"></i>
-                            </button>
-                        </span>
-                        <input disabled="disabled" type="number" style="-moz-appearance: textfield" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="10">
-                        <span class="input-group-btn ml-2">
-                            <button type="button" class="quantity-right-plus btn" data-type="plus" data-field="quantity">
-                                <i class="icon-plus" aria-hidden="true"></i>
-                            </button>
-                        </span>
+                    <h2>Any special request? Let us know</h2>
+                    <div class="form-group">
+                        <textarea style="text-align: left" asp-for="Request" class="form-control" placeholder="e.g No sugar" rows="2"></textarea>
                     </div>
+                    <input type="submit" class="btn btn-primary" value="Add to Cart" />
                 </div>
-                <h2>Any special request ? Let us know</h2>
-                @*<div>
-                        <textarea class="form-control" rows="4"></textarea>
-                    </div>*@
-                <div class="form-group">
-                    <textarea style="text-align: left" asp-for="Request" class="form-control" placeholder="e.g No sugar" rows="2"></textarea>
-                </div>
-                <p><a asp-area="" asp-controller="ShoppingCart" asp-action="Index" class="btn btn-primary py-3 px-5">Add to Cart</a></p>
             </div>
         </div>
-    </div>
+    </form>
 </section>
 
 <section class="ftco-section">
@@ -74,39 +73,8 @@
                         <p><a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <div class="menu-entry">
-                    <a href="#" class="img" style="background-image: url(images/menu-2.jpg);"></a>
-                    <div class="text text-center pt-4">
-                        <h3><a href="#">Coffee Capuccino</a></h3>
-                        <p>A small river named Duden flows by their place and supplies</p>
-                        <p class="price"><span>$5.90</span></p>
-                        <p><a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="menu-entry">
-                    <a href="#" class="img" style="background-image: url(images/menu-3.jpg);"></a>
-                    <div class="text text-center pt-4">
-                        <h3><a href="#">Coffee Capuccino</a></h3>
-                        <p>A small river named Duden flows by their place and supplies</p>
-                        <p class="price"><span>$5.90</span></p>
-                        <p><a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="menu-entry">
-                    <a href="#" class="img" style="background-image: url(images/menu-4.jpg);"></a>
-                    <div class="text text-center pt-4">
-                        <h3><a href="#">Coffee Capuccino</a></h3>
-                        <p>A small river named Duden flows by their place and supplies</p>
-                        <p class="price"><span>$5.90</span></p>
-                        <p><a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
-                    </div>
-                </div>
+                @*TODO:*@
+                @*<partial name="_RelatedProductsPartial"/>*@
             </div>
         </div>
     </div>
@@ -114,23 +82,72 @@
 
 @section Scripts{
     <script>
+    //$.fn.serializeObject = function() {
+    //    var o = {};
+    //    var a = this.serializeArray();
+    //    $.each(a,
+    //        function() {
+    //            if (o[this.name]) {
+    //                if (!o[this.name].push) {
+    //                    o[this.name] = [o[this.name]];
+    //                }
+    //                o[this.name].push(this.value || '');
+    //            } else {
+    //                o[this.name] = this.value || '';
+    //            }
+    //        });
+    //    return o;
+    //};
+
+    ///*
+    //* Adding is performed by clicking
+    //* the submit button on the purchase form.
+    //*/
+    //$(".BuyForm .AddToCart").on("click", function(event) {
+    //    event.preventDefault();
+
+    //    /*
+    //    * The purchase form is saved
+    //    */
+    //    var $form = $(this).closest(".BuyForm");
+
+    //    /*
+    //    * The POST request is sent
+    //    */
+    //    $.ajax({
+    //        type: "POST",
+    //        url: "/cart",
+
+    //        /*
+    //        * The serializeObject()-function is applied to format data
+    //        * to a server-readable format.
+    //        */
+    //        data: $form.serializeObject(),
+    //        success: function() {
+
+    //            /*
+    //            * Finally, the shopping cart is updated after the product has been added.
+    //            */
+    //        }
+    //    });
+
         function OnSizeChange() {
             var basePrice = @Model.Price;
             var portionSize = this.value;
 
             if (portionSize === '2') {
-                basePrice = Math.round((@Model.Price * 1.50) * 100) / 100;
+                basePrice = Math.round((@Model.Price * @Model.MediumSizePrice) * 100) / 100;
             } else if (portionSize === '3') {
-                basePrice = Math.round((@Model.Price * 1.70) * 100) / 100;
+                basePrice = Math.round((@Model.Price * @Model.LargeSizePrice) * 100) / 100;
             }
 
-            document.getElementById('productPrice').innerHTML = '$' + basePrice.toString();
+            document.getElementById('productPrice').innerHTML = '$' + basePrice.toFixed(2);
         }
 
         $(function() {
-            var size = $('#size').on('change', OnSizeChange);
+            $('#size').on('change', OnSizeChange);
 
-            $('[data-type="plus"]').click(function (e) {
+            $('[data-type="plus"]').click(function(e) {
                 // Stop acting like a button
                 e.preventDefault();
                 // Get the field name
@@ -143,8 +160,8 @@
                     $('input[name=' + fieldName + ']').val(currentVal + 1);
                 }
             });
-            // This button will decrement the value till 0
-            $('[data-type="minus"]').click(function (e) {
+            // This button will decrement the value till 1
+            $('[data-type="minus"]').click(function(e) {
                 // Stop acting like a button
                 e.preventDefault();
                 // Get the field name

@@ -1,10 +1,9 @@
-﻿namespace CoffeeBlend.Data.Migrations
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+
+namespace CoffeeBlend.Data.Migrations
 {
-    using System;
-
-    using Microsoft.EntityFrameworkCore.Migrations;
-
-    public partial class Initial : Migration
+    public partial class ProductImageNullableFix : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -75,7 +74,25 @@
                 });
 
             migrationBuilder.CreateTable(
-                name: "Images",
+                name: "Contacts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    ModifiedOn = table.Column<DateTime>(nullable: true),
+                    FullName = table.Column<string>(maxLength: 20, nullable: false),
+                    Email = table.Column<string>(nullable: false),
+                    Subject = table.Column<string>(maxLength: 20, nullable: false),
+                    Message = table.Column<string>(maxLength: 2000, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Contacts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Galleries",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -83,12 +100,11 @@
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
-                    Url = table.Column<string>(nullable: false)
+                    DeletedOn = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Images", x => x.Id);
+                    table.PrimaryKey("PK_Galleries", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -287,6 +303,60 @@
                 });
 
             migrationBuilder.CreateTable(
+                name: "Images",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    ModifiedOn = table.Column<DateTime>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    DeletedOn = table.Column<DateTime>(nullable: true),
+                    Url = table.Column<string>(nullable: false),
+                    GalleryId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Images", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Images_Galleries_GalleryId",
+                        column: x => x.GalleryId,
+                        principalTable: "Galleries",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserOrderHistories",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    ModifiedOn = table.Column<DateTime>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    DeletedOn = table.Column<DateTime>(nullable: true),
+                    UserId = table.Column<string>(nullable: true),
+                    OrderId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserOrderHistories", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserOrderHistories_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_UserOrderHistories_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Articles",
                 columns: table => new
                 {
@@ -330,7 +400,7 @@
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(maxLength: 30, nullable: false),
-                    ImageId = table.Column<int>(nullable: true),
+                    ImageId = table.Column<int>(nullable: false),
                     Description = table.Column<string>(maxLength: 200, nullable: true),
                     Price = table.Column<decimal>(nullable: false),
                     Quantity = table.Column<int>(nullable: false),
@@ -363,36 +433,6 @@
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserOrderHistories",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CreatedOn = table.Column<DateTime>(nullable: false),
-                    ModifiedOn = table.Column<DateTime>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
-                    UserId = table.Column<string>(nullable: true),
-                    OrderId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserOrderHistories", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_UserOrderHistories_Orders_OrderId",
-                        column: x => x.OrderId,
-                        principalTable: "Orders",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_UserOrderHistories_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Comments",
                 columns: table => new
                 {
@@ -401,8 +441,8 @@
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     UserId = table.Column<string>(nullable: true),
-                    Content = table.Column<string>(maxLength: 2000, nullable: false),
-                    ArticleId = table.Column<int>(nullable: true)
+                    ArticleId = table.Column<int>(nullable: false),
+                    Content = table.Column<string>(maxLength: 2000, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -501,6 +541,16 @@
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Galleries_IsDeleted",
+                table: "Galleries",
+                column: "IsDeleted");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Images_GalleryId",
+                table: "Images",
+                column: "GalleryId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Images_IsDeleted",
                 table: "Images",
                 column: "IsDeleted");
@@ -587,6 +637,9 @@
                 name: "Comments");
 
             migrationBuilder.DropTable(
+                name: "Contacts");
+
+            migrationBuilder.DropTable(
                 name: "Payments");
 
             migrationBuilder.DropTable(
@@ -618,6 +671,9 @@
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Galleries");
         }
     }
 }

@@ -198,6 +198,40 @@ namespace CoffeeBlend.Data.Migrations
                     b.ToTable("Articles");
                 });
 
+            modelBuilder.Entity("CoffeeBlend.Data.Models.Cart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Carts");
+                });
+
             modelBuilder.Entity("CoffeeBlend.Data.Models.CategoryProduct", b =>
                 {
                     b.Property<int>("Id")
@@ -236,7 +270,7 @@ namespace CoffeeBlend.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ArticleId")
+                    b.Property<int>("ArticleId")
                         .HasColumnType("int");
 
                     b.Property<string>("Content")
@@ -475,6 +509,9 @@ namespace CoffeeBlend.Data.Migrations
                     b.Property<int>("BoughtCount")
                         .HasColumnType("int");
 
+                    b.Property<int?>("CartId")
+                        .HasColumnType("int");
+
                     b.Property<int>("CategoryProductId")
                         .HasColumnType("int");
 
@@ -488,7 +525,7 @@ namespace CoffeeBlend.Data.Migrations
                         .HasColumnType("nvarchar(200)")
                         .HasMaxLength(200);
 
-                    b.Property<int?>("ImageId")
+                    b.Property<int>("ImageId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
@@ -515,6 +552,8 @@ namespace CoffeeBlend.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CartId");
 
                     b.HasIndex("CategoryProductId");
 
@@ -759,11 +798,20 @@ namespace CoffeeBlend.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("CoffeeBlend.Data.Models.Cart", b =>
+                {
+                    b.HasOne("CoffeeBlend.Data.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("CoffeeBlend.Data.Models.Comment", b =>
                 {
-                    b.HasOne("CoffeeBlend.Data.Models.Article", null)
+                    b.HasOne("CoffeeBlend.Data.Models.Article", "Article")
                         .WithMany("Comments")
-                        .HasForeignKey("ArticleId");
+                        .HasForeignKey("ArticleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("CoffeeBlend.Data.Models.ApplicationUser", "User")
                         .WithMany("Comments")
@@ -786,6 +834,10 @@ namespace CoffeeBlend.Data.Migrations
 
             modelBuilder.Entity("CoffeeBlend.Data.Models.Product", b =>
                 {
+                    b.HasOne("CoffeeBlend.Data.Models.Cart", null)
+                        .WithMany("Products")
+                        .HasForeignKey("CartId");
+
                     b.HasOne("CoffeeBlend.Data.Models.CategoryProduct", "CategoryProduct")
                         .WithMany("Products")
                         .HasForeignKey("CategoryProductId")
@@ -794,7 +846,9 @@ namespace CoffeeBlend.Data.Migrations
 
                     b.HasOne("CoffeeBlend.Data.Models.Image", "Image")
                         .WithMany()
-                        .HasForeignKey("ImageId");
+                        .HasForeignKey("ImageId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("CoffeeBlend.Data.Models.Order", null)
                         .WithMany("Products")

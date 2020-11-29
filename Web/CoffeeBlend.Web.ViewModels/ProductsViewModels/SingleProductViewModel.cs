@@ -6,6 +6,9 @@
 
     public class SingleProductViewModel : IMapFrom<Product>
     {
+        private const decimal MediumPrice = 1.40m;
+        private const decimal LargePrice = 1.90m;
+
         public int Id { get; set; }
 
         public string Name { get; set; }
@@ -18,10 +21,12 @@
 
         public PortionSize PortionSize { get; set; }
 
-        public int Quantity => 1;
+        public int Quantity { get; set; }
 
         public string Request { get; set; }
 
-        public int CategoryId { get; set; }
+        public decimal MediumSizePrice => MediumPrice;
+
+        public decimal LargeSizePrice => LargePrice;
     }
 }

@@ -16,7 +16,8 @@
         private readonly ICloudinaryService cloudinaryService;
         private readonly IDeletableEntityRepository<CategoryProduct> categoryRepository;
 
-        public ProductService(IDeletableEntityRepository<Product> productsRepository,
+        public ProductService(
+            IDeletableEntityRepository<Product> productsRepository,
             IDeletableEntityRepository<Image> imageRepository,
             ICloudinaryService cloudinaryService,
             IDeletableEntityRepository<CategoryProduct> categoryRepository)
@@ -39,7 +40,7 @@
 
             var product = new Product
             {
-                Name = input.Name,
+                Name = input.Name.ToUpper(),
                 Image = image,
                 Description = input.Description,
                 Price = input.Price,
@@ -54,16 +55,9 @@
 
         public IEnumerable<T> GetAllByCategoryName<T>(string name)
         {
-            string categoryName = name;
-
-            if (categoryName == "Menu")
-            {
-                categoryName = "Coffee";
-            }
-
             var currentCategory = this.categoryRepository
                 .AllAsNoTracking()
-                .FirstOrDefault(x => x.Name == categoryName);
+                .FirstOrDefault(x => x.Name == name);
 
             var categoryId = currentCategory.Id;
 

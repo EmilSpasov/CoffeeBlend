@@ -1,8 +1,6 @@
 ﻿namespace CoffeeBlend.Web.ViewModels.MenuViewModel
 {
     using System.Collections.Generic;
-
-    using AutoMapper;
     using CoffeeBlend.Data.Models;
     using CoffeeBlend.Services.Mapping;
 
