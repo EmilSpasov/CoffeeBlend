@@ -24,44 +24,47 @@
                 <div class="cart-list">
                     <table class="table">
                         <thead class="thead-primary">
-                        <tr class="text-center">
-                            <th>&nbsp;</th>
-                            <th>Product</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                            <th>Total</th>
-                        </tr>
+                            <tr class="text-center">
+                                <th>&nbsp;</th>
+                                <th>Product</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        <tr class="text-center" id="quantity" name="quantity">
-                            <td class="product-remove"><a href="#" @*asp-area="" asp-controller="ShoppingCart" asp-action="Remove"*@><span class="icon-close"></span></a></td>
+                            @foreach (var product in @Model.Products)
+                            {
+                                <tr class="text-center" id="quantity" name="quantity">
 
-                            <td class="image-prod"><a><img src="@Model.ImageUrl" class="img-fluid" alt=""></a></td>
+                                    <td class="product-remove"><a href="#" @*asp-area="" asp-controller="ShoppingCart" asp-action="Remove"*@><span class="icon-close"></span></a></td>
 
-                            <td class="product-name">
-                                <h3>@Model.Name</h3>
-                                <p class="text-white" >@Model.Request</p>
-                            </td>
+                                    <td class="image-prod"><a><img src="@product.ImageUrl" class="img-fluid" alt=""></a></td>
 
-                            <td class="quantity">
-                                <div class="input-group mb-3">
-                                    <span class="input-group-btn mr-2">
-                                        <button type="button" class="quantity-left-minus btn" data-type="minus" data-field="quantity">
-                                            <i class="icon-minus"></i>
-                                        </button>
-                                    </span>
-                                    <input disabled="disabled" type="number" style="-moz-appearance: textfield" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="10">
-                                    <span class="input-group-btn ml-2">
-                                        <button type="button" class="quantity-right-plus btn" data-type="plus" data-field="quantity">
-                                            <i class="icon-plus" aria-hidden="true"></i>
-                                        </button>
-                                    </span>
-                                </div>
-                            </td>
+                                    <td class="product-name">
+                                        <h3>@product.Name</h3>
+                                        <p class="text-white">@product.Request</p>
+                                    </td>
 
-                            <td class="total">$@Model.Price</td>
-                        </tr>
+                                    <td class="quantity">
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-btn mr-2">
+                                                <button type="button" class="quantity-left-minus btn" data-type="minus" data-field="quantity">
+                                                    <i class="icon-minus"></i>
+                                                </button>
+                                            </span>
+                                            <input disabled="disabled" type="number" style="-moz-appearance: textfield" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="10">
+                                            <span class="input-group-btn ml-2">
+                                                <button type="button" class="quantity-right-plus btn" data-type="plus" data-field="quantity">
+                                                    <i class="icon-plus" aria-hidden="true"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </td>
 
+                                    <td class="total">$@product.Price</td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>
@@ -72,13 +75,13 @@
                 <div class="cart-total mb-3">
                     <h3>Products Totals</h3>
                     @*<p class="d-flex">
-                        <span>Subtotal</span>
-                        <span>$@Model.SubTotalPrice</span>
-                    </p>*@
+                            <span>Subtotal</span>
+                            <span>$@Model.SubTotalPrice</span>
+                        </p>*@
                     @*<p class="d-flex">
-                        <span>Delivery</span>
-                        <span>$@Model.DeliveryPrice</span>
-                    </p>*@
+                            <span>Delivery</span>
+                            <span>$@Model.DeliveryPrice</span>
+                        </p>*@
                     <p class="d-flex total-price">
                         <span>Total</span>
                         <span>$@Model.TotalPrice</span>

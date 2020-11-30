@@ -1,13 +1,17 @@
 ﻿namespace CoffeeBlend.Web.ViewModels.OrderViewModel
 {
+    using System.Collections.Generic;
+
+    using CoffeeBlend.Data.Models;
+    using CoffeeBlend.Services.Mapping;
     using CoffeeBlend.Web.ViewModels.ProductsViewModels;
 
-    public class CartViewModel : SingleProductViewModel
+    public class CartViewModel : IMapFrom<Cart>
     {
-        public decimal SubTotalPrice { get; set; }
+        public string UserId { get; set; }
 
-        public decimal DeliveryPrice => this.SubTotalPrice < 30 ? 5 : 0;
+        public decimal TotalPrice { get; set; }
 
-        public decimal TotalPrice => this.SubTotalPrice + this.DeliveryPrice;
+        public virtual ICollection<SingleProductViewModel> Products { get; set; }
     }
 }

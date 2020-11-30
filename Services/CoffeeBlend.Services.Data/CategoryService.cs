@@ -55,13 +55,5 @@
                 .To<T>()
                 .ToList();
         }
-
-        public IEnumerable<T> GetAllById<T>(int id)
-        {
-            return this.categoriesRepository.AllAsNoTracking()
-                .Where(x => x.Id == id)
-                .To<T>()
-                .ToList();
-        }
     }
 }

@@ -7,22 +7,16 @@
 
     public class Order : BaseDeletableModel<int>
     {
-        public Order()
-        {
-            this.Products = new HashSet<Product>();
-        }
-
         public string UserId { get; set; }
 
         public virtual ApplicationUser User { get; set; }
 
-        public decimal DeliveryPrice { get; set; }
+        public int PaymentId { get; set; }
 
-        public decimal TotalPrice { get; set; }
+        public Payment Payment { get; set; }
 
-        [MaxLength(200)]
-        public string Description { get; set; }
+        public int CartId { get; set; }
 
-        public virtual ICollection<Product> Products { get; set; }
+        public Cart Cart { get; set; }
     }
 }

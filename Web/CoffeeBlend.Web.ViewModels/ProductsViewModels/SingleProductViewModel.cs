@@ -21,7 +21,7 @@
 
         public PortionSize PortionSize { get; set; }
 
-        public int Quantity { get; set; }
+        public int Quantity { get; set; } = 1;
 
         public string Request { get; set; }
 

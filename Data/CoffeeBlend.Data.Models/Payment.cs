@@ -35,5 +35,9 @@
         public string Phone { get; set; }
 
         public string Email { get; set; }
+
+        public decimal DeliveryPrice { get; set; }
+
+        public decimal TotalPrice { get; set; }
     }
 }

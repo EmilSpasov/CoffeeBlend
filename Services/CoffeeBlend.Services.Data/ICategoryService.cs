@@ -14,7 +14,5 @@
         IEnumerable<T> GetAll<T>();
 
         IEnumerable<T> GetAllByName<T>(string name);
-
-        IEnumerable<T> GetAllById<T>(int id);
     }
 }

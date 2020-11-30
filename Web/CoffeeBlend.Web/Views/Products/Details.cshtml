@@ -9,17 +9,24 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 mb-5 ftco-animate">
+                    <input type="hidden" asp-for="@Model.ImageUrl" />
                     <a><img src="@Model.ImageUrl" class="img-fluid" alt=""></a>
                 </div>
+                @*Returning id to the server*@
+                <input type="hidden" asp-for="@Model.Id" />
+
                 <div class="col-lg-6 product-details pl-md-5 ftco-animate">
+                    <input type="hidden" asp-for="@Model.Name" />
                     <h3>@Model.Name</h3>
-                    <p class="price"><span id="productPrice">$@Model.ActualPrice</span></p>
+                    <input type="hidden" id="price" asp-for="@Model.Price" />
+                    <p class="price"><span id="productPrice">$@Model.Price</span></p>
+                    @*<p class="price"><span id="productPrice">$@Model.ActualPrice</span></p>*@
                     <div class="row mt-4">
                         <div class="col-md-6">
                             <div class="form-group d-flex">
                                 <div class="select-wrap">
                                     <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                    <select name="size" id="size" class="form-control">
+                                    <select asp-for="@Model.PortionSize" name="size" id="size" class="form-control">
                                         @for (int i = 1; i <= Html.GetEnumSelectList<PortionSize>().Count(); i++)
                                         {
                                             <option value="@i">@((PortionSize) i)</option>
@@ -35,7 +42,7 @@
                                     <i class="icon-minus"></i>
                                 </button>
                             </span>
-                            <input disabled="disabled" type="number" style="-moz-appearance: textfield" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="10">
+                            <input readonly="readonly" asp-for="@Model.Quantity" type="number" style="-moz-appearance: textfield" id="quantity" name="quantity" class="form-control input-number"  value="1" min="1" max="10">
                             <span class="input-group-btn ml-2">
                                 <button type="button" class="quantity-right-plus btn" data-type="plus" data-field="quantity">
                                     <i class="icon-plus" aria-hidden="true"></i>
@@ -45,9 +52,9 @@
                     </div>
                     <h2>Any special request? Let us know</h2>
                     <div class="form-group">
-                        <textarea style="text-align: left" asp-for="Request" class="form-control" placeholder="e.g No sugar" rows="2"></textarea>
+                        <textarea style="text-align: left" asp-for="@Model.Request" class="form-control" placeholder="e.g No sugar" rows="2"></textarea>
                     </div>
-                    <input type="submit" class="btn btn-primary" value="Add to Cart" />
+                    <button asp-controller="ShoppingCart" asp-action="AddToCart" type="submit" class="btn btn-primary btn-outline-primary"><span>Add to cart</span></button>
                 </div>
             </div>
         </div>
@@ -82,55 +89,6 @@
 
 @section Scripts{
     <script>
-    //$.fn.serializeObject = function() {
-    //    var o = {};
-    //    var a = this.serializeArray();
-    //    $.each(a,
-    //        function() {
-    //            if (o[this.name]) {
-    //                if (!o[this.name].push) {
-    //                    o[this.name] = [o[this.name]];
-    //                }
-    //                o[this.name].push(this.value || '');
-    //            } else {
-    //                o[this.name] = this.value || '';
-    //            }
-    //        });
-    //    return o;
-    //};
-
-    ///*
-    //* Adding is performed by clicking
-    //* the submit button on the purchase form.
-    //*/
-    //$(".BuyForm .AddToCart").on("click", function(event) {
-    //    event.preventDefault();
-
-    //    /*
-    //    * The purchase form is saved
-    //    */
-    //    var $form = $(this).closest(".BuyForm");
-
-    //    /*
-    //    * The POST request is sent
-    //    */
-    //    $.ajax({
-    //        type: "POST",
-    //        url: "/cart",
-
-    //        /*
-    //        * The serializeObject()-function is applied to format data
-    //        * to a server-readable format.
-    //        */
-    //        data: $form.serializeObject(),
-    //        success: function() {
-
-    //            /*
-    //            * Finally, the shopping cart is updated after the product has been added.
-    //            */
-    //        }
-    //    });
-
         function OnSizeChange() {
             var basePrice = @Model.Price;
             var portionSize = this.value;
@@ -142,6 +100,7 @@
             }
 
             document.getElementById('productPrice').innerHTML = '$' + basePrice.toFixed(2);
+            document.getElementById('price').value =  basePrice;
         }
 
         $(function() {
@@ -158,6 +117,7 @@
                 if (!isNaN(currentVal) && currentVal < 10) {
                     // Increment
                     $('input[name=' + fieldName + ']').val(currentVal + 1);
+                    //document.getElementById('quantity').value++;
                 }
             });
             // This button will decrement the value till 1
@@ -172,9 +132,12 @@
                 if (!isNaN(currentVal) && currentVal > 1) {
                     // Decrement one
                     $('input[name=' + fieldName + ']').val(currentVal - 1);
+                    //document.getElementById('quantity').value--;
+
                 } else {
                     // Otherwise put a 1 there
                     $('input[name=' + fieldName + ']').val(1);
+                    //document.getElementById('quantity').value = 1;
                 }
             });
         });

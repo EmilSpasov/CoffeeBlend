@@ -39,6 +39,8 @@ namespace CoffeeBlend.Data.Models
         [MaxLength(30)]
         public string LastName { get; set; }
 
+        public Cart Cart { get; set; }
+
         ////Add to constructor
         public virtual ICollection<Order> Orders { get; set; }
 

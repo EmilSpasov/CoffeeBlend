@@ -62,6 +62,7 @@ namespace CoffeeBlend.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Contact(ContactInputModel input)
         {
             if (!this.ModelState.IsValid)

@@ -8,7 +8,7 @@
     {
         public Cart()
         {
-            this.Products = new HashSet<Product>();
+            this.CartProducts = new HashSet<CartProduct>();
         }
 
         public string UserId { get; set; }
@@ -17,6 +17,6 @@
 
         public decimal TotalPrice { get; set; }
 
-        public virtual ICollection<Product> Products { get; set; }
+        public virtual ICollection<CartProduct> CartProducts { get; set; }
     }
 }
