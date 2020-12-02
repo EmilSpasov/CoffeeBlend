@@ -22,19 +22,22 @@
                     <p class="price"><span id="productPrice">$@Model.Price</span></p>
                     @*<p class="price"><span id="productPrice">$@Model.ActualPrice</span></p>*@
                     <div class="row mt-4">
-                        <div class="col-md-6">
-                            <div class="form-group d-flex">
-                                <div class="select-wrap">
-                                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                    <select asp-for="@Model.PortionSize" name="size" id="size" class="form-control">
-                                        @for (int i = 1; i <= Html.GetEnumSelectList<PortionSize>().Count(); i++)
-                                        {
-                                            <option value="@i">@((PortionSize) i)</option>
-                                        }
-                                    </select>
+                        @if (Model.CategoryProductId == 1 || Model.CategoryProductId == 3)
+                        {
+                            <div class="col-md-6">
+                                <div class="form-group d-flex">
+                                    <div class="select-wrap">
+                                        <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                        <select asp-for="@Model.PortionSize" name="PortionSize" id="size" class="form-control">
+                                            @for (int i = 1; i <= Html.GetEnumSelectList<PortionSize>().Count(); i++)
+                                            {
+                                                <option value="@i">@((PortionSize) i)</option>
+                                            }
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        }
                         <div class="w-100"></div>
                         <div class="input-group col-md-6 d-flex mb-3">
                             <span class="input-group-btn mr-2">
@@ -42,7 +45,7 @@
                                     <i class="icon-minus"></i>
                                 </button>
                             </span>
-                            <input readonly="readonly" asp-for="@Model.Quantity" type="number" style="-moz-appearance: textfield" id="quantity" name="quantity" class="form-control input-number"  value="1" min="1" max="10">
+                            <input readonly="readonly" asp-for="@Model.Quantity" type="number" style="-moz-appearance: textfield" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="10">
                             <span class="input-group-btn ml-2">
                                 <button type="button" class="quantity-right-plus btn" data-type="plus" data-field="quantity">
                                     <i class="icon-plus" aria-hidden="true"></i>
@@ -54,7 +57,7 @@
                     <div class="form-group">
                         <textarea style="text-align: left" asp-for="@Model.Request" class="form-control" placeholder="e.g No sugar" rows="2"></textarea>
                     </div>
-                    <button asp-controller="ShoppingCart" asp-action="AddToCart" type="submit" class="btn btn-primary btn-outline-primary"><span>Add to cart</span></button>
+                    <button asp-area="" asp-controller="ShoppingCart" asp-action="AddToCart" type="submit" class="btn btn-primary btn-outline-primary"><span>Add to cart</span></button>
                 </div>
             </div>
         </div>

@@ -1,10 +1,13 @@
 ﻿namespace CoffeeBlend.Data.Models
 {
+
     using CoffeeBlend.Data.Common.Models;
     using CoffeeBlend.Data.Models.Enums;
 
-    public class CartProduct : BaseDeletableModel<int>
+    public class CartProduct : BaseModel<int>
     {
+        public string Name { get; set; }
+
         public int ProductId { get; set; }
 
         public Product Product { get; set; }
@@ -18,5 +21,7 @@
         public PortionSize PortionSize { get; set; }
 
         public string Request { get; set; }
+
+        public decimal SubTotalPrice { get; set; }
     }
 }

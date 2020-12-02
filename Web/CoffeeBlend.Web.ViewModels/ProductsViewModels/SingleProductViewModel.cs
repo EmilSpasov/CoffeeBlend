@@ -17,13 +17,15 @@
 
         public decimal Price { get; set; }
 
-        public decimal ActualPrice => this.Price;
+        public decimal ActualPrice => this.Price * this.Quantity;
 
         public PortionSize PortionSize { get; set; }
 
         public int Quantity { get; set; } = 1;
 
         public string Request { get; set; }
+
+        public int CategoryProductId { get; set; }
 
         public decimal MediumSizePrice => MediumPrice;
 

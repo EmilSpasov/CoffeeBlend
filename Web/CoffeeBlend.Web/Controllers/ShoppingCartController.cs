@@ -21,9 +21,14 @@
             this.userManager = userManager;
         }
 
-        public IActionResult Index()
+        [Authorize]
+        public async Task<IActionResult> Index()
         {
-            var viewModel = new CartViewModel();
+            var currentUser = await this.userManager.GetUserAsync(this.User);
+
+            var currentUserId = currentUser.Id;
+
+            var viewModel = this.cartService.GetCurrentUserCart<CartViewModel>(currentUserId);
 
             return this.View(viewModel);
         }
@@ -38,7 +43,19 @@
 
             await this.cartService.AddAsync(currentUserId, model);
 
-            return this.Redirect("/Menu");
+            return this.Redirect("/ShoppingCart/Index");
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Remove(int id)
+        {
+            var currentUser = await this.userManager.GetUserAsync(this.User);
+
+            var currentUserId = currentUser.Id;
+
+            await this.cartService.RemoveProductByIdAsync(currentUserId, id);
+
+            return this.Redirect("/ShoppingCart/Index");
         }
 
         public IActionResult Checkout()

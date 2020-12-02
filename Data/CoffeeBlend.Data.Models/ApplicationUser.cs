@@ -1,5 +1,7 @@
 ﻿// ReSharper disable VirtualMemberCallInConstructor
 
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace CoffeeBlend.Data.Models
 {
     using System;
@@ -21,6 +23,10 @@ namespace CoffeeBlend.Data.Models
             this.Comments = new HashSet<Comment>();
             this.Articles = new HashSet<Article>();
             this.UserOrderHistory = new HashSet<UserOrderHistory>();
+            this.Cart = new Cart
+            {
+                UserId = this.Id,
+            };
         }
 
         // Audit info
@@ -39,7 +45,12 @@ namespace CoffeeBlend.Data.Models
         [MaxLength(30)]
         public string LastName { get; set; }
 
-        public Cart Cart { get; set; }
+        public int? CartId { get; set; }
+
+        [ForeignKey("CartId")]
+        public virtual Cart Cart { get; set; }
+
+        public int? CartProductId { get; set; }
 
         ////Add to constructor
         public virtual ICollection<Order> Orders { get; set; }

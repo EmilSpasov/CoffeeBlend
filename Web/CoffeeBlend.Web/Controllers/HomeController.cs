@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-
-namespace CoffeeBlend.Web.Controllers
+﻿namespace CoffeeBlend.Web.Controllers
 {
     using System.Diagnostics;
     using System.Threading.Tasks;
@@ -9,6 +7,7 @@ namespace CoffeeBlend.Web.Controllers
     using CoffeeBlend.Web.ViewModels;
     using CoffeeBlend.Web.ViewModels.ContactViewModel;
     using CoffeeBlend.Web.ViewModels.ReservationViewModel;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : BaseController

@@ -1,7 +1,5 @@
 ﻿namespace CoffeeBlend.Data.Models
 {
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
 
     using CoffeeBlend.Data.Common.Models;
 

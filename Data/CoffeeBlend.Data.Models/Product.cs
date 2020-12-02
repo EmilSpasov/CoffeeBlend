@@ -3,7 +3,6 @@
     using System.ComponentModel.DataAnnotations;
 
     using CoffeeBlend.Data.Common.Models;
-    using CoffeeBlend.Data.Models.Enums;
 
     public class Product : BaseDeletableModel<int>
     {

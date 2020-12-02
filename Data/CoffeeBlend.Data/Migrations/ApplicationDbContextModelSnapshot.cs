@@ -68,6 +68,12 @@ namespace CoffeeBlend.Data.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<int?>("CartId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CartProductId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -133,6 +139,10 @@ namespace CoffeeBlend.Data.Migrations
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CartId")
+                        .IsUnique()
+                        .HasFilter("[CartId] IS NOT NULL");
 
                     b.HasIndex("IsDeleted");
 
@@ -221,15 +231,11 @@ namespace CoffeeBlend.Data.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("IsDeleted");
-
-                    b.HasIndex("UserId")
-                        .IsUnique()
-                        .HasFilter("[UserId] IS NOT NULL");
 
                     b.ToTable("Carts");
                 });
@@ -247,14 +253,11 @@ namespace CoffeeBlend.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PortionSize")
                         .HasColumnType("int");
@@ -268,11 +271,12 @@ namespace CoffeeBlend.Data.Migrations
                     b.Property<string>("Request")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("SubTotalPrice")
+                        .HasColumnType("decimal(18,2)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CartId");
-
-                    b.HasIndex("IsDeleted");
 
                     b.HasIndex("ProductId");
 
@@ -819,6 +823,13 @@ namespace CoffeeBlend.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("CoffeeBlend.Data.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("CoffeeBlend.Data.Models.Cart", "Cart")
+                        .WithOne("User")
+                        .HasForeignKey("CoffeeBlend.Data.Models.ApplicationUser", "CartId");
+                });
+
             modelBuilder.Entity("CoffeeBlend.Data.Models.Article", b =>
                 {
                     b.HasOne("CoffeeBlend.Data.Models.ApplicationUser", null)
@@ -830,13 +841,6 @@ namespace CoffeeBlend.Data.Migrations
                         .HasForeignKey("ImageId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("CoffeeBlend.Data.Models.Cart", b =>
-                {
-                    b.HasOne("CoffeeBlend.Data.Models.ApplicationUser", "User")
-                        .WithOne("Cart")
-                        .HasForeignKey("CoffeeBlend.Data.Models.Cart", "UserId");
                 });
 
             modelBuilder.Entity("CoffeeBlend.Data.Models.CartProduct", b =>

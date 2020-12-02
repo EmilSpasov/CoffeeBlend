@@ -2,27 +2,27 @@
 
 namespace CoffeeBlend.Data.Migrations
 {
-    public partial class AddCartIdToProduct : Migration
+    public partial class FixCartIdNotNullable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<int>(
                 name: "CartId",
-                table: "Products",
-                nullable: true,
+                table: "CartProducts",
+                nullable: false,
                 oldClrType: typeof(int),
-                oldType: "int");
+                oldType: "int",
+                oldNullable: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<int>(
                 name: "CartId",
-                table: "Products",
+                table: "CartProducts",
                 type: "int",
-                nullable: false,
-                oldClrType: typeof(int),
-                oldNullable: true);
+                nullable: true,
+                oldClrType: typeof(int));
         }
     }
 }
