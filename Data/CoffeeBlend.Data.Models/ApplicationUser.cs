@@ -1,12 +1,11 @@
 ﻿// ReSharper disable VirtualMemberCallInConstructor
 
-using System.ComponentModel.DataAnnotations.Schema;
-
 namespace CoffeeBlend.Data.Models
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     using CoffeeBlend.Data.Common.Models;
     using Microsoft.AspNetCore.Identity;

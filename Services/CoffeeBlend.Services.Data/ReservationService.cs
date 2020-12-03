@@ -1,4 +1,6 @@
-﻿namespace CoffeeBlend.Services.Data
+﻿using System;
+
+namespace CoffeeBlend.Services.Data
 {
     using System.Threading.Tasks;
 

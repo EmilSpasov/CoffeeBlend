@@ -1,6 +1,7 @@
 ﻿namespace CoffeeBlend.Services.Data
 {
     using System.Threading.Tasks;
+
     using CoffeeBlend.Data.Common.Repositories;
     using CoffeeBlend.Data.Models;
     using CoffeeBlend.Web.ViewModels.ContactViewModel;

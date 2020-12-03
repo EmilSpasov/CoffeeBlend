@@ -2,8 +2,10 @@
 {
     using System.Threading.Tasks;
 
+    using CoffeeBlend.Common;
     using CoffeeBlend.Services.Data;
     using CoffeeBlend.Web.ViewModels.ProductsViewModels;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     public class ProductsController : Controller
@@ -24,6 +26,7 @@
             return this.View(product);
         }
 
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public IActionResult Create()
         {
             var viewModel = new CreateProductInputModel();

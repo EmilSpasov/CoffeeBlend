@@ -1,6 +1,5 @@
 ﻿namespace CoffeeBlend.Data.Models
 {
-
     using CoffeeBlend.Data.Common.Models;
     using CoffeeBlend.Data.Models.Enums;
 

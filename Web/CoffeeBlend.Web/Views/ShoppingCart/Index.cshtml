@@ -85,23 +85,15 @@
 </form>
 @section Scripts{
     <script>
-        @*function OnQuantityChange() {
-            var basePrice = @Model.Price;
-            var portionSize = this.value;
+        //function OnQuantityChange() {
+            
 
-            if (portionSize === '2') {
-                basePrice = Math.round((@Model.Price * @Model.MediumSizePrice) * 100) / 100;
-            } else if (portionSize === '3') {
-                basePrice = Math.round((@Model.Price * @Model.LargeSizePrice) * 100) / 100;
-            }
-
-            document.getElementById('productPrice').innerHTML = '$' + basePrice.toFixed(2);
-        }*@
+        //}
 
         $(function() {
             //$('#quantity').on('change', OnQuantityChange);
 
-            $('[data-type="plus"]').click(function (e) {
+            $('[data-type="plus"]').click(function(e) {
                 // Stop acting like a button
                 e.preventDefault();
                 // Get the field name
@@ -115,7 +107,7 @@
                 }
             });
             // This button will decrement the value till 1
-            $('[data-type="minus"]').click(function (e) {
+            $('[data-type="minus"]').click(function(e) {
                 // Stop acting like a button
                 e.preventDefault();
                 // Get the field name

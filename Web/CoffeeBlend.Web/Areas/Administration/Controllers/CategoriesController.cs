@@ -1,4 +1,4 @@
-﻿namespace CoffeeBlend.Web.Controllers
+﻿namespace CoffeeBlend.Web.Areas.Administration.Controllers
 {
     using System.Threading.Tasks;
 
@@ -8,7 +8,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    public class CategoriesController : BaseController
+    public class CategoriesController : AdministrationController
     {
         private readonly ICategoryService categoryService;
 
@@ -18,6 +18,14 @@
         }
 
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        [Area("Administration")]
+        public IActionResult Index()
+        {
+            return this.View();
+        }
+
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        [Area("Administration")]
         public IActionResult Create()
         {
             return this.View();

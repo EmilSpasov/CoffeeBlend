@@ -1,6 +1,7 @@
 ﻿namespace CoffeeBlend.Services.Data
 {
     using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Http;
 
     public interface ICloudinaryService

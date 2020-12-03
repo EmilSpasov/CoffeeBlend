@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Authorization;
-
-namespace CoffeeBlend.Web.Controllers
+﻿namespace CoffeeBlend.Web.Controllers
 {
     using System.Threading.Tasks;
 
+    using CoffeeBlend.Common;
     using CoffeeBlend.Data.Models;
     using CoffeeBlend.Services.Data;
     using CoffeeBlend.Web.ViewModels.BlogViewModel;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
@@ -41,6 +41,7 @@ namespace CoffeeBlend.Web.Controllers
             return this.View(viewModel);
         }
 
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public IActionResult Create()
         {
             return this.View();

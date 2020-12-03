@@ -5,7 +5,7 @@
     public class ContactInputModel
     {
         [Required]
-        [MinLength(4)]
+        [MinLength(5)]
         public string FullName { get; set; }
 
         [Required]

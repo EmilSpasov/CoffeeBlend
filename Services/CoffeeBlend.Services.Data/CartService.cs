@@ -1,6 +1,4 @@
-﻿using System.Xml.Linq;
-
-namespace CoffeeBlend.Services.Data
+﻿namespace CoffeeBlend.Services.Data
 {
     using System.Linq;
     using System.Threading.Tasks;
@@ -15,13 +13,11 @@ namespace CoffeeBlend.Services.Data
     {
         private readonly IDeletableEntityRepository<Cart> cartRepository;
         private readonly IRepository<CartProduct> cartProductRepository;
-        private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
 
-        public CartService(IDeletableEntityRepository<Cart> cartRepository, IRepository<CartProduct> cartProductRepository, IDeletableEntityRepository<ApplicationUser> userRepository)
+        public CartService(IDeletableEntityRepository<Cart> cartRepository, IRepository<CartProduct> cartProductRepository)
         {
             this.cartRepository = cartRepository;
             this.cartProductRepository = cartProductRepository;
-            this.userRepository = userRepository;
         }
 
         public async Task AddAsync(string userId, SingleProductViewModel model)
