@@ -12,5 +12,7 @@
         IEnumerable<T> GetAllByCategoryName<T>(string name);
 
         T GetSingleProductById<T>(int id);
+
+        IEnumerable<T> GetRelatedProductsByCategoryId<T>(int categoryId, int productId);
     }
 }

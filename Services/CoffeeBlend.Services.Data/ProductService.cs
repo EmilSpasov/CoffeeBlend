@@ -78,5 +78,17 @@
 
             return product;
         }
+
+        public IEnumerable<T> GetRelatedProductsByCategoryId<T>(int categoryId, int productId)
+        {
+            var relatedProducts = this.productsRepository
+                .AllAsNoTracking()
+                .Where(x => x.CategoryProductId == categoryId && x.Id != productId)
+                .To<T>()
+                .Take(4)
+                .ToArray();
+
+            return relatedProducts;
+        }
     }
 }
