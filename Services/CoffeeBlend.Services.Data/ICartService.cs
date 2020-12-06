@@ -11,5 +11,7 @@
         T GetCurrentUserCart<T>(string userId);
 
         Task RemoveProductByIdAsync(string userId, int id);
+
+        int GetProductsCount(string userId);
     }
 }

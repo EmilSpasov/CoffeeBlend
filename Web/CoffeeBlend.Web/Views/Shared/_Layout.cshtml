@@ -58,7 +58,7 @@
                         <partial name="_LoginPartial" />
                         @if (this.User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item cart"><a asp-area="" asp-controller="ShoppingCart" asp-action="Index" class="nav-link"><span class="icon icon-shopping_cart"></span><span class="bag d-flex justify-content-center align-items-center"><small>0</small></span></a></li>
+                            <vc:products-count></vc:products-count>
                         }
                     </ul>
                 </div>

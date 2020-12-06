@@ -82,5 +82,15 @@
             await this.cartProductRepository.SaveChangesAsync();
             await this.cartRepository.SaveChangesAsync();
         }
+
+        public int GetProductsCount(string userId)
+        {
+            var userCart = this.cartRepository
+                .All()
+                .Include(c => c.CartProducts)
+                .FirstOrDefault(x => x.UserId == userId);
+
+            return userCart.CartProducts.Count;
+        }
     }
 }
