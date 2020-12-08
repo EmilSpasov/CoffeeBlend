@@ -1,45 +1,62 @@
-﻿@model CoffeeBlend.Web.ViewModels.CategoriesViewModel.CategoryViewModel
+﻿@model CoffeeBlend.Web.ViewModels.CategoriesViewModel.AdministrationCategoryInListViewModel
+
 @{
-    this.ViewData["Title"] = "Categories Page";
+    ViewData["Title"] = "Categories";
 }
 
-<table class="ftco-menu offset-4 text-center">
-    <tr>
-        <th>Name</th>
-        <th>Created On</th>
-        <th>Modified On</th>
-        <th>Is Deleted</th>
-        <th>Action</th>
-    </tr>
-    <tr>
-        <td>Alfreds Futterkiste</td>
-        <td>Maria Anders</td>
-        <td>Germany</td>
-    </tr>
-    <tr>
-        <td>Centro comercial Moctezuma</td>
-        <td>Francisco Chang</td>
-        <td>Mexico</td>
-    </tr>
-    <tr>
-        <td>Ernst Handel</td>
-        <td>Roland Mendel</td>
-        <td>Austria</td>
-    </tr>
-    <tr>
-        <td>Island Trading</td>
-        <td>Helen Bennett</td>
-        <td>UK</td>
-    </tr>
-    <tr>
-        <td>Laughing Bacchus Winecellars</td>
-        <td>Yoshi Tannamuri</td>
-        <td>Canada</td>
-    </tr>
-    <tr>
-        <td>Magazzini Alimentari Riuniti</td>
-        <td>Giovanni Rovelli</td>
-        <td>Italy</td>
-    </tr>
+<h1>Categories</h1>
+
+<p>
+    <a class="btn btn-primary py-3 px-5" asp-area="Administration" asp-controller="Categories" asp-action="Create">Create New</a>
+</p>
+
+<table class="table table-bordered table-striped text-white">
+    @foreach (var category in Model.Categories.Take(1))
+    {
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => category.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => category.IsDeleted)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => category.CreatedOn)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => category.ModifiedOn)
+                </th>
+                <th>
+                    <h6>Action</h6>
+                </th>
+            </tr>
+        </thead>
+    }
+
+    <tbody>
+        @foreach (var category in Model.Categories)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => category.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => category.IsDeleted)
+                    @Html.DisplayFor(modelItem => category.DeletedOn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => category.CreatedOn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => category.ModifiedOn)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@category.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@category.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@category.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
-<p class="text-center"><a asp-area="Administration" asp-controller="Dashboard" asp-action="Index" class="btn btn-primary btn-sm ">Back to Admin Section</a></p>

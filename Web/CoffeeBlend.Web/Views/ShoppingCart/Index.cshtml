@@ -10,7 +10,7 @@
             <div class="row slider-text justify-content-center align-items-center">
                 <div class="col-md-7 col-sm-12 text-center ftco-animate">
                     <h1 class="mb-3 mt-5 bread">Cart</h1>
-                    <p class="breadcrumbs"><span class="mr-2"><a asp-area="" asp-controller="Home" asp-action="Index"></a></span> <span>Cart</span></p>
+                    <p class="breadcrumbs"><span class="mr-2"><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></span> <span>Cart</span></p>
                 </div>
             </div>
         </div>
@@ -35,7 +35,7 @@
                         <tbody>
                             @foreach (var product in Model.CartProducts)
                             {
-                                <tr class="text-center" id="quantity" name="quantity">
+                                <tr class="text-center" >
 
                                     <td class="product-remove"><a type="submit" asp-area="" asp-controller="ShoppingCart" asp-route-id="@product.ProductId" asp-action="Remove"><span class="icon-close"></span></a></td>
 
@@ -77,7 +77,7 @@
                             <span class="total-price">$@Model.TotalPrice</span>
                         </p>
                     </div>
-                    <p class="text-center"><a href="/shoppingCart/checkout" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
+                    <p class="text-center"><a asp-area="" asp-controller="ShoppingCart" asp-action="Checkout" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
                 </div>
             </div>
         </div>
@@ -86,7 +86,6 @@
 @section Scripts{
     <script>
         //function OnQuantityChange() {
-            
 
         //}
 

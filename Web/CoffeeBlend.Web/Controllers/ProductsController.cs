@@ -45,7 +45,9 @@
 
             await this.productService.CreateAsync(input);
 
-            return this.Redirect("/");
+            this.TempData["Message"] = "Product added successfully.";
+
+            return this.Redirect("/Menu");
         }
     }
 }

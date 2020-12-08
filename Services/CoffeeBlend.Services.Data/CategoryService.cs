@@ -8,6 +8,7 @@
     using CoffeeBlend.Data.Models;
     using CoffeeBlend.Services.Mapping;
     using CoffeeBlend.Web.ViewModels.CategoriesViewModel;
+    using Microsoft.EntityFrameworkCore;
 
     public class CategoryService : ICategoryService
     {
@@ -41,19 +42,65 @@
                 .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name));
         }
 
-        public IEnumerable<T> GetAll<T>()
+        public async Task<IEnumerable<T>> GetAllAsync<T>()
         {
-            return this.categoriesRepository.AllAsNoTracking()
+            return await this.categoriesRepository
+                .AllAsNoTrackingWithDeleted()
                 .To<T>()
-                .ToList();
+                .ToListAsync();
         }
 
-        public IEnumerable<T> GetAllByName<T>(string name)
+        public async Task<IEnumerable<T>> GetAllByNameAsync<T>(string name)
         {
-            return this.categoriesRepository.AllAsNoTracking()
+            return await this.categoriesRepository
+                .AllAsNoTracking()
                 .Where(x => x.Name == name)
                 .To<T>()
-                .ToList();
+                .ToListAsync();
+        }
+
+        public async Task<T> GetByIdAsync<T>(int? id)
+        {
+            return await this.categoriesRepository
+                .AllAsNoTrackingWithDeleted()
+                .Where(x => x.Id == id)
+                .To<T>()
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task UpdateAsync(AdministrationCategoryViewModel category)
+        {
+            var categoryToUpdate = this.categoriesRepository
+                .AllAsNoTrackingWithDeleted()
+                .FirstOrDefault(x => x.Id == category.Id);
+
+            categoryToUpdate.Name = category.Name;
+            categoryToUpdate.CreatedOn = category.CreatedOn;
+            categoryToUpdate.DeletedOn = category.DeletedOn;
+            categoryToUpdate.IsDeleted = category.IsDeleted;
+            categoryToUpdate.ModifiedOn = category.ModifiedOn;
+
+            this.categoriesRepository.Update(categoryToUpdate);
+            await this.categoriesRepository.SaveChangesAsync();
+        }
+
+        public async Task DeleteByIdAsync(int id)
+        {
+            var categoryToDelete = await this.categoriesRepository
+                .All()
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            this.categoriesRepository.Delete(categoryToDelete);
+            await this.categoriesRepository.SaveChangesAsync();
+        }
+
+        public bool DoesCategoryExists(int id)
+        {
+            var category = this.categoriesRepository
+                .AllAsNoTracking()
+                .FirstOrDefault(x => x.Id == id);
+
+            return category != null;
         }
     }
 }

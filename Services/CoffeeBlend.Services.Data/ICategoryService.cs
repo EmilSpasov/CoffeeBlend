@@ -11,8 +11,16 @@
 
         IEnumerable<KeyValuePair<string, string>> GetAllAsKeyValuePairs();
 
-        IEnumerable<T> GetAll<T>();
+        Task<IEnumerable<T>> GetAllAsync<T>();
 
-        IEnumerable<T> GetAllByName<T>(string name);
+        Task<IEnumerable<T>> GetAllByNameAsync<T>(string name);
+
+        Task<T> GetByIdAsync<T>(int? id);
+
+        Task UpdateAsync(AdministrationCategoryViewModel category);
+
+        Task DeleteByIdAsync(int id);
+
+        bool DoesCategoryExists(int id);
     }
 }

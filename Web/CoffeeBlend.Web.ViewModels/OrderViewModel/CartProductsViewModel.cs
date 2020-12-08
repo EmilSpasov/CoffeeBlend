@@ -17,6 +17,8 @@
 
         public string Request { get; set; }
 
+        public decimal InitialPrice { get; set; }
+
         public decimal SubTotalPrice { get; set; }
     }
 }

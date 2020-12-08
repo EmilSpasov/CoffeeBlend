@@ -1,5 +1,7 @@
 ﻿namespace CoffeeBlend.Web.Controllers
 {
+    using System.Threading.Tasks;
+
     using CoffeeBlend.Common;
     using CoffeeBlend.Services.Data;
     using CoffeeBlend.Web.ViewModels.MenuViewModel;
@@ -14,11 +16,11 @@
             this.categoryService = categoryService;
         }
 
-        public IActionResult Index(string name = GlobalConstants.CoffeeName)
+        public async Task<IActionResult> Index(string name = GlobalConstants.CoffeeName)
         {
             var viewModel = new CategoryListViewModel
             {
-                Categories = this.categoryService.GetAllByName<CategoryInListViewModel>(name),
+                Categories = await this.categoryService.GetAllByNameAsync<CategoryInListViewModel>(name),
             };
 
             return this.View(viewModel);
