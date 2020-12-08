@@ -58,11 +58,13 @@
             return this.Redirect("/ShoppingCart/Index");
         }
 
+        [Authorize]
         public IActionResult Checkout()
         {
             return this.View();
         }
 
+        [Authorize]
         public IActionResult ThankYou()
         {
             return this.View();

@@ -1,0 +1,87 @@
+﻿@model CoffeeBlend.Web.ViewModels.ProductsViewModels.AdministrationProductsInListViewModel
+
+@{
+    this.ViewData["Title"] = "Products page" + Model.PageNumber;
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a class="btn btn-primary" asp-area="Administration" asp-controller="Products" asp-action="Create">Create New</a>
+</p>
+<table class="table table-bordered table-striped text-white">
+    <thead>
+    @foreach (var product in Model.Products.Take(1))
+    {
+        <tr>
+            <th class="col-md-2">
+                @Html.DisplayNameFor(model => product.Name)
+            </th>
+            <th class="col-md-2">
+                @Html.DisplayNameFor(model => product.Image)
+            </th>
+            <th class="col-md-2">
+                @Html.DisplayNameFor(model => product.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => product.Price)
+            </th>
+            <th class="col-md-2">
+                Category
+                @*@Html.DisplayNameFor(model => model.CategoryProduct)*@
+            </th>
+            <th class="col-md-2">
+                @Html.DisplayNameFor(model => product.IsDeleted)
+            </th>
+            <th class="col-md-2">
+                @Html.DisplayNameFor(model => product.CreatedOn)
+            </th>
+            <th class="col-md-2">
+                @Html.DisplayNameFor(model => product.ModifiedOn)
+            </th>
+            <th class="col-md-2">
+                Action
+            </th>
+        </tr>
+    }
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Products)
+    {
+        <tr>
+            <td class="col-md-2">
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td class="col-md-2">
+                <img class="w-50 h-50" src="@Html.DisplayFor(modelItem => item.ImageUrl)" alt="" />
+                @*@Html.DisplayFor(modelItem => item.Image.Url)*@
+            </td>
+            <td class="col-md-2">
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td class="col-md-2">
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td class="col-md-2">
+                @Html.DisplayFor(modelItem => item.CategoryProductName)
+            </td>
+            <td class="col-md-2">
+                @Html.DisplayFor(modelItem => item.IsDeleted)
+                @Html.DisplayFor(modelItem => item.DeletedOn)
+            </td>
+            <td class="col-md-2">
+                @Html.DisplayFor(modelItem => item.CreatedOn)
+            </td>
+            <td class="col-md-2">
+                @Html.DisplayFor(modelItem => item.ModifiedOn)
+            </td>
+            <td class="col-md-2">
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+<partial name="_ProductsPaging" model="@Model" />

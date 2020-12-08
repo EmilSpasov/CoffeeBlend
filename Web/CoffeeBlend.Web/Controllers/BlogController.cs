@@ -34,7 +34,7 @@
             {
                 ItemsPerPage = itemsPerPage,
                 PageNumber = id,
-                BlogsCount = this.blogService.GetCount(),
+                ItemsCount = this.blogService.GetCount(),
                 Blogs = this.blogService.GetAll<BlogInListViewModel>(id),
             };
 

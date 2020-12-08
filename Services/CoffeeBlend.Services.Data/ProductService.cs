@@ -8,6 +8,7 @@
     using CoffeeBlend.Data.Models;
     using CoffeeBlend.Services.Mapping;
     using CoffeeBlend.Web.ViewModels.ProductsViewModels;
+    using Microsoft.EntityFrameworkCore;
 
     public class ProductService : IProductService
     {
@@ -53,42 +54,72 @@
             await this.productsRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<T> GetAllByCategoryName<T>(string name)
+        public async Task<IEnumerable<T>> GetAllAsync<T>(int page, int itemsPerPage)
         {
-            var currentCategory = this.categoryRepository
+            var products = await this.productsRepository
+                .AllAsNoTrackingWithDeleted()
+                .Skip((page - 1) * itemsPerPage)
+                .Take(itemsPerPage)
+                .To<T>()
+                .ToListAsync();
+
+            return products;
+
+            //var blogs = this.articleRepository.AllAsNoTracking()
+            //    .OrderByDescending(x => x.Id)
+            //    .Skip((page - 1) * itemsPerPage)
+            //    .Take(itemsPerPage)
+            //    .To<T>()
+            //    .ToList();
+
+            //return blogs;
+
+            // 1-6 - page 1
+            // 7-12 - page 2
+            // 13-18 - page 3
+        }
+
+        public async Task<IEnumerable<T>> GetAllByCategoryNameAsync<T>(string name)
+        {
+            var currentCategory = await this.categoryRepository
                 .AllAsNoTracking()
-                .FirstOrDefault(x => x.Name == name);
+                .FirstOrDefaultAsync(x => x.Name == name);
 
             var categoryId = currentCategory.Id;
 
-            var products = this.productsRepository.AllAsNoTracking()
+            var products = await this.productsRepository.AllAsNoTracking()
                 .Where(x => x.CategoryProductId == categoryId)
                 .To<T>()
-                .ToList();
+                .ToListAsync();
 
             return products;
         }
 
-        public T GetSingleProductById<T>(int id)
+        public async Task<T> GetSingleProductByIdAsync<T>(int id)
         {
-            var product = this.productsRepository.AllAsNoTracking()
+            var product = await this.productsRepository.AllAsNoTracking()
                 .Where(x => x.Id == id)
                 .To<T>()
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
 
             return product;
         }
 
-        public IEnumerable<T> GetRelatedProductsByCategoryId<T>(int categoryId, int productId)
+        public async Task<IEnumerable<T>> GetRelatedProductsByCategoryIdAsync<T>(int categoryId, int productId)
         {
-            var relatedProducts = this.productsRepository
+            var relatedProducts = await this.productsRepository
                 .AllAsNoTracking()
                 .Where(x => x.CategoryProductId == categoryId && x.Id != productId)
                 .To<T>()
                 .Take(4)
-                .ToArray();
+                .ToArrayAsync();
 
             return relatedProducts;
+        }
+
+        public int GetCount()
+        {
+            return this.productsRepository.AllAsNoTrackingWithDeleted().Count();
         }
     }
 }

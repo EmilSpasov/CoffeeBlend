@@ -14,9 +14,9 @@
 
         public int NextPageNumber => this.PageNumber + 1;
 
-        public int PageCount => (int)Math.Ceiling((double)this.BlogsCount / this.ItemsPerPage);
+        public int PageCount => (int)Math.Ceiling((double)this.ItemsCount / this.ItemsPerPage);
 
-        public int BlogsCount { get; set; }
+        public int ItemsCount { get; set; }
 
         public int ItemsPerPage { get; set; }
     }

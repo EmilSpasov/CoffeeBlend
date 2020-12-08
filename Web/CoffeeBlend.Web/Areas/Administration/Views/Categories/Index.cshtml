@@ -28,7 +28,7 @@
                     @Html.DisplayNameFor(model => category.ModifiedOn)
                 </th>
                 <th>
-                    <h6>Action</h6>
+                    Action
                 </th>
             </tr>
         </thead>
@@ -52,9 +52,9 @@
                     @Html.DisplayFor(modelItem => category.ModifiedOn)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@category.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@category.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@category.Id">Delete</a>
+                    <a asp-area="Administration" asp-action="Edit" asp-route-id="@category.Id">Edit</a> |
+                    <a asp-area="Administration" asp-action="Details" asp-route-id="@category.Id">Details</a> |
+                    <a asp-area="Administration" asp-action="Delete" asp-route-id="@category.Id">Delete</a>
                 </td>
             </tr>
         }

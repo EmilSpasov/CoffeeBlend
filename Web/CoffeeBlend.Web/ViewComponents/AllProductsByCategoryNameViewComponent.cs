@@ -1,5 +1,7 @@
 ﻿namespace CoffeeBlend.Web.ViewComponents
 {
+    using System.Threading.Tasks;
+
     using CoffeeBlend.Services.Data;
     using CoffeeBlend.Web.ViewModels.MenuViewModel;
     using Microsoft.AspNetCore.Mvc;
@@ -13,11 +15,11 @@
             this.productService = productService;
         }
 
-        public IViewComponentResult Invoke(string name)
+        public async Task<IViewComponentResult> InvokeAsync(string name)
         {
             var viewModel = new ProductsListViewModel
             {
-                Products = this.productService.GetAllByCategoryName<ProductViewModel>(name),
+                Products = await this.productService.GetAllByCategoryNameAsync<ProductViewModel>(name),
             };
 
             return this.View(viewModel);

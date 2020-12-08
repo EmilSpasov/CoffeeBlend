@@ -9,10 +9,14 @@
     {
         Task CreateAsync(CreateProductInputModel input);
 
-        IEnumerable<T> GetAllByCategoryName<T>(string name);
+        Task<IEnumerable<T>> GetAllAsync<T>(int page, int itemsPerPage = 6);
 
-        T GetSingleProductById<T>(int id);
+        Task<IEnumerable<T>> GetAllByCategoryNameAsync<T>(string name);
 
-        IEnumerable<T> GetRelatedProductsByCategoryId<T>(int categoryId, int productId);
+        Task<T> GetSingleProductByIdAsync<T>(int id);
+
+        Task<IEnumerable<T>> GetRelatedProductsByCategoryIdAsync<T>(int categoryId, int productId);
+
+        int GetCount();
     }
 }

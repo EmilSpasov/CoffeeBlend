@@ -40,6 +40,7 @@
             return this.Redirect("/Home/ConfirmedReservation");
         }
 
+        [Authorize]
         public IActionResult ConfirmedReservation()
         {
             return this.View();
@@ -74,11 +75,13 @@
             return this.Redirect("/Home/SuccessfulContact");
         }
 
+        [Authorize]
         public IActionResult Privacy()
         {
             return this.View();
         }
 
+        [Authorize]
         public IActionResult SuccessfulContact()
         {
             return this.View();

@@ -1,5 +1,7 @@
 ﻿namespace CoffeeBlend.Web.ViewComponents
 {
+    using System.Threading.Tasks;
+
     using CoffeeBlend.Services.Data;
     using CoffeeBlend.Web.ViewModels.ProductsViewModels;
     using Microsoft.AspNetCore.Mvc;
@@ -13,11 +15,11 @@
             this.productService = productService;
         }
 
-        public IViewComponentResult Invoke(int categoryId, int productId)
+        public async Task<IViewComponentResult> InvokeAsync(int categoryId, int productId)
         {
             var viewModel = new RelatedProductsViewModel
             {
-                Products = this.productService.GetRelatedProductsByCategoryId<SingleProductViewModel>(categoryId, productId),
+                Products = await this.productService.GetRelatedProductsByCategoryIdAsync<SingleProductViewModel>(categoryId, productId),
             };
 
             return this.View(viewModel);
