@@ -21,7 +21,7 @@
             this.userManager = userManager;
         }
 
-        public IActionResult All(int id = 1)
+        public IActionResult Index(int id = 1)
         {
             if (id <= 0)
             {
@@ -77,7 +77,7 @@
 
             await this.blogService.AddCommentToBlog(userId, id, message);
 
-            return this.Redirect("/Blog/All");
+            return this.RedirectToAction(nameof(this.Details), new { id });
         }
     }
 }

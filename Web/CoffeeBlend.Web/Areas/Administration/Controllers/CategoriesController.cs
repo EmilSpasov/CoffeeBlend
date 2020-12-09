@@ -1,11 +1,7 @@
 ﻿namespace CoffeeBlend.Web.Areas.Administration.Controllers
 {
-    using System.Linq;
     using System.Threading.Tasks;
 
-    using CoffeeBlend.Data;
-    using CoffeeBlend.Data.Common.Repositories;
-    using CoffeeBlend.Data.Models;
     using CoffeeBlend.Services.Data;
     using CoffeeBlend.Web.ViewModels.CategoriesViewModel;
     using Microsoft.AspNetCore.Mvc;
@@ -25,7 +21,7 @@
         {
             var viewModel = new AdministrationCategoryInListViewModel
             {
-                Categories = await this.categoryService.GetAllAsync<AdministrationCategoryViewModel>(),
+                Categories = await this.categoryService.GetAllWithDeletedAsync<AdministrationCategoryViewModel>(),
             };
 
             return this.View(viewModel);
@@ -34,13 +30,8 @@
         }
 
         // GET: Administration/Categories/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null)
-            {
-                return this.NotFound();
-            }
-
             var category = await this.categoryService.GetByIdAsync<AdministrationCategoryViewModel>(id);
 
             // var categoryProduct = await this.db.CategoryProducts
@@ -68,17 +59,12 @@
         {
             await this.categoryService.CreateAsync(input);
 
-            return this.Redirect("/Menu");
+            return this.RedirectToAction(nameof(this.Index));
         }
 
         // GET: Administration/Categories/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
-            {
-                return this.NotFound();
-            }
-
             var category = await this.categoryService.GetByIdAsync<AdministrationCategoryViewModel>(id);
             if (category == null)
             {
@@ -125,13 +111,8 @@
         }
 
         // GET: Administration/Categories/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null)
-            {
-                return this.NotFound();
-            }
-
             var category = await this.categoryService.GetByIdAsync<AdministrationCategoryViewModel>(id);
 
             if (category == null)

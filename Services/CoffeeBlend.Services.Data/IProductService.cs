@@ -15,7 +15,21 @@
 
         Task<T> GetSingleProductByIdAsync<T>(int id);
 
+        Task<T> GetProductByIdWithDeletedAsync<T>(int id);
+
         Task<IEnumerable<T>> GetRelatedProductsByCategoryIdAsync<T>(int categoryId, int productId);
+
+        IEnumerable<T> GetCategories<T>();
+
+        IEnumerable<T> GetImages<T>();
+
+        Task UpdateAsync(AdministrationProductsViewModel product);
+
+        Task DeleteByIdAsync(int id);
+
+        Task<T> GetByIdAsync<T>(int id);
+
+        bool DoesProductExists(int id);
 
         int GetCount();
     }

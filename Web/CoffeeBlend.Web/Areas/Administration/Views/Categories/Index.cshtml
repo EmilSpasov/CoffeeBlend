@@ -1,62 +1,64 @@
 ﻿@model CoffeeBlend.Web.ViewModels.CategoriesViewModel.AdministrationCategoryInListViewModel
-
 @{
     ViewData["Title"] = "Categories";
 }
 
-<h1>Categories</h1>
+<section class="ftco-menu mb-5 pb-5 text-center text-white">
+    <h1>Categories</h1>
 
-<p>
-    <a class="btn btn-primary py-3 px-5" asp-area="Administration" asp-controller="Categories" asp-action="Create">Create New</a>
-</p>
+    <p>
+        <a class="btn btn-primary" asp-area="Administration" asp-controller="Categories" asp-action="Create">Create New</a>
+        <a class="btn btn-primary" asp-area="Administration" asp-controller="Dashboard" asp-action="Index">Back to Admin Panel</a>
+    </p>
 
-<table class="table table-bordered table-striped text-white">
-    @foreach (var category in Model.Categories.Take(1))
-    {
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => category.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => category.IsDeleted)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => category.CreatedOn)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => category.ModifiedOn)
-                </th>
-                <th>
-                    Action
-                </th>
-            </tr>
-        </thead>
-    }
-
-    <tbody>
-        @foreach (var category in Model.Categories)
+    <table class="table table-bordered table-striped text-white">
+        @foreach (var category in Model.Categories.Take(1))
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => category.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => category.IsDeleted)
-                    @Html.DisplayFor(modelItem => category.DeletedOn)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => category.CreatedOn)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => category.ModifiedOn)
-                </td>
-                <td>
-                    <a asp-area="Administration" asp-action="Edit" asp-route-id="@category.Id">Edit</a> |
-                    <a asp-area="Administration" asp-action="Details" asp-route-id="@category.Id">Details</a> |
-                    <a asp-area="Administration" asp-action="Delete" asp-route-id="@category.Id">Delete</a>
-                </td>
-            </tr>
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => category.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => category.IsDeleted)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => category.CreatedOn)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => category.ModifiedOn)
+                    </th>
+                    <th>
+                        Action
+                    </th>
+                </tr>
+            </thead>
         }
-    </tbody>
-</table>
+
+        <tbody>
+            @foreach (var category in Model.Categories)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => category.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => category.IsDeleted)
+                        @Html.DisplayFor(modelItem => category.DeletedOn)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => category.CreatedOn)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => category.ModifiedOn)
+                    </td>
+                    <td>
+                        <a asp-area="Administration" asp-action="Edit" asp-route-id="@category.Id">Edit</a> |
+                        <a asp-area="Administration" asp-action="Details" asp-route-id="@category.Id">Details</a> |
+                        <a asp-area="Administration" asp-action="Delete" asp-route-id="@category.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>

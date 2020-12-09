@@ -1,4 +1,4 @@
-﻿@model CoffeeBlend.Data.Models.Product
+﻿@model CoffeeBlend.Web.ViewModels.ProductsViewModels.AdministrationProductsViewModel
 
 @{
     ViewData["Title"] = "Delete";
@@ -21,8 +21,8 @@
             @Html.DisplayNameFor(model => model.Image)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Image.Url)
-        </dd class>
+            @Html.DisplayFor(model => model.ImageUrl)
+        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Description)
         </dt>
@@ -36,11 +36,11 @@
             @Html.DisplayFor(model => model.Price)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CategoryProduct)
+           Category
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CategoryProduct.Name)
-        </dd class>
+            @Html.DisplayFor(model => model.CategoryProductName)
+        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.IsDeleted)
         </dt>

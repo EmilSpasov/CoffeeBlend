@@ -64,19 +64,6 @@
                 .ToListAsync();
 
             return products;
-
-            //var blogs = this.articleRepository.AllAsNoTracking()
-            //    .OrderByDescending(x => x.Id)
-            //    .Skip((page - 1) * itemsPerPage)
-            //    .Take(itemsPerPage)
-            //    .To<T>()
-            //    .ToList();
-
-            //return blogs;
-
-            // 1-6 - page 1
-            // 7-12 - page 2
-            // 13-18 - page 3
         }
 
         public async Task<IEnumerable<T>> GetAllByCategoryNameAsync<T>(string name)
@@ -97,12 +84,22 @@
 
         public async Task<T> GetSingleProductByIdAsync<T>(int id)
         {
-            var product = await this.productsRepository.AllAsNoTracking()
+            var product = await this.productsRepository
+                .AllAsNoTracking()
                 .Where(x => x.Id == id)
                 .To<T>()
                 .FirstOrDefaultAsync();
 
             return product;
+        }
+
+        public async Task<T> GetProductByIdWithDeletedAsync<T>(int id)
+        {
+            return await this.productsRepository
+                .AllAsNoTrackingWithDeleted()
+                .Where(x => x.Id == id)
+                .To<T>()
+                .FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<T>> GetRelatedProductsByCategoryIdAsync<T>(int categoryId, int productId)
@@ -115,6 +112,67 @@
                 .ToArrayAsync();
 
             return relatedProducts;
+        }
+
+        public IEnumerable<T> GetCategories<T>()
+        {
+            return this.categoryRepository.All()
+                .To<T>()
+                .ToList();
+        }
+
+        public IEnumerable<T> GetImages<T>()
+        {
+            return this.imageRepository.All()
+                .To<T>()
+                .ToList();
+        }
+
+        public async Task UpdateAsync(AdministrationProductsViewModel product)
+        {
+            var productToUpdate = this.productsRepository
+                .AllAsNoTrackingWithDeleted()
+                .FirstOrDefault(x => x.Id == product.Id);
+
+            productToUpdate.Name = product.Name;
+            productToUpdate.Price = product.Price;
+            productToUpdate.CategoryProductId = product.CategoryProductId;
+            productToUpdate.Description = product.Description;
+            productToUpdate.DeletedOn = product.DeletedOn;
+            productToUpdate.IsDeleted = product.IsDeleted;
+            productToUpdate.CreatedOn = product.CreatedOn;
+            productToUpdate.ModifiedOn = product.ModifiedOn;
+
+            this.productsRepository.Update(productToUpdate);
+            await this.productsRepository.SaveChangesAsync();
+        }
+
+        public async Task DeleteByIdAsync(int id)
+        {
+            var productToDelete = await this.productsRepository
+                .AllAsNoTrackingWithDeleted()
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            this.productsRepository.Delete(productToDelete);
+            await this.productsRepository.SaveChangesAsync();
+        }
+
+        public async Task<T> GetByIdAsync<T>(int id)
+        {
+            return await this.productsRepository
+                .AllAsNoTrackingWithDeleted()
+                .Where(x => x.Id == id)
+                .To<T>()
+                .FirstOrDefaultAsync();
+        }
+
+        public bool DoesProductExists(int id)
+        {
+            var product = this.productsRepository
+                .AllAsNoTrackingWithDeleted()
+                .FirstOrDefault(x => x.Id == id);
+
+            return product != null;
         }
 
         public int GetCount()

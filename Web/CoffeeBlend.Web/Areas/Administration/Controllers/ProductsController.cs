@@ -1,25 +1,18 @@
 ﻿namespace CoffeeBlend.Web.Areas.Administration.Controllers
 {
-    using System.Linq;
     using System.Threading.Tasks;
 
-    using CoffeeBlend.Data;
-    using CoffeeBlend.Data.Models;
     using CoffeeBlend.Services.Data;
     using CoffeeBlend.Web.ViewModels.ProductsViewModels;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.Rendering;
-    using Microsoft.EntityFrameworkCore;
 
     public class ProductsController : AdministrationController
     {
-        private readonly ApplicationDbContext _context;
         private readonly ICategoryService categoryService;
         private readonly IProductService productService;
 
-        public ProductsController(ApplicationDbContext context, ICategoryService categoryService, IProductService productService)
+        public ProductsController(ICategoryService categoryService, IProductService productService)
         {
-            _context = context;
             this.categoryService = categoryService;
             this.productService = productService;
         }
@@ -41,17 +34,15 @@
                 ItemsCount = this.productService.GetCount(),
                 Products = await this.productService.GetAllAsync<AdministrationProductsViewModel>(id),
             };
-            //var viewModel = new BlogListViewModel
-            //{
-            //    ItemsPerPage = itemsPerPage,
-            //    PageNumber = id,
-            //    BlogsCount = this.blogService.GetCount(),
-            //    Blogs = this.blogService.GetAll<BlogInListViewModel>(id),
-            //};
-            //var applicationDbContext = _context.Products.Include(p => p.CategoryProduct).Include(p => p.Image);
-            //return View(await applicationDbContext.ToListAsync());
 
             return this.View(viewModel);
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var product = await this.productService.GetSingleProductByIdAsync<AdministrationProductsViewModel>(id);
+
+            return this.View(product);
         }
 
         // GET: Administration/Products/Create
@@ -62,9 +53,8 @@
             return this.View(viewModel);
         }
 
-
         // POST: Administration/Products/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -80,98 +70,56 @@
 
             this.TempData["Message"] = "Product added successfully.";
 
-            return this.Redirect("/Menu");
+            return this.RedirectToAction(nameof(this.Index));
         }
 
         // GET: Administration/Products/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var viewModel = await this.productService.GetByIdAsync<AdministrationProductsViewModel>(id);
+            viewModel.CategoriesItems = this.categoryService.GetAllAsKeyValuePairs();
 
-            var product = await _context.Products.FindAsync(id);
-            if (product == null)
-            {
-                return NotFound();
-            }
-            ViewData["CategoryProductId"] = new SelectList(_context.CategoryProducts, "Id", "Name", product.CategoryProductId);
-            ViewData["ImageId"] = new SelectList(_context.Images, "Id", "Url", product.ImageId);
-            return View(product);
+            return this.View(viewModel);
         }
 
         // POST: Administration/Products/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Name,ImageId,Description,Price,CategoryProductId,IsDeleted,DeletedOn,Id,CreatedOn,ModifiedOn")] Product product)
+        public async Task<IActionResult> Edit(int id, AdministrationProductsViewModel product)
         {
             if (id != product.Id)
             {
-                return NotFound();
+                return this.NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(product);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ProductExists(product.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["CategoryProductId"] = new SelectList(_context.CategoryProducts, "Id", "Name", product.CategoryProductId);
-            ViewData["ImageId"] = new SelectList(_context.Images, "Id", "Url", product.ImageId);
-            return View(product);
+            await this.productService.UpdateAsync(product);
+
+            return this.RedirectToAction(nameof(this.Index));
         }
 
         // GET: Administration/Products/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var product = await _context.Products
-                .Include(p => p.CategoryProduct)
-                .Include(p => p.Image)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var product = await this.productService.GetByIdAsync<AdministrationProductsViewModel>(id);
             if (product == null)
             {
-                return NotFound();
+                return this.NotFound();
             }
 
-            return View(product);
+            return this.View(product);
         }
 
         // POST: Administration/Products/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
+        [ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var product = await _context.Products.FindAsync(id);
-            _context.Products.Remove(product);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+            await this.productService.DeleteByIdAsync(id);
 
-        private bool ProductExists(int id)
-        {
-            return _context.Products.Any(e => e.Id == id);
+            return this.RedirectToAction(nameof(this.Index));
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿namespace CoffeeBlend.Services.Data
 {
-    using System;
     using System.Threading.Tasks;
 
     using CoffeeBlend.Data.Common.Repositories;

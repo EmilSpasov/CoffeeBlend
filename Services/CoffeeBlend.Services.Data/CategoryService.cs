@@ -45,6 +45,14 @@
         public async Task<IEnumerable<T>> GetAllAsync<T>()
         {
             return await this.categoriesRepository
+                .AllAsNoTracking()
+                .To<T>()
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<T>> GetAllWithDeletedAsync<T>()
+        {
+            return await this.categoriesRepository
                 .AllAsNoTrackingWithDeleted()
                 .To<T>()
                 .ToListAsync();
@@ -59,7 +67,7 @@
                 .ToListAsync();
         }
 
-        public async Task<T> GetByIdAsync<T>(int? id)
+        public async Task<T> GetByIdAsync<T>(int id)
         {
             return await this.categoriesRepository
                 .AllAsNoTrackingWithDeleted()
@@ -87,7 +95,7 @@
         public async Task DeleteByIdAsync(int id)
         {
             var categoryToDelete = await this.categoriesRepository
-                .All()
+                .AllAsNoTrackingWithDeleted()
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             this.categoriesRepository.Delete(categoryToDelete);
@@ -97,7 +105,7 @@
         public bool DoesCategoryExists(int id)
         {
             var category = this.categoriesRepository
-                .AllAsNoTracking()
+                .AllAsNoTrackingWithDeleted()
                 .FirstOrDefault(x => x.Id == id);
 
             return category != null;

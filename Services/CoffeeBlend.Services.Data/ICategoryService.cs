@@ -13,9 +13,11 @@
 
         Task<IEnumerable<T>> GetAllAsync<T>();
 
+        Task<IEnumerable<T>> GetAllWithDeletedAsync<T>();
+
         Task<IEnumerable<T>> GetAllByNameAsync<T>(string name);
 
-        Task<T> GetByIdAsync<T>(int? id);
+        Task<T> GetByIdAsync<T>(int id);
 
         Task UpdateAsync(AdministrationCategoryViewModel category);
 
