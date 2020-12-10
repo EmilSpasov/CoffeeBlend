@@ -1,6 +1,9 @@
-﻿namespace CoffeeBlend.Web.Controllers
+﻿using CoffeeBlend.Services.Messaging;
+
+namespace CoffeeBlend.Web.Controllers
 {
     using System.Diagnostics;
+    using System.Text;
     using System.Threading.Tasks;
 
     using CoffeeBlend.Services.Data;
@@ -14,11 +17,13 @@
     {
         private readonly IReservationService reservationService;
         private readonly IContactService contactService;
+        private readonly IEmailSender emailSender;
 
-        public HomeController(IReservationService reservationService, IContactService contactService)
+        public HomeController(IReservationService reservationService, IContactService contactService, IEmailSender emailSender)
         {
             this.reservationService = reservationService;
             this.contactService = contactService;
+            this.emailSender = emailSender;
         }
 
         public IActionResult Index()
@@ -71,6 +76,16 @@
             }
 
             await this.contactService.CreateAsync(input);
+
+            // SendGrid not working with abv.bg
+            var html = new StringBuilder();
+
+            html.AppendLine($"<h1>Hello {input.FullName}!</h1>");
+            html.AppendLine($"<h1>Thank you for contacting us at Coffee Blend.</h1>");
+            html.AppendLine($"<h1>We will get back to you as soon as possible!</h1>");
+            html.AppendLine($"<h1>Best regards, Emil Spasov</h1>");
+            await this.emailSender
+                .SendEmailAsync("emil4o7e@abv.bg", "CoffeeBlend", input.Email, "Your message has been received:", html.ToString());
 
             return this.Redirect("/Home/SuccessfulContact");
         }
