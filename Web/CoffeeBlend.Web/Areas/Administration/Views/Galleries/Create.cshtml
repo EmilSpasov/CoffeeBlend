@@ -1,0 +1,27 @@
+﻿@model CoffeeBlend.Web.ViewModels.GalleryViewModel.CreateGalleryInputModel
+
+@{
+    ViewData["Title"] = "Gallery";
+}
+
+<hr />
+<section class="ftco-menu mb-5 pb-5 text-center">
+    <h1 class="text-center">@this.ViewData["Title"]</h1>
+    <form method="post" class="text-center col-3 offset-4" enctype="multipart/form-data">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="ImageFile"></label>
+            <input type="file" asp-for="ImageFile" class="form-control" />
+            <span asp-validation-for="ImageFile" class="text-danger"></span>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Add Photo" />
+    </form>
+</section>
+
+<div class="text-center col-3 offset-4">
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

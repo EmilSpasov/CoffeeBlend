@@ -1,16 +1,12 @@
 ﻿namespace CoffeeBlend.Data.Models
 {
-    using System.Collections.Generic;
 
     using CoffeeBlend.Data.Common.Models;
 
     public class Gallery : BaseDeletableModel<int>
     {
-        public Gallery()
-        {
-            this.Images = new HashSet<Image>();
-        }
+        public int ImageId { get; set; }
 
-        public virtual IEnumerable<Image> Images { get; set; }
+        public virtual Image Image { get; set; }
     }
 }

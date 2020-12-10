@@ -1,12 +1,11 @@
-﻿using CoffeeBlend.Services.Messaging;
-
-namespace CoffeeBlend.Web.Controllers
+﻿namespace CoffeeBlend.Web.Controllers
 {
     using System.Diagnostics;
     using System.Text;
     using System.Threading.Tasks;
 
     using CoffeeBlend.Services.Data;
+    using CoffeeBlend.Services.Messaging;
     using CoffeeBlend.Web.ViewModels;
     using CoffeeBlend.Web.ViewModels.ContactViewModel;
     using CoffeeBlend.Web.ViewModels.ReservationViewModel;

@@ -1,0 +1,69 @@
+﻿@model CoffeeBlend.Web.ViewModels.GalleryViewModel.GalleryInListViewModel
+
+@{
+    ViewData["Title"] = "Gallery";
+}
+
+<section class="ftco-menu mb-5 pb-5 text-center text-white">
+    <p>
+        <a class="btn btn-primary" asp-area="Administration" asp-controller="Galleries" asp-action="Create">Add New</a>
+        <a class="btn btn-primary" asp-area="Administration" asp-controller="Dashboard" asp-action="Index">Back to Admin Panel</a>
+    </p>
+
+    <table class="table table-bordered table-striped text-white">
+        <thead>
+            @foreach (var photo in Model.Photos.Take(1))
+            {
+                <tr>
+                    <th class="col-md-2">
+                        @Html.DisplayNameFor(model => photo.Image)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => photo.IsDeleted)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => photo.DeletedOn)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => photo.CreatedOn)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => photo.ModifiedOn)
+                    </th>
+                    <th>
+                        Action
+                    </th>
+                </tr>
+            }
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model.Photos)
+            {
+                <tr>
+                    <td class="col-md-2">
+                        <img class="w-50 h-50" src="@Html.DisplayFor(modelItem => item.ImageUrl)" alt="" />
+                       
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsDeleted)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DeletedOn)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedOn)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ModifiedOn)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>

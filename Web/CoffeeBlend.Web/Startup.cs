@@ -71,6 +71,7 @@
             services.AddTransient<IContactService, ContactService>();
             services.AddTransient<IBlogService, BlogService>();
             services.AddTransient<ICartService, CartService>();
+            services.AddTransient<IGalleryService, GalleryService>();
 
             // Cloudinary
             Account account = new Account(

@@ -18,7 +18,7 @@
         }
 
         // GET: Administration/Products
-        public async Task<IActionResult> Index(int id = 1)
+        public async Task<IActionResult> Index(string criteria, int id = 1)
         {
             if (id <= 0)
             {

@@ -6,7 +6,6 @@
 
     using CoffeeBlend.Data.Models;
     using CoffeeBlend.Services.Mapping;
-    using Microsoft.AspNetCore.Http;
 
     public class AdministrationProductsViewModel : IMapFrom<Product>
     {
@@ -15,10 +14,6 @@
         [Required]
         [MinLength(3)]
         public string Name { get; set; }
-
-        public int ImageImageId { get; set; }
-
-        public IFormFile ImageFile { get; set; }
 
         [Required]
         public string ImageUrl { get; set; }

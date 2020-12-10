@@ -114,20 +114,6 @@
             return relatedProducts;
         }
 
-        public IEnumerable<T> GetCategories<T>()
-        {
-            return this.categoryRepository.All()
-                .To<T>()
-                .ToList();
-        }
-
-        public IEnumerable<T> GetImages<T>()
-        {
-            return this.imageRepository.All()
-                .To<T>()
-                .ToList();
-        }
-
         public async Task UpdateAsync(AdministrationProductsViewModel product)
         {
             var productToUpdate = this.productsRepository
@@ -164,15 +150,6 @@
                 .Where(x => x.Id == id)
                 .To<T>()
                 .FirstOrDefaultAsync();
-        }
-
-        public bool DoesProductExists(int id)
-        {
-            var product = this.productsRepository
-                .AllAsNoTrackingWithDeleted()
-                .FirstOrDefault(x => x.Id == id);
-
-            return product != null;
         }
 
         public int GetCount()
