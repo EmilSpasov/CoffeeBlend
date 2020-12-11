@@ -1,0 +1,59 @@
+﻿@model CoffeeBlend.Web.ViewModels.ReservationViewModel.CreateReservationInputModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<section class="ftco-menu mb-5 pb-5 text-center text-white">
+    <h4 class="text-center col-3 offset-4">Reservation</h4>
+    <hr />
+    <div class="row">
+        <div class="text-center col-3 offset-4">
+            <form asp-area="Administration" asp-controller="Reservations" asp-action="Create" method="post" class="appointment-form">
+                <div class="d-md-flex">
+                    <div class="form-group">
+                        <input asp-for="FirstName" class="form-control" placeholder="First Name" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group ml-md-4">
+                        <input asp-for="LastName" class="form-control" placeholder="Last Name" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="d-md-flex">
+                    <div class="form-group">
+                        <div class="input-wrap">
+                            <input type="date" asp-for="Date" asp class="form-control" placeholder="Date" />
+                            <span asp-validation-for="Date" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group ml-md-4">
+                        <div class="input-wrap">
+                            <input type="time" asp-for="Time" asp class="form-control" placeholder="Time" />
+                            <span asp-validation-for="Time" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group ml-md-4">
+                        <input asp-for="Phone" asp class="form-control" placeholder="Phone" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="d-md-flex">
+                    <div class="form-group">
+                        <textarea asp-for="Message" cols="30" rows="1" class="form-control" placeholder="Message"></textarea>
+                        <span asp-validation-for="Message" class="text-danger"></span>
+                    </div>
+                    <div class="form-group ml-md-4">
+                        <input type="submit" value="Appointment" class="btn btn-primary py-3 px-4">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<div class="text-center col-3 offset-4">
+    <a asp-action="Index">Back to List</a>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

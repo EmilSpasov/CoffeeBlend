@@ -6,7 +6,7 @@
             .Select(x => new SelectListItem(x.Value, x.Key));
 }
 <section class="ftco-menu mb-5 pb-5 text-center">
-    <h1 class="text-center">@this.ViewData["Title"]</h1>
+    <h1 class="text-center col-3 offset-4">Product</h1>
 
     <form method="post" class="text-center col-3 offset-4" enctype="multipart/form-data">
         <div asp-validation-summary="All" class="text-danger"></div>
@@ -38,3 +38,6 @@
         <input type="submit" class="btn btn-primary" value="Add Product" />
     </form>
 </section>
+<div class="text-center col-3 offset-4">
+    <a asp-action="Index">Back to List</a>
+</div>
