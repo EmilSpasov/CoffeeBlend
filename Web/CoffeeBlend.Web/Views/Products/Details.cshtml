@@ -20,7 +20,6 @@
                     <h3>@Model.Name</h3>
                     <input type="hidden" id="price" asp-for="@Model.Price" />
                     <p class="price"><span id="productPrice">$@Model.Price</span></p>
-                    @*<p class="price"><span id="productPrice">$@Model.ActualPrice</span></p>*@
                     <div class="row mt-4">
                         @if (Model.CategoryProductId == 1 || Model.CategoryProductId == 3)
                         {
@@ -45,7 +44,7 @@
                                     <i class="icon-minus"></i>
                                 </button>
                             </span>
-                            <input readonly="readonly" asp-for="@Model.Quantity" type="number" style="-moz-appearance: textfield" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="10">
+                            <input readonly="readonly" asp-for="@Model.Quantity" type="number" style="-moz-appearance: textfield" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="100">
                             <span class="input-group-btn ml-2">
                                 <button type="button" class="quantity-right-plus btn" data-type="plus" data-field="quantity">
                                     <i class="icon-plus" aria-hidden="true"></i>
@@ -98,7 +97,7 @@
                 // Get its current value
                 var currentVal = parseInt($('input[name=' + fieldName + ']').val());
                 // If is not undefined
-                if (!isNaN(currentVal) && currentVal < 10) {
+                if (!isNaN(currentVal) && currentVal < 100) {
                     // Increment
                     $('input[name=' + fieldName + ']').val(currentVal + 1);
                     //document.getElementById('quantity').value++;

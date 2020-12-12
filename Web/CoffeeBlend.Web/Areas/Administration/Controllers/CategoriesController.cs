@@ -25,8 +25,6 @@
             };
 
             return this.View(viewModel);
-
-            // return this.View(await this.db.CategoryProducts.ToListAsync());
         }
 
         // GET: Administration/Categories/Details/5
@@ -34,8 +32,6 @@
         {
             var category = await this.categoryService.GetByIdAsync<AdministrationCategoryViewModel>(id);
 
-            // var categoryProduct = await this.db.CategoryProducts
-            //    .FirstOrDefaultAsync(m => m.Id == id);
             if (category == null)
             {
                 return this.NotFound();
@@ -51,12 +47,15 @@
         }
 
         // POST: Administration/Categories/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public async Task<IActionResult> CreateAsync(CreateCategoryInputModel input)
+        public async Task<IActionResult> Create(CreateCategoryInputModel input)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
             await this.categoryService.CreateAsync(input);
 
             return this.RedirectToAction(nameof(this.Index));

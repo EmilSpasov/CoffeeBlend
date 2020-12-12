@@ -2,7 +2,6 @@
 {
     using System.Threading.Tasks;
 
-    using CoffeeBlend.Common;
     using CoffeeBlend.Data.Models;
     using CoffeeBlend.Services.Data;
     using CoffeeBlend.Web.ViewModels.BlogViewModel;
@@ -21,7 +20,7 @@
             this.userManager = userManager;
         }
 
-        public IActionResult Index(int id = 1)
+        public async Task<IActionResult> Index(int id = 1)
         {
             if (id <= 0)
             {
@@ -35,34 +34,15 @@
                 ItemsPerPage = itemsPerPage,
                 PageNumber = id,
                 ItemsCount = this.blogService.GetCount(),
-                Blogs = this.blogService.GetAll<BlogInListViewModel>(id),
+                Blogs = await this.blogService.GetAllAsync<BlogInListViewModel>(id),
             };
 
             return this.View(viewModel);
         }
 
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
-        public IActionResult Create()
+        public async Task<IActionResult> Details(int id)
         {
-            return this.View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Create(CreateBlogInputModel input)
-        {
-            if (!this.ModelState.IsValid)
-            {
-                return this.View(input);
-            }
-
-            await this.blogService.CreateAsync(input);
-
-            return this.Redirect("/Blog/All");
-        }
-
-        public IActionResult Details(int id)
-        {
-            var blog = this.blogService.GetById<SingleBlogViewModel>(id);
+            var blog = await this.blogService.GetByIdAsync<SingleBlogViewModel>(id);
 
             return this.View(blog);
         }

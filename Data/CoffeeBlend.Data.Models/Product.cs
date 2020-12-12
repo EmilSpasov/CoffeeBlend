@@ -19,6 +19,8 @@
 
         public decimal Price { get; set; }
 
+        public int? BuyedCount { get; set; }
+
         public int CategoryProductId { get; set; }
 
         public virtual CategoryProduct CategoryProduct { get; set; }

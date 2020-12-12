@@ -1,5 +1,7 @@
 ﻿namespace CoffeeBlend.Web.ViewComponents
 {
+    using System.Threading.Tasks;
+
     using CoffeeBlend.Services.Data;
     using CoffeeBlend.Web.ViewModels.BlogViewModel;
     using Microsoft.AspNetCore.Mvc;
@@ -13,11 +15,11 @@
             this.blogService = blogService;
         }
 
-        public IViewComponentResult Invoke()
+        public async Task<IViewComponentResult> InvokeAsync()
         {
             var viewModel = new BlogListViewModel
             {
-                Blogs = this.blogService.GetMostRecent<BlogInListViewModel>(),
+                Blogs = await this.blogService.GetMostRecentAsync<BlogInListViewModel>(),
             };
 
             return this.View(viewModel);

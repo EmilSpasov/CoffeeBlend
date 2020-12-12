@@ -1,6 +1,7 @@
 ﻿namespace CoffeeBlend.Web.Areas.Administration.Controllers
 {
     using System.Threading.Tasks;
+
     using CoffeeBlend.Services.Data;
     using CoffeeBlend.Web.ViewModels.GalleryViewModel;
     using Microsoft.AspNetCore.Mvc;
@@ -45,6 +46,11 @@
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, GalleryViewModel gallery)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(gallery);
+            }
+
             await this.galleryService.UpdateAsync(gallery);
 
             return this.RedirectToAction(nameof(this.Index));
@@ -55,7 +61,7 @@
         {
             var viewModel = new CreateGalleryInputModel();
 
-            return View(viewModel);
+            return this.View(viewModel);
         }
 
         // POST: Administration/Galleries/Create

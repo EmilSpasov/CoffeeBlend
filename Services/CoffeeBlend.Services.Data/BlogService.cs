@@ -8,6 +8,7 @@
     using CoffeeBlend.Data.Models;
     using CoffeeBlend.Services.Mapping;
     using CoffeeBlend.Web.ViewModels.BlogViewModel;
+    using Microsoft.EntityFrameworkCore;
 
     public class BlogService : IBlogService
     {
@@ -52,14 +53,14 @@
             await this.articleRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<T> GetAll<T>(int page, int itemsPerPage = 6)
+        public async Task<IEnumerable<T>> GetAllAsync<T>(int page, int itemsPerPage = 6)
         {
-            var blogs = this.articleRepository.AllAsNoTracking()
+            var blogs = await this.articleRepository.AllAsNoTracking()
                 .OrderByDescending(x => x.Id)
                 .Skip((page - 1) * itemsPerPage)
                 .Take(itemsPerPage)
                 .To<T>()
-                .ToList();
+                .ToListAsync();
 
             return blogs;
 
@@ -68,15 +69,55 @@
             // 13-18 - page 3
         }
 
-        public IEnumerable<T> GetMostRecent<T>()
+        public async Task<IEnumerable<T>> GetAllWithDeletedAsync<T>(int page, int itemsPerPage = 6)
         {
-            var recentBlogs = this.articleRepository.AllAsNoTracking()
+            return await this.articleRepository
+                .AllAsNoTrackingWithDeleted()
+                .OrderByDescending(x => x.Id)
+                .Skip((page - 1) * itemsPerPage)
+                .Take(itemsPerPage)
+                .To<T>()
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<T>> GetMostRecentAsync<T>()
+        {
+            var recentBlogs = await this.articleRepository.AllAsNoTracking()
                 .OrderByDescending(x => x.CreatedOn)
                 .Take(3)
                 .To<T>()
-                .ToList();
+                .ToListAsync();
 
             return recentBlogs;
+        }
+
+        public async Task UpdateAsync(AdministrationBlogsViewModel model)
+        {
+            var blogToUpdate = await this.articleRepository
+                .AllAsNoTrackingWithDeleted()
+                .FirstOrDefaultAsync(x => x.Id == model.Id);
+
+            blogToUpdate.Title = model.Title;
+            blogToUpdate.AuthorName = model.AuthorName;
+            blogToUpdate.Content = model.Content;
+            blogToUpdate.DeletedOn = model.DeletedOn;
+            blogToUpdate.ModifiedOn = model.ModifiedOn;
+            blogToUpdate.CreatedOn = model.CreatedOn;
+            blogToUpdate.IsDeleted = model.IsDeleted;
+
+            this.articleRepository.Update(blogToUpdate);
+
+            await this.articleRepository.SaveChangesAsync();
+        }
+
+        public async Task DeleteByIdAsync(int id)
+        {
+            var blogToDelete = await this.articleRepository
+                .AllAsNoTrackingWithDeleted()
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            this.articleRepository.Delete(blogToDelete);
+            await this.articleRepository.SaveChangesAsync();
         }
 
         public int GetCount()
@@ -84,12 +125,13 @@
             return this.articleRepository.All().Count();
         }
 
-        public T GetById<T>(int id)
+        public async Task<T> GetByIdAsync<T>(int id)
         {
-            return this.articleRepository.AllAsNoTracking()
+            return await this.articleRepository
+                .AllAsNoTrackingWithDeleted()
                 .Where(x => x.Id == id)
                 .To<T>()
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
         }
 
         public async Task AddCommentToBlog(string userId, int id, string message)
@@ -109,6 +151,9 @@
                 .FirstOrDefault(x => x.Id == id);
 
             blog.Comments.Add(comment);
+
+            this.articleRepository.Update(blog);
+            await this.articleRepository.SaveChangesAsync();
         }
     }
 }

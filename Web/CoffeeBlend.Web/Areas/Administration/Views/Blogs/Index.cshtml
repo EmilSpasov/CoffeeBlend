@@ -1,0 +1,81 @@
+﻿@model CoffeeBlend.Web.ViewModels.BlogViewModel.AdministrationBlogsInListViewModel
+
+@{
+    ViewData["Title"] = "Blogs";
+}
+
+<section class="ftco-menu mb-5 pb-5 text-center text-white">
+    <h1>Blogs</h1>
+    <p>
+        <a class="btn btn-primary" asp-area="Administration" asp-controller="Blogs" asp-action="Create">Create New</a>
+        <a class="btn btn-primary" asp-area="Administration" asp-controller="Dashboard" asp-action="Index">Back to Admin Panel</a>
+    </p>
+    <table class="table table-bordered table-striped text-white">
+        <thead>
+        @foreach(var blog in Model.Blogs.Take(1))
+        {
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => blog.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => blog.Image)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => blog.Content)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => blog.AuthorName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => blog.IsDeleted)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => blog.CreatedOn)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => blog.ModifiedOn)
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+        }
+        </thead>
+        <tbody>
+        @foreach (var item in Model.Blogs)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    <img class="w-50 h-50" src="@Html.DisplayFor(modelItem => item.ImageUrl)" alt="" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Content)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AuthorName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsDeleted)
+                    @Html.DisplayFor(modelItem => item.DeletedOn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedOn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ModifiedOn)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    <partial name="_PagingPartial" model="@Model"/>
+</section>

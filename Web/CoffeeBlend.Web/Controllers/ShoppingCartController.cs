@@ -33,8 +33,8 @@
             return this.View(viewModel);
         }
 
-        [HttpPost]
         [Authorize]
+        [HttpPost]
         public async Task<IActionResult> AddToCart(SingleProductViewModel model)
         {
             var currentUser = await this.userManager.GetUserAsync(this.User);

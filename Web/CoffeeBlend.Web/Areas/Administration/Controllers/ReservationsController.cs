@@ -74,6 +74,11 @@
                 return this.NotFound();
             }
 
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(reservation);
+            }
+
             await this.reservationService.UpdateAsync(reservation);
 
             return this.RedirectToAction(nameof(this.Index));

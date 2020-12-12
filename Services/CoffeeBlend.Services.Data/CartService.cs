@@ -13,11 +13,14 @@
     {
         private readonly IDeletableEntityRepository<Cart> cartRepository;
         private readonly IRepository<CartProduct> cartProductRepository;
+        private readonly IDeletableEntityRepository<Product> productRepository;
 
-        public CartService(IDeletableEntityRepository<Cart> cartRepository, IRepository<CartProduct> cartProductRepository)
+
+        public CartService(IDeletableEntityRepository<Cart> cartRepository, IRepository<CartProduct> cartProductRepository, IDeletableEntityRepository<Product> productRepository)
         {
             this.cartRepository = cartRepository;
             this.cartProductRepository = cartProductRepository;
+            this.productRepository = productRepository;
         }
 
         public async Task AddAsync(string userId, SingleProductViewModel model)
@@ -49,11 +52,22 @@
             {
                 cartProduct = userCart.CartProducts.FirstOrDefault(x => x.ProductId == model.Id);
                 cartProduct.Quantity += model.Quantity;
+                cartProduct.SubTotalPrice += model.ActualPrice;
             }
 
             userCart.TotalPrice += model.ActualPrice;
 
             await this.cartProductRepository.SaveChangesAsync();
+
+            // Increase buyed count temporary for most popular products vc:
+            var realProduct = await this.productRepository
+                .AllAsNoTracking()
+                .Where(x => x.Id == cartProduct.ProductId)
+                .FirstOrDefaultAsync();
+            realProduct.BuyedCount++;
+
+            this.productRepository.Update(realProduct);
+            await this.productRepository.SaveChangesAsync();
         }
 
         public T GetCurrentUserCart<T>(string userId)

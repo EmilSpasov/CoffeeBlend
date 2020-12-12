@@ -1364,10 +1364,10 @@ pre {
   padding: 0.3rem; }
 
 .table-bordered {
-  border: 1px solid #dee2e6; }
+  border: 1px solid #d39e00; }
   .table-bordered th,
   .table-bordered td {
-    border: 1px solid #dee2e6; }
+    border: 1px solid #d39e00; }
   .table-bordered thead th,
   .table-bordered thead td {
     border-bottom-width: 2px; }
@@ -8089,8 +8089,8 @@ h1, h2, h3, h4, h5,
     text-align: center !important;
     vertical-align: middle;
     padding: 40px 10px;
-    border: 1px solid transparent !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important; }
+    border: 1px #d39e00 transparent !important;
+    border-bottom: 1px solid #d39e00 !important; }
     .table tbody tr td.product-remove a {
       bordeR: 1px solid rgba(255, 255, 255, 0.1);
       padding: 5px 10px; }
@@ -8174,7 +8174,7 @@ h1, h2, h3, h4, h5,
   padding-left: 15px;
   padding-right: 15px;
   background: transparent !important;
-  color: rgba(255, 255, 255, 0.4) !important;
+  color: #d39e00 !important;
   font-size: 14px;
   border-radius: 0px;
   -webkit-box-shadow: none !important;

@@ -1,21 +1,23 @@
 ﻿@model CoffeeBlend.Web.ViewModels.BlogViewModel.CreateBlogInputModel
+
 @{
-    this.ViewData["Title"] = "Add Blog";
+    ViewData["Title"] = "Blog";
 }
 
 <section class="ftco-menu form-group mb-5 pb-5 text-center">
-    <h1 class="text-center">@this.ViewData["Title"]</h1>
+    <hr />
+    <h1 class="text-center col-3 offset-4">Create</h1>
 
     <form method="post" class="text-center col-3 offset-4" enctype="multipart/form-data">
         <div asp-validation-summary="All" class="text-danger"></div>
         <div class="form-group">
             <label asp-for="Title"></label>
-            <input asp-for="Title" class="form-control" />
+            <input asp-for="Title" class="form-control"/>
             <span asp-validation-for="Title" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="ImageFile"></label>
-            <input type="file" asp-for="ImageFile" class="form-control-file text-center" />
+            <input type="file" asp-for="ImageFile" class="form-control-file text-center"/>
             <span asp-validation-for="ImageFile" class="text-danger"></span>
         </div>
         <div class="form-group">
@@ -28,6 +30,14 @@
             <textarea asp-for="AuthorName" class="form-control" rows="1"></textarea>
             <span asp-validation-for="AuthorName" class="text-danger"></span>
         </div>
-        <input type="submit" class="btn btn-primary" value="Add Blog" />
+        <input type="submit" class="btn btn-primary" value="Add Blog"/>
     </form>
 </section>
+
+<div class="text-center col-3 offset-4">
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

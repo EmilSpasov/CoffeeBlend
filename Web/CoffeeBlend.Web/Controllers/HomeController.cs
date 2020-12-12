@@ -84,7 +84,7 @@
             html.AppendLine($"<h1>We will get back to you as soon as possible!</h1>");
             html.AppendLine($"<h1>Best regards, Emil Spasov</h1>");
             await this.emailSender
-                .SendEmailAsync("emil4o7e@abv.bg", "CoffeeBlend", input.Email, "Your message has been received:", html.ToString());
+                .SendEmailAsync("coffee.blend@abv.bg", "CoffeeBlend", input.Email, "Your message has been received:", html.ToString());
 
             return this.Redirect("/Home/SuccessfulContact");
         }

@@ -1,5 +1,6 @@
 ﻿namespace CoffeeBlend.Services.Data
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -107,11 +108,22 @@
             var relatedProducts = await this.productsRepository
                 .AllAsNoTracking()
                 .Where(x => x.CategoryProductId == categoryId && x.Id != productId)
+                .OrderBy(x => Guid.NewGuid())
                 .To<T>()
                 .Take(4)
                 .ToArrayAsync();
 
             return relatedProducts;
+        }
+
+        public async Task<IEnumerable<T>> GetMostBuyedProductsAsync<T>()
+        {
+            return await this.productsRepository
+                .AllAsNoTracking()
+                .OrderByDescending(x => x.BuyedCount)
+                .To<T>()
+                .Take(4)
+                .ToListAsync();
         }
 
         public async Task UpdateAsync(AdministrationProductsViewModel product)

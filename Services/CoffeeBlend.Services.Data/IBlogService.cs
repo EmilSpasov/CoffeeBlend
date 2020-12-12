@@ -9,14 +9,20 @@
     {
         Task CreateAsync(CreateBlogInputModel input);
 
-        IEnumerable<T> GetAll<T>(int page, int itemsPerPage = 6);
+        Task<IEnumerable<T>> GetAllAsync<T>(int page, int itemsPerPage = 6);
 
-        IEnumerable<T> GetMostRecent<T>();
+        Task<IEnumerable<T>> GetAllWithDeletedAsync<T>(int page, int itemsPerPage = 6);
 
-        int GetCount();
+        Task<IEnumerable<T>> GetMostRecentAsync<T>();
 
-        T GetById<T>(int id);
+        Task<T> GetByIdAsync<T>(int id);
 
         Task AddCommentToBlog(string userId, int id, string message);
+
+        Task UpdateAsync(AdministrationBlogsViewModel model);
+
+        Task DeleteByIdAsync(int id);
+
+        int GetCount();
     }
 }

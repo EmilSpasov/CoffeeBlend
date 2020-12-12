@@ -39,6 +39,11 @@
             {
                 await admin.AddToRoleAsync(user, GlobalConstants.AdministratorRoleName);
             }
+
+            user.Cart = new Cart
+            {
+                UserId = user.Id,
+            };
         }
     }
 }
