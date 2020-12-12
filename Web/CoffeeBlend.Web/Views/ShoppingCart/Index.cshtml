@@ -37,7 +37,7 @@
                             {
                                 <tr class="text-center" >
 
-                                    <td class="product-remove"><a type="submit" asp-area="" asp-controller="ShoppingCart" asp-route-id="@product.ProductId" asp-action="Remove"><span class="icon-close"></span></a></td>
+                                    <td class="product-remove"><a type="submit" asp-area="" asp-controller="ShoppingCart" asp-route-id="@product.ProductId" asp-route-size="@product.PortionSize" asp-action="Remove"><span class="icon-close"></span></a></td>
 
                                     <td class="image-prod"><a asp-controller="Products" asp-action="Details" asp-route-id="@product.ProductId"><img src="@product.ProductImageUrl" width="100" height="100" class="img-fluid" alt=""></a></td>
 

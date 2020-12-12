@@ -11,6 +11,8 @@
 
         public string ProductImageUrl { get; set; }
 
+        public string PortionSize { get; set; }
+
         public int CartId { get; set; }
 
         public int Quantity { get; set; } = 1;

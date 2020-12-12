@@ -24,13 +24,6 @@
             };
 
             // TODO: Auto delete reservations that are expired
-            // foreach (var reservation in viewModel.Reservations)
-            // {
-            //    if (reservation.ReservationDate < DateTime.UtcNow)
-            //    {
-            //        reservation.IsDeleted = true;
-            //    }
-            // }
             return this.View(viewModel);
         }
 

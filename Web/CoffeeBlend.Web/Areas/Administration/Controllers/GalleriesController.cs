@@ -41,8 +41,6 @@
         }
 
         // POST: Administration/Products/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, GalleryViewModel gallery)
@@ -61,8 +59,6 @@
         }
 
         // POST: Administration/Galleries/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateGalleryInputModel input)
@@ -77,12 +73,9 @@
             return this.RedirectToAction(nameof(this.Index));
         }
 
-
         // GET: Administration/Galleries/Delete/5
         public async Task<IActionResult> Delete(int id)
         {
-
-
             var gallery = await this.galleryService.GetByIdAsync<GalleryViewModel>(id);
 
             return this.View(gallery);

@@ -65,7 +65,7 @@
                 .FirstOrDefault();
         }
 
-        public async Task RemoveProductByIdAsync(string userId, int id)
+        public async Task RemoveProductByIdAndSizeAsync(string userId, int id, string size)
         {
             var userCart = this.cartRepository
                 .All()
@@ -73,10 +73,15 @@
                 .FirstOrDefault(x => x.UserId == userId);
 
             var productToRemove = userCart.CartProducts
-                .FirstOrDefault(x => x.ProductId == id);
+                .FirstOrDefault(x => x.ProductId == id && x.PortionSize.ToString() == size);
 
             userCart.CartProducts.Remove(productToRemove);
             userCart.TotalPrice -= productToRemove.SubTotalPrice;
+
+            if (!userCart.CartProducts.Any())
+            {
+                userCart.TotalPrice = 0;
+            }
 
             this.cartProductRepository.Delete(productToRemove);
             await this.cartProductRepository.SaveChangesAsync();

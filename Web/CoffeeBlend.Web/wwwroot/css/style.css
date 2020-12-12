@@ -8410,17 +8410,18 @@ h1, h2, h3, h4, h5,
     color: #c49b63; }
 
 .form-control {
-  height: 58px !important;
-  background: #000000 !important;
-  color: #000000 !important;
-  font-size: 18px;
-  border-radius: 0px;
-  -webkit-box-shadow: none !important;
-  box-shadow: none !important;
-  border: transparent !important;
-  border-bottom: 1px solid #000000 !important;
-  padding-right: 0;
-  padding-left: 0; }
+    height: 58px !important;
+    background: transparent !important;
+    color: #d39e00 !important;
+    font-size: 18px;
+    border-radius: 0px;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    border: transparent !important;
+    border-bottom: 1px solid grey !important;
+    padding-right: 0;
+    padding-left: 0;
+}
   .form-control:focus, .form-control:active {
     border-color: #c49b63; }
 

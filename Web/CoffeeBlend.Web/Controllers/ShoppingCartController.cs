@@ -47,13 +47,13 @@
         }
 
         [Authorize]
-        public async Task<IActionResult> Remove(int id)
+        public async Task<IActionResult> Remove(int id, string size)
         {
             var currentUser = await this.userManager.GetUserAsync(this.User);
 
             var currentUserId = currentUser.Id;
 
-            await this.cartService.RemoveProductByIdAsync(currentUserId, id);
+            await this.cartService.RemoveProductByIdAndSizeAsync(currentUserId, id, size);
 
             return this.Redirect("/ShoppingCart/Index");
         }
