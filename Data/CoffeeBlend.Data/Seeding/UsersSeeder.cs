@@ -35,15 +35,16 @@
 
             var result = await admin.CreateAsync(user, GlobalConstants.AdminPassword);
 
+            Cart cart = new Cart
+            {
+                UserId = user.Id,
+            };
+            user.CartId = cart.Id;
+
             if (result.Succeeded)
             {
                 await admin.AddToRoleAsync(user, GlobalConstants.AdministratorRoleName);
             }
-
-            user.Cart = new Cart
-            {
-                UserId = user.Id,
-            };
         }
     }
 }

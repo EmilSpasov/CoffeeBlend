@@ -49,8 +49,6 @@ namespace CoffeeBlend.Data.Models
         [ForeignKey("CartId")]
         public virtual Cart Cart { get; set; }
 
-        public int? CartProductId { get; set; }
-
         ////Add to constructor
         public virtual ICollection<Order> Orders { get; set; }
 

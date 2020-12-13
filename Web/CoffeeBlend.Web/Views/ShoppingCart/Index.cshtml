@@ -85,20 +85,19 @@
                 else
                 {
                     <p class="text-center"><a asp-area="" asp-controller="Menu" asp-action="Index" class="btn btn-primary py-3 px-4">Continue Shopping</a></p>
-
-                }
-            </div>
-            <div class="row justify-content-end">
-                <div class="col col-lg-3 col-md-6 mt-5 cart-wrap ftco-animate">
-                    <div class="cart-total mb-3">
-                        <h3>Products Totals</h3>
-                        <p class="d-flex total-price">
-                            <span>Total</span>
-                            <span class="total-price">$@Model.TotalPrice</span>
-                        </p>
+                    <div class="row justify-content-end">
+                        <div class="col col-lg-3 col-md-6 mt-5 cart-wrap ftco-animate">
+                            <div class="cart-total mb-3">
+                                <h3>Products Totals</h3>
+                                <p class="d-flex total-price">
+                                    <span>Total</span>
+                                    <span class="total-price">$@Model.TotalPrice</span>
+                                </p>
+                            </div>
+                            <p class="text-center"><a asp-area="" asp-controller="ShoppingCart" asp-action="Checkout" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
+                        </div>
                     </div>
-                    <p class="text-center"><a asp-area="" asp-controller="ShoppingCart" asp-action="Checkout" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
-                </div>
+                }
             </div>
         </div>
     </section>
