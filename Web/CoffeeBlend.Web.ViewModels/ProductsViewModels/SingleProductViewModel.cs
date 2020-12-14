@@ -1,14 +1,12 @@
 ﻿namespace CoffeeBlend.Web.ViewModels.ProductsViewModels
 {
+    using CoffeeBlend.Common;
     using CoffeeBlend.Data.Models;
     using CoffeeBlend.Data.Models.Enums;
     using CoffeeBlend.Services.Mapping;
 
     public class SingleProductViewModel : IMapFrom<Product>
     {
-        private const decimal MediumPrice = 1.40m;
-        private const decimal LargePrice = 1.90m;
-
         public int Id { get; set; }
 
         public string Name { get; set; }
@@ -27,8 +25,8 @@
 
         public int CategoryProductId { get; set; }
 
-        public decimal MediumSizePrice => MediumPrice;
+        public decimal MediumSizePrice => GlobalConstants.MediumPrice;
 
-        public decimal LargeSizePrice => LargePrice;
+        public decimal LargeSizePrice => GlobalConstants.LargePrice;
     }
 }

@@ -35,7 +35,7 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
             <div class="container">
-                <a class="navbar-brand" href="/">Coffee<small>Blend</small></a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Coffee<small>Blend</small></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="oi oi-menu"></span> Menu
                 </button>
@@ -64,12 +64,12 @@
             </div>
         </nav>
     </header>
-
+    
     <div>
+        <partial name="_CookieConsentPartial" />
         <main>
             @this.RenderBody()
         </main>
-        <partial name="_CookieConsentPartial" />
     </div>
 
     <footer class="ftco-footer ftco-section img">
@@ -112,8 +112,8 @@
                         <div class="block-23 mb-3">
                             <ul>
                                 <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
-                                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
-                                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a></li>
+                                <li><a><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
+                                <li><a><span class="icon icon-envelope"></span><span class="text">coffee.blend@abv.bg</span></a></li>
                             </ul>
                         </div>
                     </div>

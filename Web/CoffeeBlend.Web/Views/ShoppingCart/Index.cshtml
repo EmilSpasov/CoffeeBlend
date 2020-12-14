@@ -56,19 +56,19 @@
                                     <td class="quantity">
                                         <div class="input-group mb-3">
                                             <span class="input-group-btn mr-2">
-                                                <button type="button" class="quantity-left-minus btn" data-type="minus" data-field="quantity">
+                                                <button type="button" class="quantity-left-minus btn" data-price="@product.Price" data-productId="@product.Id" data-type="minus" data-field="quantity-@product.Id">
                                                     <i class="icon-minus"></i>
                                                 </button>
                                             </span>
-                                            <input readonly="readonly" type="number" style="-moz-appearance: textfield" id="quantity" name="quantity" class="form-control input-number" value="@product.Quantity" min="1" max="100">
+                                            <input readonly="readonly" type="number" style="-moz-appearance: textfield" id="@product.Id" name="quantity-@product.Id" data-for="@product.Id" class="form-control input-number" value="@product.Quantity" min="1" max="100">
                                             <span class="input-group-btn ml-2">
-                                                <button type="button" class="quantity-right-plus btn" data-type="plus" data-field="quantity">
+                                                <button type="button" class="quantity-right-plus btn" data-price="@product.Price" data-productId="@product.Id" data-type="plus" data-field="quantity-@product.Id">
                                                     <i class="icon-plus" aria-hidden="true"></i>
                                                 </button>
                                             </span>
                                         </div>
                                     </td>
-                                    <td class="total">$@product.SubTotalPrice</td>
+                                    <td> <span class="text-white">$</span><span class="total text-white" id="productSubTotal-@product.Id">@product.SubTotalPrice</span></td>
                                 </tr>
                             }
                         </tbody>
@@ -80,7 +80,6 @@
                 {
                     <h2 class="text-center text-white">Your Cart is Empty!</h2>
                     <p class="text-center"><a asp-area="" asp-controller="Menu" asp-action="Index" class="btn btn-primary py-3 px-4">Continue Shopping</a></p>
-
                 }
                 else
                 {
@@ -91,7 +90,7 @@
                                 <h3>Products Totals</h3>
                                 <p class="d-flex total-price">
                                     <span>Total</span>
-                                    <span class="total-price">$@Model.TotalPrice</span>
+                                    <span class="total-price" id="cartTotal">$@Model.TotalPrice</span>
                                 </p>
                             </div>
                             <p class="text-center"><a asp-area="" asp-controller="ShoppingCart" asp-action="Checkout" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
@@ -104,27 +103,18 @@
 </form>
 @section Scripts{
     <script>
-        function OnQuantityChange() {
-            @*var totalPrice = @Model.TotalPrice;
+        function UpdateTotalPrice() {
+            var totalPrice = 0;
+            // Get all elements with class total
+            $('.total').each(function () {
+                totalPrice += +$(this).text(); //Text returns the price
+            });
 
-            $(@Model.CartProducts)
-            .first(x => x.id ===)*@
-            @*var portionSize = this.value;
-
-            if (portionSize === '2') {
-                basePrice = Math.round((@Model.Price * @Model.MediumSizePrice) * 100) / 100;
-            } else if (portionSize === '3') {
-                basePrice = Math.round((@Model.Price * @Model.LargeSizePrice) * 100) / 100;
-            }
-
-            document.getElementById('productPrice').innerHTML = '$' + basePrice.toFixed(2);
-            document.getElementById('price').value =  basePrice;*@
+            $('#cartTotal').text('$' + totalPrice.toFixed(2));
         }
 
-        $(function() {
-            //$('#quantity').on('change', OnQuantityChange);
-
-            $('[data-type="plus"]').click(function(e) {
+        $(function () {
+            $('[data-type="plus"]').click(function (e) {
                 // Stop acting like a button
                 e.preventDefault();
                 // Get the field name
@@ -135,10 +125,21 @@
                 if (!isNaN(currentVal) && currentVal < 100) {
                     // Increment
                     $('input[name=' + fieldName + ']').val(currentVal + 1);
+
+                    //Get product initial price by attribute
+                    var basePrice = $(this).attr('data-price');
+                    //Get product id by attribute
+                    var id = $(this).attr('data-productId');
+
+                    var productCurrentPrice = Math.round((basePrice * (currentVal + 1)) * 100) / 100;
+
+                    $('#productSubTotal-' + id).text(productCurrentPrice);
                 }
+
+                UpdateTotalPrice();
             });
             // This button will decrement the value till 1
-            $('[data-type="minus"]').click(function(e) {
+            $('[data-type="minus"]').click(function (e) {
                 // Stop acting like a button
                 e.preventDefault();
                 // Get the field name
@@ -149,10 +150,18 @@
                 if (!isNaN(currentVal) && currentVal > 1) {
                     // Decrement one
                     $('input[name=' + fieldName + ']').val(currentVal - 1);
+
+                    var basePrice = $(this).attr('data-price');
+                    var id = $(this).attr('data-productId');
+
+                    var productCurrentPrice = Math.round((basePrice * (currentVal - 1)) * 100) / 100;
+                    $('#productSubTotal-' + id).text(productCurrentPrice);
                 } else {
                     // Otherwise put a 1 there
                     $('input[name=' + fieldName + ']').val(1);
                 }
+
+                UpdateTotalPrice();
             });
         });
     </script>

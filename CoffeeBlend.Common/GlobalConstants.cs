@@ -27,5 +27,10 @@
         public const string DrinksName = "Drinks";
 
         public const string DessertsName = "Desserts";
+
+        // Portion size prices
+        public const decimal MediumPrice = 1.40m;
+
+        public const decimal LargePrice = 1.90m;
     }
 }

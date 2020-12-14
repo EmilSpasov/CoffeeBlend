@@ -21,6 +21,8 @@
 
         public string Request { get; set; }
 
+        public decimal Price { get; set; }
+
         public decimal SubTotalPrice { get; set; }
     }
 }

@@ -59,6 +59,7 @@
         {
             var products = await this.productsRepository
                 .AllAsNoTrackingWithDeleted()
+                .OrderBy(x => x.Name)
                 .Skip((page - 1) * itemsPerPage)
                 .Take(itemsPerPage)
                 .To<T>()

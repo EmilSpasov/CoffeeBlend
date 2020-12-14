@@ -42,6 +42,7 @@
                     CartId = userCart.Id,
                     ProductId = model.Id,
                     Request = model.Request,
+                    Price = model.Price,
                     SubTotalPrice = model.ActualPrice,
                 };
 
