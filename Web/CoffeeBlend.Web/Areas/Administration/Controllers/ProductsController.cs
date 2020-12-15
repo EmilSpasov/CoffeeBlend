@@ -1,7 +1,11 @@
-﻿namespace CoffeeBlend.Web.Areas.Administration.Controllers
+﻿using CoffeeBlend.Common;
+
+namespace CoffeeBlend.Web.Areas.Administration.Controllers
 {
     using System.Threading.Tasks;
 
+    using CoffeeBlend.Data.Common.Repositories;
+    using CoffeeBlend.Data.Models;
     using CoffeeBlend.Services.Data;
     using CoffeeBlend.Web.ViewModels.ProductsViewModels;
     using Microsoft.AspNetCore.Mvc;
@@ -18,8 +22,15 @@
         }
 
         // GET: Administration/Products
-        public async Task<IActionResult> Index(string criteria, int id = 1)
+        public async Task<IActionResult> Index(string sortBy, int id = 1)
         {
+            this.ViewBag.CurrentSortOrder = sortBy;
+
+            this.ViewBag.NameSortParam = sortBy == GlobalConstants.NameAsc ? GlobalConstants.NameDesc : GlobalConstants.NameAsc;
+            this.ViewBag.PriceSortParam = sortBy == GlobalConstants.PriceAsc ? GlobalConstants.PriceDesc : GlobalConstants.PriceAsc;
+            this.ViewBag.CategorySortParam = sortBy == GlobalConstants.CategoryAsc ? GlobalConstants.CategoryDesc : GlobalConstants.CategoryAsc;
+            this.ViewBag.CreatedOnSortParam = sortBy == GlobalConstants.CreatedOnAsc ? GlobalConstants.CreatedOnDesc : GlobalConstants.CreatedOnAsc;
+
             if (id <= 0)
             {
                 return this.NotFound();
@@ -32,7 +43,7 @@
                 ItemsPerPage = itemsPerPage,
                 PageNumber = id,
                 ItemsCount = this.productService.GetCount(),
-                Products = await this.productService.GetAllAsync<AdministrationProductsViewModel>(id),
+                Products = await this.productService.GetAllAsync<AdministrationProductsViewModel>(sortBy, id),
             };
 
             return this.View(viewModel);

@@ -1,4 +1,6 @@
-﻿namespace CoffeeBlend.Web.Areas.Administration.Controllers
+﻿using CoffeeBlend.Common;
+
+namespace CoffeeBlend.Web.Areas.Administration.Controllers
 {
     using System.Threading.Tasks;
 
@@ -16,8 +18,13 @@
         }
 
         // GET: Administration/Blogs
-        public async Task<IActionResult> Index(int id = 1)
+        public async Task<IActionResult> Index(string sortBy, int id = 1)
         {
+            this.ViewBag.CurrentSortOrder = sortBy;
+
+            this.ViewBag.NameSortParam = sortBy == GlobalConstants.NameAsc ? GlobalConstants.NameDesc : GlobalConstants.NameAsc;
+            this.ViewBag.CreatedOnSortParam = sortBy == GlobalConstants.CreatedOnAsc ? GlobalConstants.CreatedOnDesc : GlobalConstants.CreatedOnAsc;
+
             if (id <= 0)
             {
                 return this.NotFound();
@@ -30,7 +37,7 @@
                 ItemsPerPage = itemsPerPage,
                 PageNumber = id,
                 ItemsCount = this.blogService.GetCount(),
-                Blogs = await this.blogService.GetAllWithDeletedAsync<AdministrationBlogsViewModel>(id),
+                Blogs = await this.blogService.GetAllWithDeletedAsync<AdministrationBlogsViewModel>(sortBy, id),
             };
 
             return this.View(viewModel);

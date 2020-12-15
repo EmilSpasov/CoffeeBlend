@@ -9,73 +9,104 @@
     <p>
         <a class="btn btn-primary" asp-area="Administration" asp-controller="Blogs" asp-action="Create">Create New</a>
         <a class="btn btn-primary" asp-area="Administration" asp-controller="Dashboard" asp-action="Index">Back to Admin Panel</a>
+        <div class="dropdown">
+            <button onclick="myFunction()" class="dropbtn">Order by</button>
+            <div id="myDropdown" class="dropdown-content">
+                <a class="btn btn-primary" asp-area="Administration" asp-controller="Blogs" asp-route-pageNumber="@Model.PageNumber" asp-route-sortBy="@ViewBag.NameSortParam" asp-action="Index">Name</a>
+                <a class="btn btn-primary" asp-area="Administration" asp-controller="Blogs" asp-route-pageNumber="@Model.PageNumber" asp-route-sortBy="@ViewBag.CreatedOnSortParam" asp-action="Index">Created On</a>
+            </div>
+        </div>
     </p>
     <table class="table table-bordered table-striped text-white">
         <thead>
-        @foreach(var blog in Model.Blogs.Take(1))
-        {
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => blog.Title)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => blog.Image)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => blog.Content)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => blog.AuthorName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => blog.IsDeleted)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => blog.CreatedOn)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => blog.ModifiedOn)
-                </th>
-                <th>
-                    Action
-                </th>
-            </tr>
-        }
+            @foreach (var blog in Model.Blogs.Take(1))
+            {
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => blog.Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => blog.Image)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => blog.Content)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => blog.AuthorName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => blog.IsDeleted)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => blog.CreatedOn)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => blog.ModifiedOn)
+                    </th>
+                    <th>
+                        Action
+                    </th>
+                </tr>
+            }
         </thead>
         <tbody>
-        @foreach (var item in Model.Blogs)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    <img class="w-50 h-50" src="@Html.DisplayFor(modelItem => item.ImageUrl)" alt="" />
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Content)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AuthorName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsDeleted)
-                    @Html.DisplayFor(modelItem => item.DeletedOn)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreatedOn)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ModifiedOn)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
-        }
+            @foreach (var item in Model.Blogs)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        <img class="w-50 h-50" src="@Html.DisplayFor(modelItem => item.ImageUrl)" alt="" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Content)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AuthorName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsDeleted)
+                        @Html.DisplayFor(modelItem => item.DeletedOn)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedOn)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ModifiedOn)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
-    <partial name="_PagingPartial" model="@Model"/>
+    <partial name="_PagingPartial" model="@Model" />
 </section>
+
+@section Scripts{
+    <script>
+        /* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+        function myFunction() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
+}

@@ -9,7 +9,7 @@
     {
         Task CreateAsync(CreateProductInputModel input);
 
-        Task<IEnumerable<T>> GetAllAsync<T>(int page, int itemsPerPage = 6);
+        Task<IEnumerable<T>> GetAllAsync<T>(string sortBy, int pageNumber, int itemsPerPage = 6);
 
         Task<IEnumerable<T>> GetAllByCategoryNameAsync<T>(string name);
 

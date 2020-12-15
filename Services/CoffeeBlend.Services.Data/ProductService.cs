@@ -55,16 +55,84 @@
             await this.productsRepository.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync<T>(int page, int itemsPerPage)
+        public async Task<IEnumerable<T>> GetAllAsync<T>(string sortBy, int pageNumber, int itemsPerPage)
         {
-            var products = await this.productsRepository
-                .AllAsNoTrackingWithDeleted()
-                .OrderBy(x => x.Name)
-                .Skip((page - 1) * itemsPerPage)
-                .Take(itemsPerPage)
-                .To<T>()
-                .ToListAsync();
+            //var products = await this.productsRepository
+            //    .AllAsNoTrackingWithDeleted()
+            //    .OrderByDescending(x => x.CreatedOn)
+            //    .Skip((page - 1) * itemsPerPage)
+            //    .Take(itemsPerPage)
+            //    .To<T>()
+            //    .ToListAsync();
 
+            var products = new List<T>();
+
+            products = sortBy switch
+            {
+                "name_desc" => await this.productsRepository
+                                      .AllAsNoTrackingWithDeleted()
+                                      .OrderByDescending(x => x.Name)
+                                      .Skip((pageNumber - 1) * itemsPerPage)
+                                      .Take(itemsPerPage)
+                                      .To<T>()
+                                      .ToListAsync(),
+                "name_asc" => await this.productsRepository
+                                      .AllAsNoTrackingWithDeleted()
+                                      .OrderBy(x => x.Name)
+                                      .Skip((pageNumber - 1) * itemsPerPage)
+                                      .Take(itemsPerPage)
+                                      .To<T>()
+                                      .ToListAsync(),
+                "price_desc" => await this.productsRepository
+                                      .AllAsNoTrackingWithDeleted()
+                                      .OrderByDescending(x => x.Price)
+                                      .Skip((pageNumber - 1) * itemsPerPage)
+                                      .Take(itemsPerPage)
+                                      .To<T>()
+                                      .ToListAsync(),
+                "price_asc" => await this.productsRepository
+                                      .AllAsNoTrackingWithDeleted()
+                                      .OrderBy(x => x.Price)
+                                      .Skip((pageNumber - 1) * itemsPerPage)
+                                      .Take(itemsPerPage)
+                                      .To<T>()
+                                      .ToListAsync(),
+                "category_desc" => await this.productsRepository
+                    .AllAsNoTrackingWithDeleted()
+                    .OrderByDescending(x => x.CategoryProduct.Name)
+                    .Skip((pageNumber - 1) * itemsPerPage)
+                    .Take(itemsPerPage)
+                    .To<T>()
+                    .ToListAsync(),
+                "category_asc" => await this.productsRepository
+                    .AllAsNoTrackingWithDeleted()
+                    .OrderBy(x => x.CategoryProduct.Name)
+                    .Skip((pageNumber - 1) * itemsPerPage)
+                    .Take(itemsPerPage)
+                    .To<T>()
+                    .ToListAsync(),
+                "createdOn_desc" => await this.productsRepository
+                    .AllAsNoTrackingWithDeleted()
+                    .OrderByDescending(x => x.CreatedOn)
+                    .Skip((pageNumber - 1) * itemsPerPage)
+                    .Take(itemsPerPage)
+                    .To<T>()
+                    .ToListAsync(),
+                "createdOn_asc" => await this.productsRepository
+                    .AllAsNoTrackingWithDeleted()
+                    .OrderBy(x => x.CreatedOn)
+                    .Skip((pageNumber - 1) * itemsPerPage)
+                    .Take(itemsPerPage)
+                    .To<T>()
+                    .ToListAsync(),
+                _ => await this.productsRepository
+                                      .AllAsNoTrackingWithDeleted()
+                                      .OrderByDescending(x => x.CreatedOn)
+                                      .Skip((pageNumber - 1) * itemsPerPage)
+                                      .Take(itemsPerPage)
+                                      .To<T>()
+                                      .ToListAsync(),
+            };
             return products;
         }
 

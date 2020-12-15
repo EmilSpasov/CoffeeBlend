@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public class GalleryInListViewModel
+    public class GalleryInListViewModel : PagingViewModel
     {
         public IEnumerable<GalleryViewModel> Photos { get; set; }
     }

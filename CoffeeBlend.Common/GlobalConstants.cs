@@ -32,5 +32,25 @@
         public const decimal MediumPrice = 1.40m;
 
         public const decimal LargePrice = 1.90m;
+
+        // Default sorting criteria
+        public const string DefaultCriteria = "Name";
+
+        // Sort By
+        public const string NameAsc = "name_asc";
+
+        public const string NameDesc = "name_desc";
+
+        public const string PriceAsc = "price_asc";
+
+        public const string PriceDesc = "price_desc";
+
+        public const string CategoryAsc = "category_asc";
+
+        public const string CategoryDesc = "category_desc";
+
+        public const string CreatedOnAsc = "createdOn_asc";
+
+        public const string CreatedOnDesc = "createdOn_desc";
     }
 }

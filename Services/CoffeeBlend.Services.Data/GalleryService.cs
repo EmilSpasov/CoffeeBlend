@@ -40,10 +40,20 @@
             await this.galleryRepository.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync<T>()
+        public async Task<IEnumerable<T>> GetAllWithDeletedAsync<T>(int pageNumber, int itemsPerPage = 6)
         {
             return await this.galleryRepository
                 .AllAsNoTrackingWithDeleted()
+                .Skip((pageNumber - 1) * itemsPerPage)
+                .Take(itemsPerPage)
+                .To<T>()
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<T>> GetAllAsync<T>()
+        {
+            return await this.galleryRepository
+                .AllAsNoTracking()
                 .To<T>()
                 .ToListAsync();
         }
@@ -82,6 +92,13 @@
             this.galleryRepository.Delete(photoToDelete);
 
             await this.galleryRepository.SaveChangesAsync();
+        }
+
+        public int GetCount()
+        {
+            return this.galleryRepository
+                .AllAsNoTrackingWithDeleted()
+                .Count();
         }
     }
 }

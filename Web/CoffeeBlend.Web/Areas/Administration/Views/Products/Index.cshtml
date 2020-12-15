@@ -12,10 +12,10 @@
         <div class="dropdown">
             <button onclick="myFunction()" class="dropbtn">Order by</button>
             <div id="myDropdown" class="dropdown-content">
-                <a class="btn btn-primary" asp-area="Administration" asp-controller="Products" asp-route-criteria="Name" asp-action="Index">Name</a>
-                <a class="btn btn-primary" asp-area="Administration" asp-controller="Products" asp-action="Index">Price</a>
-                <a class="btn btn-primary" asp-area="Administration" asp-controller="Products" asp-action="Index">Category</a>
-                <a class="btn btn-primary" asp-area="Administration" asp-controller="Products" asp-action="Index">Created On</a>
+                <a class="btn btn-primary" asp-area="Administration" asp-controller="Products" asp-route-pageNumber="@Model.PageNumber" asp-route-sortBy="@ViewBag.NameSortParam" asp-action="Index">Name</a>
+                <a class="btn btn-primary" asp-area="Administration" asp-controller="Products" asp-route-pageNumber="@Model.PageNumber" asp-route-sortBy="@ViewBag.PriceSortParam" asp-action="Index">Price</a>
+                <a class="btn btn-primary" asp-area="Administration" asp-controller="Products" asp-route-pageNumber="@Model.PageNumber" asp-route-sortBy="@ViewBag.CategorySortParam" asp-action="Index">Category</a>
+                <a class="btn btn-primary" asp-area="Administration" asp-controller="Products" asp-route-pageNumber="@Model.PageNumber" asp-route-sortBy="@ViewBag.CreatedOnSortParam" asp-action="Index">Created On</a>
             </div>
         </div>
     </p>

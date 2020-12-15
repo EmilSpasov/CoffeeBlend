@@ -44,6 +44,7 @@
         {
             return await this.reservationRepository
                 .AllAsNoTrackingWithDeleted()
+                .OrderByDescending(x => x.ReservationDate)
                 .To<T>()
                 .ToListAsync();
         }

@@ -11,7 +11,7 @@
 
         Task<IEnumerable<T>> GetAllAsync<T>(int page, int itemsPerPage = 6);
 
-        Task<IEnumerable<T>> GetAllWithDeletedAsync<T>(int page, int itemsPerPage = 6);
+        Task<IEnumerable<T>> GetAllWithDeletedAsync<T>(string sortBy, int page, int itemsPerPage = 6);
 
         Task<IEnumerable<T>> GetMostRecentAsync<T>();
 

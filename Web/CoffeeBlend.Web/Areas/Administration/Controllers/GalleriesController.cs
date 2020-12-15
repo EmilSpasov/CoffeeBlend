@@ -16,11 +16,21 @@
         }
 
         // GET: Administration/Galleries
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int id = 1)
         {
+            if (id <= 0)
+            {
+                return this.NotFound();
+            }
+
+            const int itemsPerPage = 6;
+
             var viewModel = new GalleryInListViewModel
             {
-                Photos = await this.galleryService.GetAllAsync<GalleryViewModel>(),
+                PageNumber = id,
+                ItemsPerPage = itemsPerPage,
+                ItemsCount = this.galleryService.GetCount(),
+                Photos = await this.galleryService.GetAllWithDeletedAsync<GalleryViewModel>(id),
             };
 
             return this.View(viewModel);

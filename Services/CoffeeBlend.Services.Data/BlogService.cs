@@ -69,15 +69,50 @@
             // 13-18 - page 3
         }
 
-        public async Task<IEnumerable<T>> GetAllWithDeletedAsync<T>(int page, int itemsPerPage = 6)
+        public async Task<IEnumerable<T>> GetAllWithDeletedAsync<T>(string sortBy, int page, int itemsPerPage = 6)
         {
-            return await this.articleRepository
-                .AllAsNoTrackingWithDeleted()
-                .OrderByDescending(x => x.Id)
-                .Skip((page - 1) * itemsPerPage)
-                .Take(itemsPerPage)
-                .To<T>()
-                .ToListAsync();
+            var blogs = new List<T>();
+
+            blogs = sortBy switch
+            {
+                "name_desc" => await this.articleRepository
+                                      .AllAsNoTrackingWithDeleted()
+                                      .OrderByDescending(x => x.AuthorName)
+                                      .Skip((page - 1) * itemsPerPage)
+                                      .Take(itemsPerPage)
+                                      .To<T>()
+                                      .ToListAsync(),
+                "name_asc" => await this.articleRepository
+                                      .AllAsNoTrackingWithDeleted()
+                                      .OrderBy(x => x.AuthorName)
+                                      .Skip((page - 1) * itemsPerPage)
+                                      .Take(itemsPerPage)
+                                      .To<T>()
+                                      .ToListAsync(),
+                "createdOn_desc" => await this.articleRepository
+                                      .AllAsNoTrackingWithDeleted()
+                                      .OrderByDescending(x => x.CreatedOn)
+                                      .Skip((page - 1) * itemsPerPage)
+                                      .Take(itemsPerPage)
+                                      .To<T>()
+                                      .ToListAsync(),
+                "createdOn_asc" => await this.articleRepository
+                                      .AllAsNoTrackingWithDeleted()
+                                      .OrderBy(x => x.CreatedOn)
+                                      .Skip((page - 1) * itemsPerPage)
+                                      .Take(itemsPerPage)
+                                      .To<T>()
+                                      .ToListAsync(),
+                _ => await this.articleRepository
+                                      .AllAsNoTrackingWithDeleted()
+                                      .OrderByDescending(x => x.CreatedOn)
+                                      .Skip((page - 1) * itemsPerPage)
+                                      .Take(itemsPerPage)
+                                      .To<T>()
+                                      .ToListAsync(),
+            };
+
+            return blogs;
         }
 
         public async Task<IEnumerable<T>> GetMostRecentAsync<T>()
