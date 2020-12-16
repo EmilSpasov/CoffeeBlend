@@ -351,3 +351,5 @@ MigrationBackup/
 
 # Custom ignores
 appsettings.Production.json
+
+appsettings.Development.json

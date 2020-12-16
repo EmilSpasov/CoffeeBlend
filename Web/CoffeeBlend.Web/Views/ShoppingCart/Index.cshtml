@@ -155,7 +155,7 @@
                     var id = $(this).attr('data-productId');
 
                     var productCurrentPrice = Math.round((basePrice * (currentVal - 1)) * 100) / 100;
-                    $('#productSubTotal-' + id).text(productCurrentPrice);
+                    $('#productSubTotal-' + id).text(productCurrentPrice.toFixed(2));
                 } else {
                     // Otherwise put a 1 there
                     $('input[name=' + fieldName + ']').val(1);

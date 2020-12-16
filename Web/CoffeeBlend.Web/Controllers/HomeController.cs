@@ -27,6 +27,7 @@
 
         public IActionResult Index()
         {
+            //return this.Redirect("/Identity/Account/Logout");
             return this.View();
         }
 

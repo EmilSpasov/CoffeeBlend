@@ -23,6 +23,8 @@
 
         public string Request { get; set; }
 
+        public string CategoryProductName { get; set; }
+
         public int CategoryProductId { get; set; }
 
         public decimal MediumSizePrice => GlobalConstants.MediumPrice;

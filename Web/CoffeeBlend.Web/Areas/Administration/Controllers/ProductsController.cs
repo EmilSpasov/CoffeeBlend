@@ -1,9 +1,8 @@
-﻿using CoffeeBlend.Common;
-
-namespace CoffeeBlend.Web.Areas.Administration.Controllers
+﻿namespace CoffeeBlend.Web.Areas.Administration.Controllers
 {
     using System.Threading.Tasks;
 
+    using CoffeeBlend.Common;
     using CoffeeBlend.Data.Common.Repositories;
     using CoffeeBlend.Data.Models;
     using CoffeeBlend.Services.Data;
@@ -77,8 +76,6 @@ namespace CoffeeBlend.Web.Areas.Administration.Controllers
 
             await this.productService.CreateAsync(input);
 
-            this.TempData["Message"] = "Product added successfully.";
-
             return this.RedirectToAction(nameof(this.Index));
         }
 
@@ -99,11 +96,6 @@ namespace CoffeeBlend.Web.Areas.Administration.Controllers
             if (id != product.Id)
             {
                 return this.NotFound();
-            }
-
-            if (!this.ModelState.IsValid)
-            {
-                return this.View(product);
             }
 
             await this.productService.UpdateAsync(product);

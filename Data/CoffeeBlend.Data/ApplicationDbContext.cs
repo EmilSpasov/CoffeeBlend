@@ -73,6 +73,10 @@
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            //builder.Entity<Payment>()
+            //    .HasOne(a => a.Order)
+            //    .WithOne(a => a.Payment)
+            //    .HasForeignKey<Payment>(c => c.OrderId);
             // Needed for Identity models configuration
             base.OnModelCreating(builder);
 

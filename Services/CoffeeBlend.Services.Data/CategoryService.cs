@@ -39,13 +39,15 @@
                     x.Id,
                     x.Name,
                 }).ToList()
-                .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name));
+                .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name))
+                .OrderBy(x => x.Value);
         }
 
         public async Task<IEnumerable<T>> GetAllAsync<T>()
         {
             return await this.categoriesRepository
                 .AllAsNoTracking()
+                .OrderBy(x => x.Name)
                 .To<T>()
                 .ToListAsync();
         }

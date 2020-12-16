@@ -1,5 +1,6 @@
 ﻿namespace CoffeeBlend.Data.Models
 {
+    using System.ComponentModel.DataAnnotations;
 
     using CoffeeBlend.Data.Common.Models;
 
@@ -11,10 +12,10 @@
 
         public int PaymentId { get; set; }
 
-        public Payment Payment { get; set; }
+        public virtual Payment Payment { get; set; }
 
         public int CartId { get; set; }
 
-        public Cart Cart { get; set; }
+        public virtual Cart Cart { get; set; }
     }
 }

@@ -64,6 +64,13 @@
             return this.View();
         }
 
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Checkout(CreatePaymentInputModel input)
+        {
+            return this.View();
+        }
+
         [Authorize]
         public IActionResult ThankYou()
         {

@@ -6,6 +6,7 @@
     using CoffeeBlend.Data.Common.Repositories;
     using CoffeeBlend.Data.Models;
     using CoffeeBlend.Services.Mapping;
+    using CoffeeBlend.Web.ViewModels.OrderViewModel;
     using CoffeeBlend.Web.ViewModels.ProductsViewModels;
     using Microsoft.EntityFrameworkCore;
 
@@ -101,6 +102,11 @@
             this.cartProductRepository.Delete(productToRemove);
             await this.cartProductRepository.SaveChangesAsync();
             await this.cartRepository.SaveChangesAsync();
+        }
+
+        public Task CreatePayment(CreatePaymentInputModel input)
+        {
+            throw new System.NotImplementedException();
         }
 
         public int GetProductsCount(string userId)

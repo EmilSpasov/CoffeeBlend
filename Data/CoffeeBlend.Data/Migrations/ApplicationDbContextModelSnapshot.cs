@@ -473,6 +473,9 @@ namespace CoffeeBlend.Data.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int?>("UserOrderHistoryId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CartId");
@@ -482,6 +485,8 @@ namespace CoffeeBlend.Data.Migrations
                     b.HasIndex("PaymentId");
 
                     b.HasIndex("UserId");
+
+                    b.HasIndex("UserOrderHistoryId");
 
                     b.ToTable("Orders");
                 });
@@ -705,17 +710,12 @@ namespace CoffeeBlend.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
-
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("IsDeleted");
-
-                    b.HasIndex("OrderId");
 
                     b.HasIndex("UserId");
 
@@ -900,6 +900,10 @@ namespace CoffeeBlend.Data.Migrations
                     b.HasOne("CoffeeBlend.Data.Models.ApplicationUser", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserId");
+
+                    b.HasOne("CoffeeBlend.Data.Models.UserOrderHistory", null)
+                        .WithMany("Orders")
+                        .HasForeignKey("UserOrderHistoryId");
                 });
 
             modelBuilder.Entity("CoffeeBlend.Data.Models.Product", b =>
@@ -919,12 +923,6 @@ namespace CoffeeBlend.Data.Migrations
 
             modelBuilder.Entity("CoffeeBlend.Data.Models.UserOrderHistory", b =>
                 {
-                    b.HasOne("CoffeeBlend.Data.Models.Order", "Order")
-                        .WithMany()
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("CoffeeBlend.Data.Models.ApplicationUser", "User")
                         .WithMany("UserOrderHistory")
                         .HasForeignKey("UserId");

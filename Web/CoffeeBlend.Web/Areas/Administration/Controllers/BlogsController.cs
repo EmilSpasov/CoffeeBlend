@@ -1,9 +1,8 @@
-﻿using CoffeeBlend.Common;
-
-namespace CoffeeBlend.Web.Areas.Administration.Controllers
+﻿namespace CoffeeBlend.Web.Areas.Administration.Controllers
 {
     using System.Threading.Tasks;
 
+    using CoffeeBlend.Common;
     using CoffeeBlend.Services.Data;
     using CoffeeBlend.Web.ViewModels.BlogViewModel;
     using Microsoft.AspNetCore.Mvc;

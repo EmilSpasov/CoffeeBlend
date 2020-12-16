@@ -21,7 +21,7 @@
                     <input type="hidden" id="price" asp-for="@Model.Price" />
                     <p class="price"><span id="productPrice">$@Model.Price</span></p>
                     <div class="row mt-4">
-                        @if (Model.CategoryProductId == 1 || Model.CategoryProductId == 3)
+                        @if (Model.CategoryProductName == "Coffee" || Model.CategoryProductName == "Drinks")
                         {
                             <div class="col-md-6">
                                 <div class="form-group d-flex">

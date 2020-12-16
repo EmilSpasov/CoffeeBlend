@@ -1,6 +1,7 @@
 ﻿namespace CoffeeBlend.Data.Seeding
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -23,6 +24,8 @@
 
         private static async Task AdminSeeder(UserManager<ApplicationUser> admin)
         {
+            Cart cart = new Cart();
+
             var user = new ApplicationUser
             {
                 Email = GlobalConstants.AdminEmailName,
@@ -31,16 +34,11 @@
                 LastName = GlobalConstants.AdminLastName,
                 EmailConfirmed = true,
                 PhoneNumber = GlobalConstants.AdminPhoneNumber,
+                Cart = cart,
             };
 
             var result = await admin.CreateAsync(user, GlobalConstants.AdminPassword);
-
-            Cart cart = new Cart
-            {
-                UserId = user.Id,
-            };
-            user.CartId = cart.Id;
-
+            cart.UserId = user.Id;
             if (result.Succeeded)
             {
                 await admin.AddToRoleAsync(user, GlobalConstants.AdministratorRoleName);
