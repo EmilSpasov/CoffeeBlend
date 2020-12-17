@@ -3,8 +3,6 @@
     using System.Threading.Tasks;
 
     using CoffeeBlend.Common;
-    using CoffeeBlend.Data.Common.Repositories;
-    using CoffeeBlend.Data.Models;
     using CoffeeBlend.Services.Data;
     using CoffeeBlend.Web.ViewModels.ProductsViewModels;
     using Microsoft.AspNetCore.Mvc;

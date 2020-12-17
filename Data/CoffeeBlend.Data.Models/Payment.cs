@@ -1,7 +1,6 @@
 ﻿namespace CoffeeBlend.Data.Models
 {
     using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
 
     using CoffeeBlend.Data.Common.Models;
 
@@ -40,5 +39,9 @@
         public decimal DeliveryPrice { get; set; }
 
         public decimal TotalPrice { get; set; }
+
+        public int CartId { get; set; }
+
+        public Cart Cart { get; set; }
     }
 }

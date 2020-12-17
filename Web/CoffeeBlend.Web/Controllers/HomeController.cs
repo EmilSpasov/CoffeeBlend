@@ -27,7 +27,6 @@
 
         public IActionResult Index()
         {
-            //return this.Redirect("/Identity/Account/Logout");
             return this.View();
         }
 
@@ -42,7 +41,7 @@
 
             await this.reservationService.CreateAsync(input);
 
-            return this.Redirect("/Home/ConfirmedReservation");
+            return this.RedirectToAction(nameof(this.ConfirmedReservation));
         }
 
         [Authorize]
@@ -87,7 +86,7 @@
             await this.emailSender
                 .SendEmailAsync("coffee-blend@abv.bg", "CoffeeBlend", input.Email, "Your message has been received:", html.ToString());
 
-            return this.Redirect("/Home/SuccessfulContact");
+            return this.RedirectToAction(nameof(this.SuccessfulContact));
         }
 
         [Authorize]

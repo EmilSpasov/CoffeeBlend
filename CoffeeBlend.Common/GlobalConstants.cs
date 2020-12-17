@@ -29,9 +29,9 @@
         public const string DessertsName = "Desserts";
 
         // Portion size prices
-        public const decimal MediumPrice = 1.40m;
+        public const decimal MediumPrice = 1.20m;
 
-        public const decimal LargePrice = 1.90m;
+        public const decimal LargePrice = 1.60m;
 
         // Default sorting criteria
         public const string DefaultCriteria = "Name";

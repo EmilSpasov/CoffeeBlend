@@ -26,10 +26,10 @@
 
         public async Task AddAsync(string userId, SingleProductViewModel model)
         {
-            var userCart = this.cartRepository
+            var userCart = await this.cartRepository
                 .All()
                 .Include(c => c.CartProducts)
-                .FirstOrDefault(x => x.UserId == userId);
+                .FirstOrDefaultAsync(x => x.UserId == userId);
 
             var cartProduct = new CartProduct();
 
@@ -47,18 +47,21 @@
                     SubTotalPrice = model.ActualPrice,
                 };
 
-                userCart.CartProducts.Add(cartProduct);
                 await this.cartProductRepository.AddAsync(cartProduct);
+
+                userCart.CartProducts.Add(cartProduct);
             }
             else
             {
                 cartProduct = userCart.CartProducts.FirstOrDefault(x => x.ProductId == model.Id);
-                cartProduct.Quantity += model.Quantity;
+                cartProduct.Quantity++;
                 cartProduct.SubTotalPrice += model.ActualPrice;
             }
 
             userCart.TotalPrice += model.ActualPrice;
 
+            this.cartRepository.Update(userCart);
+            await this.cartRepository.SaveChangesAsync();
             await this.cartProductRepository.SaveChangesAsync();
 
             // Increase buyed count temporary for most popular products vc:
@@ -104,9 +107,36 @@
             await this.cartRepository.SaveChangesAsync();
         }
 
-        public Task CreatePayment(CreatePaymentInputModel input)
+        public async Task UpdateCartProductAsync(CartProductsViewModel model)
         {
-            throw new System.NotImplementedException();
+            var totalPrice = 0m;
+
+            var currentProduct = await this.cartProductRepository
+                .AllAsNoTracking()
+                .Where(x => x.Id == model.Id)
+                .FirstOrDefaultAsync();
+
+            currentProduct.Quantity = model.Quantity;
+            currentProduct.SubTotalPrice = model.Price * currentProduct.Quantity;
+
+            this.cartProductRepository.Update(currentProduct);
+            await this.cartProductRepository.SaveChangesAsync();
+
+            var currentCart = await this.cartRepository
+                .All()
+                .Where(x => x.Id == currentProduct.CartId)
+                .Include(c => c.CartProducts)
+                .FirstOrDefaultAsync();
+
+            foreach (var product in currentCart.CartProducts)
+            {
+                totalPrice += product.SubTotalPrice;
+            }
+
+            currentCart.TotalPrice = totalPrice;
+
+            this.cartRepository.Update(currentCart);
+            await this.cartRepository.SaveChangesAsync();
         }
 
         public int GetProductsCount(string userId)

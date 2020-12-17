@@ -43,7 +43,7 @@
 
             await this.cartService.AddAsync(currentUserId, model);
 
-            return this.Redirect("/ShoppingCart/Index");
+            return this.RedirectToAction(nameof(this.Index));
         }
 
         [Authorize]
@@ -55,26 +55,16 @@
 
             await this.cartService.RemoveProductByIdAndSizeAsync(currentUserId, id, size);
 
-            return this.Redirect("/ShoppingCart/Index");
+            return this.RedirectToAction(nameof(this.Index));
         }
 
         [Authorize]
-        public IActionResult Checkout()
+        [HttpPut]
+        public async Task<IActionResult> UpdateCartProduct([FromBody]CartProductsViewModel currentProduct)
         {
-            return this.View();
-        }
+            await this.cartService.UpdateCartProductAsync(currentProduct);
 
-        [HttpPost]
-        [Authorize]
-        public async Task<IActionResult> Checkout(CreatePaymentInputModel input)
-        {
-            return this.View();
-        }
-
-        [Authorize]
-        public IActionResult ThankYou()
-        {
-            return this.View();
+            return this.Json(currentProduct);
         }
     }
 }

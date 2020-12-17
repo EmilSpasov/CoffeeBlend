@@ -4,14 +4,16 @@ using CoffeeBlend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CoffeeBlend.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201216165402_AddCartIdToPayment")]
+    partial class AddCartIdToPayment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -473,7 +475,7 @@ namespace CoffeeBlend.Data.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("UserOrderHistoryId")
+                    b.Property<int?>("UserOrderHistoryId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -549,9 +551,6 @@ namespace CoffeeBlend.Data.Migrations
                         .HasColumnType("nvarchar(10)")
                         .HasMaxLength(10);
 
-                    b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<string>("Town")
                         .IsRequired()
                         .HasColumnType("nvarchar(15)")
@@ -573,7 +572,7 @@ namespace CoffeeBlend.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BuyedCount")
+                    b.Property<int?>("BuyedCount")
                         .HasColumnType("int");
 
                     b.Property<int>("CategoryProductId")
@@ -906,11 +905,9 @@ namespace CoffeeBlend.Data.Migrations
                         .WithMany("Orders")
                         .HasForeignKey("UserId");
 
-                    b.HasOne("CoffeeBlend.Data.Models.UserOrderHistory", "UserOrderHistory")
+                    b.HasOne("CoffeeBlend.Data.Models.UserOrderHistory", null)
                         .WithMany("Orders")
-                        .HasForeignKey("UserOrderHistoryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("UserOrderHistoryId");
                 });
 
             modelBuilder.Entity("CoffeeBlend.Data.Models.Payment", b =>

@@ -2,18 +2,16 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    using CoffeeBlend.Data.Models;
-
     public class CreatePaymentInputModel
     {
         [Required]
-        [MinLength(2)]
-        [MaxLength(30)]
+        [MinLength(2, ErrorMessage = "First Name must be at least 2 symbols")]
+        [MaxLength(30, ErrorMessage = "First Name can be maximum 30 symbols")]
         public string FirstName { get; set; }
 
         [Required]
-        [MinLength(2)]
-        [MaxLength(30)]
+        [MinLength(2, ErrorMessage = "First Name must be at least 2 symbols")]
+        [MaxLength(30, ErrorMessage = "First Name can be maximum 30 symbols")]
         public string LastName { get; set; }
 
         [Required]
@@ -27,6 +25,7 @@
         public string Town { get; set; }
 
         [Required]
+        [MinLength(5)]
         [MaxLength(100)]
         public string Address { get; set; }
 
@@ -45,5 +44,7 @@
         public decimal DeliveryPrice { get; set; }
 
         public decimal TotalPrice { get; set; }
+
+        public int CartId { get; set; }
     }
 }

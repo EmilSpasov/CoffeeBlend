@@ -1,6 +1,5 @@
 ﻿namespace CoffeeBlend.Data.Models
 {
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     using CoffeeBlend.Data.Common.Models;
@@ -20,7 +19,7 @@
 
         public decimal Price { get; set; }
 
-        public int? BuyedCount { get; set; }
+        public int BuyedCount { get; set; }
 
         public int CategoryProductId { get; set; }
 

@@ -1,4 +1,6 @@
-﻿namespace CoffeeBlend.Services.Data
+﻿using CoffeeBlend.Data.Models;
+
+namespace CoffeeBlend.Services.Data
 {
     using System.Threading.Tasks;
 
@@ -13,7 +15,7 @@
 
         Task RemoveProductByIdAndSizeAsync(string userId, int id, string size);
 
-        Task CreatePayment(CreatePaymentInputModel input);
+        Task UpdateCartProductAsync(CartProductsViewModel model);
 
         int GetProductsCount(string userId);
     }

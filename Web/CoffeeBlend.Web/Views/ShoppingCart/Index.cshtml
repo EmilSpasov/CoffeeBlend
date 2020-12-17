@@ -1,4 +1,5 @@
-﻿@model CoffeeBlend.Web.ViewModels.OrderViewModel.CartViewModel
+﻿@using System.Linq
+@model CoffeeBlend.Web.ViewModels.OrderViewModel.CartViewModel
 @{
     this.ViewData["Title"] = "Cart Page";
 }
@@ -17,7 +18,7 @@
     </div>
 </section>
 
-<form>
+<form method="post">
     <section class="ftco-section ftco-cart">
         <div class="container">
             <div class="row">
@@ -76,7 +77,7 @@
                 </div>
             </div>
             <div>
-                @if (!@Model.CartProducts.Any())
+                @if (!Model.CartProducts.Any())
                 {
                     <h2 class="text-center text-white">Your Cart is Empty!</h2>
                     <p class="text-center"><a asp-area="" asp-controller="Menu" asp-action="Index" class="btn btn-primary py-3 px-4">Continue Shopping</a></p>
@@ -93,7 +94,9 @@
                                     <span class="total-price" id="cartTotal">$@Model.TotalPrice</span>
                                 </p>
                             </div>
-                            <p class="text-center"><a asp-area="" asp-controller="ShoppingCart" asp-action="Checkout" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
+                            <p class="text-center">
+                                <button type="submit" asp-area="" asp-controller="Orders" asp-action="Checkout" class="btn btn-primary py-3 px-4"><span style="" class="text-dark">Proceed to Checkout</span></button>
+                            </p>
                         </div>
                     </div>
                 }
@@ -103,18 +106,49 @@
 </form>
 @section Scripts{
     <script>
+        var products = @Html.Raw(Json.Serialize(Model.CartProducts));
+        var productsMap = {};
+        products = products.map(function(p) {
+            productsMap[p.id] = p;
+        });
+
+        function UpdateCart(product) {
+
+            var t = $("input[name='__RequestVerificationToken']").val();
+
+            $.ajax(
+                {
+                    type: 'PUT',
+                    data: JSON.stringify(product),
+                    //dataType: 'json',
+                    contentType: 'application/json charset=utf-8',
+                    url: '/ShoppingCart/UpdateCartProduct',
+                    //url: '/api/cartProducts/' + product.id,
+                    accept: '*/*',
+                    headers:
+                    {
+                        "RequestVerificationToken": t
+                    },
+                    success: function(response) {
+                        console.log('success', response);
+                    },
+                    error: function(error) {
+                        console.error(error);
+                    }
+                });
+        }
+
         function UpdateTotalPrice() {
             var totalPrice = 0;
             // Get all elements with class total
-            $('.total').each(function () {
+            $('.total').each(function() {
                 totalPrice += +$(this).text(); //Text returns the price
             });
-
             $('#cartTotal').text('$' + totalPrice.toFixed(2));
         }
 
-        $(function () {
-            $('[data-type="plus"]').click(function (e) {
+        $(function() {
+            $('[data-type="plus"]').click(function(e) {
                 // Stop acting like a button
                 e.preventDefault();
                 // Get the field name
@@ -134,12 +168,14 @@
                     var productCurrentPrice = Math.round((basePrice * (currentVal + 1)) * 100) / 100;
 
                     $('#productSubTotal-' + id).text(productCurrentPrice.toFixed(2));
+                    productsMap[id].quantity++;
+                    UpdateCart(productsMap[id]);
                 }
 
                 UpdateTotalPrice();
             });
             // This button will decrement the value till 1
-            $('[data-type="minus"]').click(function (e) {
+            $('[data-type="minus"]').click(function(e) {
                 // Stop acting like a button
                 e.preventDefault();
                 // Get the field name
@@ -156,6 +192,8 @@
 
                     var productCurrentPrice = Math.round((basePrice * (currentVal - 1)) * 100) / 100;
                     $('#productSubTotal-' + id).text(productCurrentPrice.toFixed(2));
+                    productsMap[id].quantity--;
+                    UpdateCart(productsMap[id]);
                 } else {
                     // Otherwise put a 1 there
                     $('input[name=' + fieldName + ']').val(1);

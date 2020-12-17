@@ -1,0 +1,162 @@
+﻿@model CoffeeBlend.Web.ViewModels.OrderViewModel.CreatePaymentInputModel
+@{
+    this.ViewData["Title"] = "Checkout Page";
+}
+
+<section class="home-slider owl-carousel">
+
+    <div class="slider-item" style="background-image: url(/images/bg_3.jpg);" data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row slider-text justify-content-center align-items-center">
+
+                <div class="col-md-7 col-sm-12 text-center ftco-animate">
+                    <h1 class="mb-3 mt-5 bread">Checkout</h1>
+                    <p class="breadcrumbs"><span class="mr-2"><a asp-controller="Home" asp-action="Index">Home</a></span><span>Checkout</span></p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-8 ftco-animate">
+                <form method="post" asp-controller="Orders" asp-action="Create" class="billing-form ftco-bg-dark p-3 p-md-5">
+                    <h3 class="mb-4 billing-heading">Billing Details</h3>
+                    <div class="text-danger">
+                        <div class="row align-items-end">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="FirstName">First Name*</label>
+                                    <input asp-for="FirstName" class="form-control" placeholder="">
+                                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="LastName">Last Name *</label>
+                                    <input type="text" asp-for="LastName" class="form-control" placeholder="">
+                                    <span asp-validation-for="LastName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <label asp-for="Country">Country *</label>
+                                        <input type="text" asp-for="Country" class="form-control" placeholder="">
+                                        <span asp-validation-for="Country" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Town">Town *</label>
+                                    <input type="text" asp-for="Town" class="form-control">
+                                    <span asp-validation-for="Town" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                @*<div class="form-group">
+                                        <label asp-for="Address">Address *</label>
+                                        <input type="text" asp-for="Address" class="form-control" placeholder="Apartment, suite, unit etc: (optional)">
+                                    </div>*@
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Address">Address *</label>
+                                    <input type="text" asp-for="Address" class="form-control" placeholder="House number and street number">
+                                    <span asp-validation-for="Address" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="PostCode">Postcode / ZIP *</label>
+                                    <input type="text" asp-for="PostCode" class="form-control">
+                                    <span asp-validation-for="PostCode" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Phone">Phone *</label>
+                                    <input type="text" asp-for="Phone" class="form-control">
+                                    <span asp-validation-for="Phone" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Email">Email Address</label>
+                                    <input type="text" asp-for="Email" class="form-control">
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-5 pt-3 d-flex">
+                            <div class="col-md-6 d-flex">
+                                <div class="cart-detail cart-total ftco-bg-dark p-3 p-md-4">
+                                    <h3 class="billing-heading mb-4">Cart Total</h3>
+                                    @*@if (Model.TotalPrice < 30m)
+                                        {
+                                            <p class="d-flex">
+                                                <span style="color: burlywood">Free delivery for orders over 30$</span>
+                                                <span>Delivery</span>
+                                                <input type="hidden" asp-for="@Model.DeliveryPrice" />
+                                                <span>$@Model.DeliveryPrice</span>
+                                            </p>
+                                        }*@
+                                    <hr>
+                                    <p class="d-flex total-price">
+                                        <span>Total</span>
+                                        <input type="hidden" asp-for="@Model.TotalPrice" />
+                                        <span>$@Model.TotalPrice</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="cart-detail ftco-bg-dark p-3 p-md-4">
+                                    <h3 class="billing-heading mb-4">Payment Method</h3>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <div class="radio">
+                                                <label><input type="radio" name="optradio" aria-required="true" class="mr-2"> Cash</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <div class="radio">
+                                                <label><input type="radio" name="optradio" aria-required="true" class="mr-2"> Cart</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <div class="radio">
+                                                <label><input type="radio" name="optradio" aria-required="true" class="mr-2"> Paypal</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <div class="checkbox">
+                                                <label><input type="checkbox" aria-required="true" value="" class="mr-2"> I have read and accept the terms and conditions</label>
+                                                <a asp-area="" asp-controller="Home" asp-action="Privacy">Read Terms</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="submit" value="Place an order" class="btn btn-primary py-3 px-5">
+                    </div>
+                </form><!-- END -->
+            </div> <!-- .col-md-8 -->
+        </div>
+    </div>
+</section> <!-- .section -->
