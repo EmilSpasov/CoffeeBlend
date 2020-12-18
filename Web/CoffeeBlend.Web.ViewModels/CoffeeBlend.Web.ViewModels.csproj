@@ -23,6 +23,7 @@
     <ProjectReference Include="..\..\CoffeeBlend.Common\CoffeeBlend.Common.csproj" />
     <ProjectReference Include="..\..\Data\CoffeeBlend.Data.Models\CoffeeBlend.Data.Models.csproj" />
     <ProjectReference Include="..\..\Services\CoffeeBlend.Services.Mapping\CoffeeBlend.Services.Mapping.csproj" />
+    <ProjectReference Include="..\CoffeeBlend.Web.Infrastructure\CoffeeBlend.Web.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

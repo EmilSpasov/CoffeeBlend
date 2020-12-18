@@ -1,8 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace CoffeeBlend.Data.Migrations
+﻿namespace CoffeeBlend.Data.Migrations
 {
+    using System;
+
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class Database6 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

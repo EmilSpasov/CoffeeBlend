@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace CoffeeBlend.Data.Migrations
+﻿namespace CoffeeBlend.Data.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class AddCartIdToPayment : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

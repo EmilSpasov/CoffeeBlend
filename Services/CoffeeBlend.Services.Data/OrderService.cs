@@ -1,13 +1,12 @@
-﻿using System.Linq;
-using Microsoft.EntityFrameworkCore;
-
-namespace CoffeeBlend.Services.Data
+﻿namespace CoffeeBlend.Services.Data
 {
+    using System.Linq;
     using System.Threading.Tasks;
 
     using CoffeeBlend.Data.Common.Repositories;
     using CoffeeBlend.Data.Models;
     using CoffeeBlend.Web.ViewModels.OrderViewModel;
+    using Microsoft.EntityFrameworkCore;
 
     public class OrderService : IOrderService
     {

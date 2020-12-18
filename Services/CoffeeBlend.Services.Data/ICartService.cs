@@ -1,9 +1,8 @@
-﻿using CoffeeBlend.Data.Models;
-
-namespace CoffeeBlend.Services.Data
+﻿namespace CoffeeBlend.Services.Data
 {
     using System.Threading.Tasks;
 
+    using CoffeeBlend.Data.Models;
     using CoffeeBlend.Web.ViewModels.OrderViewModel;
     using CoffeeBlend.Web.ViewModels.ProductsViewModels;
 
