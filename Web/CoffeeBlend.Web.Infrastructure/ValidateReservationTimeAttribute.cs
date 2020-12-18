@@ -14,11 +14,26 @@
             var endTime = TimeSpan.Parse(maxTime);
             var currentTime = DateTime.UtcNow.TimeOfDay;
 
-            if (value is DateTime intValue)
+            if (value is DateTime dateValue)
             {
-                if ((intValue.TimeOfDay >= startReservationTime && intValue.TimeOfDay > currentTime) && intValue.TimeOfDay < endTime)
+                if (dateValue > DateTime.Today)
                 {
-                    return true;
+                    if (dateValue.TimeOfDay >= startReservationTime && dateValue.TimeOfDay < endTime)
+                    {
+                        return true;
+                    }
+                }
+                else if (dateValue == DateTime.Today)
+                {
+                    if (dateValue.TimeOfDay < currentTime)
+                    {
+                        return false;
+                    }
+
+                    if (dateValue.TimeOfDay >= startReservationTime && dateValue.TimeOfDay < endTime)
+                    {
+                        return true;
+                    }
                 }
             }
 

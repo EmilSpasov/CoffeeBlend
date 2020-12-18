@@ -57,14 +57,6 @@
 
         public async Task<IEnumerable<T>> GetAllAsync<T>(string sortBy, int pageNumber, int itemsPerPage)
         {
-            //var products = await this.productsRepository
-            //    .AllAsNoTrackingWithDeleted()
-            //    .OrderByDescending(x => x.CreatedOn)
-            //    .Skip((page - 1) * itemsPerPage)
-            //    .Take(itemsPerPage)
-            //    .To<T>()
-            //    .ToListAsync();
-
             var products = new List<T>();
 
             products = sortBy switch

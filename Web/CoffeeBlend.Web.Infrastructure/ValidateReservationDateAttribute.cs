@@ -12,11 +12,9 @@
 
             if (date >= currentDate)
             {
-                ;
                 return true;
             }
 
-            ;
             return false;
         }
     }

@@ -106,7 +106,9 @@
 </form>
 @section Scripts{
     <script>
+        //Get all products from model
         var products = @Html.Raw(Json.Serialize(Model.CartProducts));
+        //Transform array into map for easier look up
         var productsMap = {};
         products = products.map(function(p) {
             productsMap[p.id] = p;
@@ -128,12 +130,6 @@
                     headers:
                     {
                         "RequestVerificationToken": t
-                    },
-                    success: function(response) {
-                        console.log('success', response);
-                    },
-                    error: function(error) {
-                        console.error(error);
                     }
                 });
         }
