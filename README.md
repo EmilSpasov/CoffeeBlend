@@ -1,1 +1,1 @@
-(https://github.com/EmilSpasov/CoffeeBlend/tree/main/bg_3.jpg?raw=true)
+![alt text](https://github.com/EmilSpasov/CoffeeBlend/blob/main/Web/CoffeeBlend.Web/wwwroot/images/bg_3.jpg)
