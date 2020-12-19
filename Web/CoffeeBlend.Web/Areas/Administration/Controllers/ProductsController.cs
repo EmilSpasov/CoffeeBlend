@@ -91,6 +91,11 @@
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, AdministrationProductsViewModel product)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(product);
+            }
+
             if (id != product.Id)
             {
                 return this.NotFound();

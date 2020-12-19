@@ -55,7 +55,8 @@
 
         public async Task<IEnumerable<T>> GetAllAsync<T>(int page, int itemsPerPage = 6)
         {
-            var blogs = await this.articleRepository.AllAsNoTracking()
+            var blogs = await this.articleRepository
+                .AllAsNoTracking()
                 .OrderByDescending(x => x.Id)
                 .Skip((page - 1) * itemsPerPage)
                 .Take(itemsPerPage)
@@ -117,7 +118,8 @@
 
         public async Task<IEnumerable<T>> GetMostRecentAsync<T>()
         {
-            var recentBlogs = await this.articleRepository.AllAsNoTracking()
+            var recentBlogs = await this.articleRepository
+                .AllAsNoTracking()
                 .OrderByDescending(x => x.CreatedOn)
                 .Take(3)
                 .To<T>()

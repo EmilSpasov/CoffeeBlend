@@ -25,7 +25,7 @@
         public string Town { get; set; }
 
         [Required]
-        [MinLength(5)]
+        [MinLength(10)]
         [MaxLength(100)]
         public string Address { get; set; }
 

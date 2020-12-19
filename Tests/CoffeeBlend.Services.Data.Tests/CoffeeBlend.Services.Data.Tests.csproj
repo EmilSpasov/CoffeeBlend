@@ -29,6 +29,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\CoffeeBlend.Data\CoffeeBlend.Data.csproj" />
     <ProjectReference Include="..\..\Services\CoffeeBlend.Services.Data\CoffeeBlend.Services.Data.csproj" />
+    <ProjectReference Include="..\..\Web\CoffeeBlend.Web\CoffeeBlend.Web.csproj" />
   </ItemGroup>
 
 </Project>

@@ -16,21 +16,16 @@
 
             if (value is DateTime dateValue)
             {
-                if (dateValue > DateTime.Today)
+                if (dateValue.Date > DateTime.Today)
                 {
                     if (dateValue.TimeOfDay >= startReservationTime && dateValue.TimeOfDay < endTime)
                     {
                         return true;
                     }
                 }
-                else if (dateValue == DateTime.Today)
+                else if (dateValue.Date == DateTime.Today)
                 {
-                    if (dateValue.TimeOfDay < currentTime)
-                    {
-                        return false;
-                    }
-
-                    if (dateValue.TimeOfDay >= startReservationTime && dateValue.TimeOfDay < endTime)
+                    if (dateValue.TimeOfDay > currentTime && dateValue.TimeOfDay >= startReservationTime && dateValue.TimeOfDay < endTime)
                     {
                         return true;
                     }

@@ -17,7 +17,10 @@
         private readonly IDeletableEntityRepository<Product> productRepository;
 
 
-        public CartService(IDeletableEntityRepository<Cart> cartRepository, IRepository<CartProduct> cartProductRepository, IDeletableEntityRepository<Product> productRepository)
+        public CartService(
+            IDeletableEntityRepository<Cart> cartRepository,
+            IRepository<CartProduct> cartProductRepository,
+            IDeletableEntityRepository<Product> productRepository)
         {
             this.cartRepository = cartRepository;
             this.cartProductRepository = cartProductRepository;

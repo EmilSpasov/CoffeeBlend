@@ -33,7 +33,8 @@
         // Visualize dropdown on create
         public IEnumerable<KeyValuePair<string, string>> GetAllAsKeyValuePairs()
         {
-           return this.categoriesRepository.AllAsNoTracking()
+           return this.categoriesRepository
+               .AllAsNoTracking()
                 .Select(x => new
                 {
                     x.Id,

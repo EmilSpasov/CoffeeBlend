@@ -1,6 +1,5 @@
 ﻿namespace CoffeeBlend.Services.Data
 {
-    using System.Linq;
     using System.Threading.Tasks;
 
     using CoffeeBlend.Data.Common.Repositories;
@@ -16,9 +15,12 @@
         private readonly IDeletableEntityRepository<UserOrderHistory> orderHistoryRepository;
         private readonly IRepository<CartProduct> cartProductRepository;
 
-        public OrderService(IDeletableEntityRepository<Order> ordersRepository,
+        public OrderService(
+            IDeletableEntityRepository<Order> ordersRepository,
             IDeletableEntityRepository<Payment> paymentRepository,
-            IDeletableEntityRepository<Cart> cartRepository, IDeletableEntityRepository<UserOrderHistory> orderHistoryRepository, IRepository<CartProduct> cartProductRepository)
+            IDeletableEntityRepository<Cart> cartRepository,
+            IDeletableEntityRepository<UserOrderHistory> orderHistoryRepository,
+            IRepository<CartProduct> cartProductRepository)
         {
             this.ordersRepository = ordersRepository;
             this.paymentRepository = paymentRepository;

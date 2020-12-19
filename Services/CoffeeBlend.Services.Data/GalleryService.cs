@@ -15,7 +15,9 @@
         private readonly ICloudinaryService cloudinaryService;
         private readonly IDeletableEntityRepository<Gallery> galleryRepository;
 
-        public GalleryService(ICloudinaryService cloudinaryService, IDeletableEntityRepository<Gallery> galleryRepository)
+        public GalleryService(
+            ICloudinaryService cloudinaryService,
+            IDeletableEntityRepository<Gallery> galleryRepository)
         {
             this.cloudinaryService = cloudinaryService;
             this.galleryRepository = galleryRepository;

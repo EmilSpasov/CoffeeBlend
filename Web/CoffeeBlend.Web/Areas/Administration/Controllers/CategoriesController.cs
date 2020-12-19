@@ -76,7 +76,7 @@
         // POST: Administration/Categories/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Name,IsDeleted,DeletedOn,Id,CreatedOn,ModifiedOn")] AdministrationCategoryViewModel category)
+        public async Task<IActionResult> Edit(int id, AdministrationCategoryViewModel category)
         {
             if (id != category.Id)
             {
