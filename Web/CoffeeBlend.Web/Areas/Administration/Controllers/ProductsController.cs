@@ -12,7 +12,9 @@
         private readonly ICategoryService categoryService;
         private readonly IProductService productService;
 
-        public ProductsController(ICategoryService categoryService, IProductService productService)
+        public ProductsController(
+            ICategoryService categoryService,
+            IProductService productService)
         {
             this.categoryService = categoryService;
             this.productService = productService;
