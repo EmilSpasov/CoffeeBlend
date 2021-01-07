@@ -9,6 +9,7 @@
 
     public class OrderService : IOrderService
     {
+        // TODO: Refactor and use service instead of repo
         private readonly IDeletableEntityRepository<Order> ordersRepository;
         private readonly IDeletableEntityRepository<Payment> paymentRepository;
         private readonly IDeletableEntityRepository<Cart> cartRepository;

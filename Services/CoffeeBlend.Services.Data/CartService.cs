@@ -12,10 +12,10 @@
 
     public class CartService : ICartService
     {
+        // TODO: Refactor and use service instead of repository
         private readonly IDeletableEntityRepository<Cart> cartRepository;
         private readonly IRepository<CartProduct> cartProductRepository;
         private readonly IDeletableEntityRepository<Product> productRepository;
-
 
         public CartService(
             IDeletableEntityRepository<Cart> cartRepository,
@@ -29,10 +29,7 @@
 
         public async Task AddAsync(string userId, SingleProductViewModel model)
         {
-            var userCart = await this.cartRepository
-                .All()
-                .Include(c => c.CartProducts)
-                .FirstOrDefaultAsync(x => x.UserId == userId);
+            var userCart = await this.CurrentUserCart(userId);
 
             var cartProduct = new CartProduct();
 
@@ -89,10 +86,7 @@
 
         public async Task RemoveProductByIdAndSizeAsync(string userId, int id, string size)
         {
-            var userCart = this.cartRepository
-                .All()
-                .Include(c => c.CartProducts)
-                .FirstOrDefault(x => x.UserId == userId);
+            var userCart = await this.CurrentUserCart(userId);
 
             var productToRemove = userCart.CartProducts
                 .FirstOrDefault(x => x.ProductId == id && x.PortionSize.ToString() == size);
@@ -140,6 +134,16 @@
 
             this.cartRepository.Update(currentCart);
             await this.cartRepository.SaveChangesAsync();
+        }
+
+        public async Task<Cart> CurrentUserCart(string userId)
+        {
+            var userCart = await this.cartRepository
+                .All()
+                .Include(c => c.CartProducts)
+                .FirstOrDefaultAsync(x => x.UserId == userId);
+
+            return userCart;
         }
 
         public int GetProductsCount(string userId)

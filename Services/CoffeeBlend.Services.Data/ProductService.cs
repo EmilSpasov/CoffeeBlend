@@ -13,6 +13,7 @@
 
     public class ProductService : IProductService
     {
+        // TODO: Refactor and use service instead of repo
         private readonly IDeletableEntityRepository<Product> productsRepository;
         private readonly IDeletableEntityRepository<Image> imageRepository;
         private readonly ICloudinaryService cloudinaryService;

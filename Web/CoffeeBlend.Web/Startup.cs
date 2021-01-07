@@ -75,6 +75,8 @@
             services.AddTransient<ICartService, CartService>();
             services.AddTransient<IGalleryService, GalleryService>();
             services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IImageService, ImageService>();
+            services.AddTransient<ICommentService, CommentService>();
 
             // Cloudinary
             Account account = new Account(

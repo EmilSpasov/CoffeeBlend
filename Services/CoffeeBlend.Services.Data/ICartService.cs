@@ -16,6 +16,8 @@
 
         Task UpdateCartProductAsync(CartProductsViewModel model);
 
+        Task<Cart> CurrentUserCart(string userId);
+
         int GetProductsCount(string userId);
     }
 }

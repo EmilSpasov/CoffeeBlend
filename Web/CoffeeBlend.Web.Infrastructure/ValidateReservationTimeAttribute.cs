@@ -5,31 +5,33 @@
 
     public class ValidateReservationTimeAttribute : ValidationAttribute
     {
-        private const string minTime = "08:00:00";
-        private const string maxTime = "21:00:00";
+        private const string MinTime = "08:00:00";
+        private const string MaxTime = "21:00:00";
 
         public override bool IsValid(object value)
         {
-            var startReservationTime = TimeSpan.Parse(minTime);
-            var endTime = TimeSpan.Parse(maxTime);
+            var startReservationTime = TimeSpan.Parse(MinTime);
+            var endTime = TimeSpan.Parse(MaxTime);
             var currentTime = DateTime.UtcNow.TimeOfDay;
 
             if (value is DateTime dateValue)
             {
-                if (dateValue.Date > DateTime.Today)
-                {
+                // TODO: check if date is currentDay
+                // if (dateValue.Date > DateTime.Today)
+                // {
                     if (dateValue.TimeOfDay >= startReservationTime && dateValue.TimeOfDay < endTime)
                     {
                         return true;
                     }
-                }
-                else if (dateValue.Date == DateTime.Today)
-                {
-                    if (dateValue.TimeOfDay > currentTime && dateValue.TimeOfDay >= startReservationTime && dateValue.TimeOfDay < endTime)
-                    {
-                        return true;
-                    }
-                }
+
+                // }
+                // else if (dateValue.Date == DateTime.Today)
+                // {
+                //    if (dateValue.TimeOfDay > currentTime && dateValue.TimeOfDay >= startReservationTime && dateValue.TimeOfDay < endTime)
+                //    {
+                //        return true;
+                //    }
+                // }
             }
 
             return false;

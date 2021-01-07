@@ -33,9 +33,6 @@
 
         public const decimal LargePrice = 1.60m;
 
-        // Default sorting criteria
-        public const string DefaultCriteria = "Name";
-
         // Sort By
         public const string NameAsc = "name_asc";
 

@@ -13,20 +13,20 @@
     public class BlogService : IBlogService
     {
         private readonly IDeletableEntityRepository<Article> articleRepository;
-        private readonly IDeletableEntityRepository<Image> imageRepository;
+        private readonly IImageService imageService;
         private readonly ICloudinaryService cloudinaryService;
-        private readonly IRepository<Comment> commentsRepository;
+        private readonly ICommentService commentsService;
 
         public BlogService(
             IDeletableEntityRepository<Article> articleRepository,
-            IDeletableEntityRepository<Image> imageRepository,
+            IImageService imageService,
             ICloudinaryService cloudinaryService,
-            IRepository<Comment> commentsRepository)
+            ICommentService commentsService)
         {
             this.articleRepository = articleRepository;
-            this.imageRepository = imageRepository;
+            this.imageService = imageService;
             this.cloudinaryService = cloudinaryService;
-            this.commentsRepository = commentsRepository;
+            this.commentsService = commentsService;
         }
 
         public async Task CreateAsync(CreateBlogInputModel input)
@@ -34,10 +34,9 @@
             var uploadedImage = this.cloudinaryService.UploadAsync(input.ImageFile);
             var imageUrl = uploadedImage.Result;
 
-            var image = new Image
-            {
-                Url = imageUrl,
-            };
+            await this.imageService.CreateImageAsync(imageUrl);
+
+            var image = this.imageService.GetImageByUrl(imageUrl);
 
             var article = new Article
             {
@@ -47,8 +46,6 @@
                 AuthorName = input.AuthorName,
             };
 
-            await this.imageRepository.AddAsync(image);
-            await this.imageRepository.SaveChangesAsync();
             await this.articleRepository.AddAsync(article);
             await this.articleRepository.SaveChangesAsync();
         }
@@ -175,13 +172,12 @@
         {
             var comment = new Comment
             {
-                Content = message,
                 ArticleId = id,
                 UserId = userId,
+                Content = message,
             };
 
-            await this.commentsRepository.AddAsync(comment);
-            await this.commentsRepository.SaveChangesAsync();
+            await this.commentsService.AddCommentAsync(comment);
 
             var blog = this.articleRepository
                 .AllAsNoTracking()
