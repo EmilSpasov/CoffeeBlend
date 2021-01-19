@@ -170,18 +170,13 @@
 
         public async Task AddCommentToBlog(string userId, int id, string message)
         {
-            var comment = new Comment
-            {
-                ArticleId = id,
-                UserId = userId,
-                Content = message,
-            };
-
-            await this.commentsService.AddCommentAsync(comment);
+            await this.commentsService.AddCommentAsync(userId, id, message);
 
             var blog = this.articleRepository
                 .AllAsNoTracking()
                 .FirstOrDefault(x => x.Id == id);
+
+            var comment = this.commentsService.GetComment(userId, id, message);
 
             blog.Comments.Add(comment);
 

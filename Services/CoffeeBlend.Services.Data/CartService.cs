@@ -15,16 +15,16 @@
         // TODO: Refactor and use service instead of repository
         private readonly IDeletableEntityRepository<Cart> cartRepository;
         private readonly IRepository<CartProduct> cartProductRepository;
-        private readonly IDeletableEntityRepository<Product> productRepository;
+        private readonly IProductService productsService;
 
         public CartService(
             IDeletableEntityRepository<Cart> cartRepository,
             IRepository<CartProduct> cartProductRepository,
-            IDeletableEntityRepository<Product> productRepository)
+            IProductService productsService)
         {
             this.cartRepository = cartRepository;
             this.cartProductRepository = cartProductRepository;
-            this.productRepository = productRepository;
+            this.productsService = productsService;
         }
 
         public async Task AddAsync(string userId, SingleProductViewModel model)
@@ -65,14 +65,7 @@
             await this.cartProductRepository.SaveChangesAsync();
 
             // Increase buyed count temporary for most popular products vc:
-            var realProduct = await this.productRepository
-                .AllAsNoTracking()
-                .Where(x => x.Id == cartProduct.ProductId)
-                .FirstOrDefaultAsync();
-            realProduct.BuyedCount++;
-
-            this.productRepository.Update(realProduct);
-            await this.productRepository.SaveChangesAsync();
+            await this.productsService.IncreaseBuyedCount(cartProduct.ProductId);
         }
 
         public T GetCurrentUserCart<T>(string userId)

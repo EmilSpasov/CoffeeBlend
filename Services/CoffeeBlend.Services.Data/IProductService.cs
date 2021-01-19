@@ -15,8 +15,6 @@
 
         Task<T> GetSingleProductByIdAsync<T>(int id);
 
-        Task<T> GetProductByIdWithDeletedAsync<T>(int id);
-
         Task<IEnumerable<T>> GetRelatedProductsByCategoryIdAsync<T>(int categoryId, int productId);
 
         Task<IEnumerable<T>> GetMostBuyedProductsAsync<T>();
@@ -24,6 +22,8 @@
         Task UpdateAsync(AdministrationProductsViewModel product);
 
         Task DeleteByIdAsync(int id);
+
+        Task IncreaseBuyedCount(int id);
 
         Task<T> GetByIdAsync<T>(int id);
 

@@ -6,6 +6,8 @@
 
     public interface ICommentService
     {
-        Task AddCommentAsync(Comment comment);
+        Task AddCommentAsync(string userId, int id, string message);
+
+        Comment GetComment(string userId, int id, string message);
     }
 }

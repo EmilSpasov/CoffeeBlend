@@ -1,15 +1,5 @@
 ﻿namespace CoffeeBlend.Services.Data.Tests
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
-
-    using CoffeeBlend.Data.Common.Repositories;
-    using CoffeeBlend.Data.Models;
-    using CoffeeBlend.Web.ViewModels.ProductsViewModels;
-    using Moq;
-    using Xunit;
-
     public class CartServiceTests
     {
         //[Fact]

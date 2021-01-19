@@ -156,15 +156,6 @@
             return product;
         }
 
-        public async Task<T> GetProductByIdWithDeletedAsync<T>(int id)
-        {
-            return await this.productsRepository
-                .AllAsNoTrackingWithDeleted()
-                .Where(x => x.Id == id)
-                .To<T>()
-                .FirstOrDefaultAsync();
-        }
-
         public async Task<IEnumerable<T>> GetRelatedProductsByCategoryIdAsync<T>(int categoryId, int productId)
         {
             var relatedProducts = await this.productsRepository
@@ -214,6 +205,18 @@
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             this.productsRepository.Delete(productToDelete);
+            await this.productsRepository.SaveChangesAsync();
+        }
+
+        public async Task IncreaseBuyedCount(int id)
+        {
+            var product = this.productsRepository
+                .All()
+                .FirstOrDefault(x => x.Id == id);
+
+            product.BuyedCount++;
+
+            this.productsRepository.Update(product);
             await this.productsRepository.SaveChangesAsync();
         }
 
